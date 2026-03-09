@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donate | Karmayog Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+
+<body class="bg-secondary">
+  <!-- Navigation -->
+  <karmayog-navbar base-path="../"></karmayog-navbar>
+
+  <!-- Super Clean Donation Checkout Area -->
+  <section class="hero-massive" style="
+        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210425_172542_983-scaled.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        padding-top: 150px;
+        padding-bottom: 8rem;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+      ">
+    <div
+      style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13, 148, 136, 0.95) 0%, rgba(17, 24, 39, 0.9) 100%); z-index: 1;">
+    </div>
+    <div class="container grid-open" style="align-items: flex-start; position: relative; z-index: 2;">
+      <!-- Left Side: The "Why" -->
+      <div class="grid-col-6 fade-in-up bento-item" style="padding-right: 2rem">
+        <span style="
+              color: var(--color-extra-light-teal);
+              font-weight: 700;
+              letter-spacing: 0.15em;
+              text-transform: uppercase;
+              margin-bottom: 1rem;
+              display: block;
+            ">Donations</span>
+        <h1 style="
+              font-size: clamp(2.5rem, 4vw, 3.5rem);
+              letter-spacing: -0.05em;
+              line-height: 1.1;
+              color: white;
+            ">
+          We are a worldwide ministry where millions of children reap the benefits of one man’s vision.
+        </h1>
+        <p class="lead-text"
+          style="margin-top: 2rem; color: rgba(255,255,255,0.9); font-size: 1.15rem; line-height: 1.8;">
+          Empower positive change with your contribution to Karmayog Foundation, where every donation is a direct
+          catalyst for impactful initiatives. Whether you choose to be a Lifetime Member or General Member, your support
+          plays a pivotal role in uplifting underprivileged communities in rural Nepal.
+        </p>
+        <p style="margin-top: 1.5rem; color: rgba(255,255,255,0.8); font-size: 1rem; line-height: 1.8;">
+          Our transparent donation process ensures that your generosity directly reaches those in need, contributing to
+          vital programs in Education, Health, Environment Protection, Income Generation, Skill Development, Animal
+          Welfare, and Disaster Relief. Thank you for considering Karmayog Foundation as your partner in philanthropy.
+        </p>
+
+        <div class="card glass-card" style="
+              margin-top: 3rem;
+              display: flex;
+              align-items: center;
+              gap: 1.5rem;
+              padding: 1.5rem;
+              background: rgba(255,255,255,0.05);
+              border: 1px solid rgba(255,255,255,0.1);
+            ">
+          <div style="
+                width: 60px;
+                height: 60px;
+                background: white;
+                color: var(--color-primary-teal);
+                border-radius: 50%;
+                box-shadow: var(--shadow-sm);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+              ">
+            🤝
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.25rem; color: white;">Bringing people together</h3>
+            <p style="margin: 0.5rem 0 0; font-size: 1rem; color: rgba(255,255,255,0.8);">
+              To end poverty for good.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: The "Checkout" Board -->
+      <div class="grid-col-6 fade-in-up delay-1 bento-item">
+        <div class="card glass-card" style="
+              padding: 4rem; 
+              background: var(--glass-bg); 
+              backdrop-filter: blur(16px); 
+              -webkit-backdrop-filter: blur(16px); 
+              border: 1px solid var(--glass-border);
+              box-shadow: var(--glass-shadow);
+            ">
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
+            <button id="btn-monthly" class="btn btn-primary freq-btn" style="flex: 1; border-radius: 8px">
+              Give Monthly
+            </button>
+            <button id="btn-once" class="btn btn-outline freq-btn" style="flex: 1; border-radius: 8px">
+              Give Once
+            </button>
+          </div>
+
+          <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem">
+            Select an amount (NPR)
+          </h3>
+
+          <div id="donation-grid" style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+              ">
+            <button class="btn-outline amount-btn" data-amount="1000" style="
+                  padding: 1.5rem;
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  border-radius: 8px;
+                  width: 100%;
+                ">
+              1,000
+            </button>
+            <button class="btn-primary amount-btn active" data-amount="5000" style="
+                  padding: 1.5rem;
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  border-radius: 8px;
+                  width: 100%;
+                ">
+              5,000
+            </button>
+            <button class="btn-outline amount-btn" data-amount="10000" style="
+                  padding: 1.5rem;
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  border-radius: 8px;
+                  width: 100%;
+                ">
+              10,000
+            </button>
+            <button class="btn-outline amount-btn" id="btn-other" style="
+                  padding: 1.5rem;
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  border-radius: 8px;
+                  width: 100%;
+                ">
+              Other
+            </button>
+          </div>
+
+          <div id="custom-amount-container" style="display: none; margin-bottom: 1.5rem;">
+            <input type="number" id="custom-amount" placeholder="Enter custom amount (NPR)" style="
+                 width: 100%; 
+                 padding: 1.5rem; 
+                 font-size: 1.25rem; 
+                 border-radius: 8px; 
+                 border: 2px solid var(--color-primary-teal);
+               ">
+          </div>
+
+          <div style="
+                min-height: 3.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 2rem;
+              ">
+            <p id="impact-message" class="impact-msg" style="
+                    font-size: 1rem;
+                    color: var(--color-dark-teal);
+                    font-weight: 600;
+                    text-align: center;
+                    margin: 0;
+                    padding: 1rem;
+                    background: var(--color-extra-light-teal);
+                    border-radius: 8px;
+                    width: 100%;
+                    border: 1px solid rgba(20, 184, 166, 0.2);
+                  ">
+              NPR 5,000 can provide clean drinking water to a school for a year.
+            </p>
+          </div>
+
+          <button class="btn btn-donate btn-premium" style="
+                width: 100%;
+                font-size: 1.25rem;
+                padding: 1.5rem;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+              ">
+            Complete Donation <span style="font-size: 1.5rem;">&rarr;</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- New Dedicated Direct Transfer Section -->
+  <section class="section" style="padding: 6rem 0; background: var(--color-white);">
+    <div class="container fade-in-up bento-item">
+      <div style="text-align: center; margin-bottom: 4rem;">
+        <span
+          style="color: var(--color-primary-teal); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;">Alternative
+          Ways To Give</span>
+        <h2 style="font-size: 2.5rem; margin-top: 0.5rem; color: var(--color-dark-tone);">Direct <span
+            class="text-gradient">Transfer</span></h2>
+      </div>
+
+      <div class="grid grid-cols-2" style="gap: 3rem; align-items: stretch;">
+
+        <!-- Bank Details Card -->
+        <div class="card glass-card hover-lift" style="
+          padding: 3rem; 
+          background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+          border: 1px solid rgba(13, 148, 136, 0.1);
+          border-left: 4px solid var(--color-primary-teal);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        ">
+          <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;">🏦</div>
+          <h3 style="font-size: 1.75rem; color: var(--color-dark-tone); margin-bottom: 2rem;">Bank Deposit</h3>
+
+          <div
+            style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1rem; margin-bottom: 1rem;">
+            <span style="color: var(--text-secondary); font-size: 1.1rem;">Account Name:</span>
+            <span style="font-weight: 700; font-size: 1.15rem; color: var(--color-dark-tone);">Karmayog
+              Foundation</span>
+          </div>
+
+          <div
+            style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1rem; margin-bottom: 1rem;">
+            <span style="color: var(--text-secondary); font-size: 1.1rem;">Bank Name:</span>
+            <span style="font-weight: 700; font-size: 1.15rem; color: var(--color-dark-tone);">Kumari Bank</span>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary); font-size: 1.1rem;">Account Number:</span>
+            <span
+              style="font-weight: 800; font-family: monospace; font-size: 1.5rem; color: var(--color-primary-teal); background: rgba(13, 148, 136, 0.1); padding: 0.5rem 1rem; border-radius: 6px;">0010122706600001</span>
+          </div>
+        </div>
+
+        <!-- eSewa QR Card -->
+        <div class="card glass-card hover-lift" style="
+          padding: 3rem; 
+          background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+          border: 1px solid rgba(34, 197, 94, 0.2);
+          border-left: 4px solid #22c55e;
+          display: flex;
+          gap: 2rem;
+          align-items: center;
+        ">
+          <div style="flex: 1;">
+            <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;">📱</div>
+            <h3 style="font-size: 1.75rem; color: var(--color-dark-tone); margin-bottom: 1.5rem;">eSewa / FonePay</h3>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
+              Simply scan the QR code located on the right with your mobile banking app or eSewa wallet to make an
+              instant, secure transfer.
+            </p>
+            <div style="display: inline-block;">
+              <span
+                style="color: var(--text-secondary); font-size: 0.9rem; display: block; margin-bottom: 0.25rem;">Direct
+                Number:</span>
+              <span
+                style="font-weight: 800; font-family: monospace; font-size: 1.25rem; color: #166534; background: rgba(22, 101, 52, 0.1); padding: 0.5rem 1rem; border-radius: 6px;">9851139412</span>
+            </div>
+          </div>
+
+          <!-- Large prominent QR code -->
+          <div style="
+            width: 220px; 
+            height: 220px; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 4px solid white;
+            flex-shrink: 0;
+            background: white;
+            padding: 0.5rem;
+          ">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/fone_pay-1-931x1024.jpg"
+              alt="FonePay QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission and Vision -->
+  <section class="section"
+    style="padding: 10rem 0; text-align: center; background: var(--color-dark-tone); position: relative; overflow: hidden;">
+    <!-- Abstract glowing orbs -->
+    <div
+      style="position: absolute; top: -20%; left: -10%; width: 50%; height: 50%; background: var(--color-primary-teal); border-radius: 50%; filter: blur(150px); opacity: 0.2; pointer-events: none;">
+    </div>
+    <div
+      style="position: absolute; bottom: -20%; right: -10%; width: 40%; height: 40%; background: #0284c7; border-radius: 50%; filter: blur(120px); opacity: 0.15; pointer-events: none;">
+    </div>
+
+    <div class="container fade-in-up bento-item" style="position: relative; z-index: 10;">
+      <h2
+        style="font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-primary-teal); margin-bottom: 2rem;">
+        Our Mission</h2>
+      <p
+        style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; color: white; margin-bottom: 8rem; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        "Selfless Service to the Helpless"
+      </p>
+
+      <h2
+        style="font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-primary-teal); margin-bottom: 2rem;">
+        Our Vision</h2>
+      <p class="lead-text"
+        style="max-width: 900px; margin: 0 auto 2rem; color: rgba(255,255,255,0.9); font-size: 1.5rem; line-height: 1.8;">
+        Karmayog Foundation’s core focus is to uplift the living standards of the underprivileged and marginalized
+        community through various focus based programs especially designed to address the needs of the target community
+        in the select project area in rural Nepal.
+      </p>
+      <p style="max-width: 900px; margin: 0 auto; color: rgba(255,255,255,0.6); font-size: 1.25rem; line-height: 1.8;">
+        In addition, Animal Welfare and Rapid Response to Natural Calamities shall also form a priority on need-to-need
+        basis.
+      </p>
+    </div>
+  </section>
+
+  <!-- Get Involved Bento Grid -->
+  <section class="section bg-secondary" style="padding: 8rem 0;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 4rem;">
+        <h2 style="font-size: 3rem; color: var(--color-dark-tone);">Make A <span class="text-gradient">Difference</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2" style="gap: 3rem; align-items: stretch;">
+        <!-- Volunteer Card -->
+        <div class="fade-in-up bento-item">
+          <div class="card glass-card hover-lift" style="
+              background: white; 
+              border: 1px solid rgba(0,0,0,0.05); 
+              border-radius: var(--radius-lg); 
+              overflow: hidden;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              box-shadow: var(--shadow-float);
+          ">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221107-WA0014-1024x577.jpg"
+              style="width: 100%; height: 350px; object-fit: cover; display: block;"
+              alt="Volunteer with Karmayog Foundation" />
+            <div style="padding: 3.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+              <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--color-dark-tone);">Volunteer</h2>
+              <p
+                style="color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.8; flex-grow: 1;">
+                Join our mission at Karmayog Foundation by becoming a volunteer and making a difference in the lives of
+                those in need. Your time and efforts can contribute to impactful programs in Education, Health,
+                Environment Protection, Income Generation, Skill Development, Animal Welfare, and Disaster Relief.
+                Your heartwarming dedication can create positive change, and we look forward to welcoming you into our
+                compassionate community.
+              </p>
+
+              <div
+                style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #166534; font-size: 1.1rem;">Ready to Help?</h4>
+                <p style="margin: 0; font-size: 1rem; color: var(--text-secondary);"><strong
+                    style="color: var(--color-dark-tone);">Email:</strong> saurav@karmayogfoundation.org</p>
+                <p style="margin: 0.5rem 0 0; font-size: 1rem; color: var(--text-secondary);"><strong
+                    style="color: var(--color-dark-tone);">Phone:</strong> 9851139412</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner Card -->
+        <div class="fade-in-up delay-1 bento-item">
+          <div class="card glass-card hover-lift" style="
+              background: white; 
+              border: 1px solid rgba(0,0,0,0.05); 
+              border-radius: var(--radius-lg); 
+              overflow: hidden;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              box-shadow: var(--shadow-float);
+          ">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211103_111643_496-819x1024.jpg"
+              style="width: 100%; height: 350px; object-fit: cover; object-position: center 20%; display: block;"
+              alt="Become A Partner" />
+            <div style="padding: 3.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+              <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--color-dark-tone);">Become A Partner</h2>
+              <p style="color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.8;">
+                Establish a significant connection with corporate social responsibility by fostering a strategic
+                partnership with Karmayog Foundation. Your esteemed company has the opportunity to engage in impactful
+                initiatives spanning critical areas.
+              </p>
+              <p
+                style="color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 2rem; line-height: 1.8; flex-grow: 1;">
+                In envisioning a future where corporate responsibility transcends traditional boundaries, your support
+                becomes a catalyst for transformative impact. By uniting with us, your company assumes a pivotal role in
+                fostering sustainable
+                development within underprivileged communities.
+              </p>
+              <a href="mailto:saurav@karmayogfoundation.org" class="btn btn-primary"
+                style="background: var(--color-dark-tone); border: none; font-size: 1.1rem; padding: 1rem 2rem; text-align: center; margin-top: 2rem;">
+                Contact Partnership Team &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <karmayog-footer></karmayog-footer>
+
+  <script src="../js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Team | Karmayog Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+
+    .team-card {
+      background: var(--surface, #fff);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 1px solid rgba(13, 148, 136, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: var(--gradient-primary);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(13, 148, 136, 0.15);
+    }
+
+    .team-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* ── Featured / Founder card: full-width horizontal layout ── */
+    .team-card.featured {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
+      gap: 3rem;
+      padding: 3rem;
+    }
+
+    .team-card.featured .image-wrap {
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
+      margin-bottom: 0;
+    }
+
+    .team-card.featured .featured-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .team-card.featured .bio-scroll {
+      max-height: none;
+      overflow-y: visible;
+      padding-right: 0;
+    }
+
+    .team-card.executive {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .team-card.executive p {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .team-card.executive .bio-scroll {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .image-wrap {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, var(--color-primary-teal), var(--color-light-teal));
+      margin-bottom: 2rem;
+    }
+
+    .team-card.executive .image-wrap {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--surface, #fff);
+    }
+
+    .team-card.executive .image-wrap img {
+      border-color: var(--color-primary-teal);
+    }
+
+    .bio-scroll {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 10px;
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    /* Custom scrollbar for bios */
+    .bio-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .bio-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+
+    .bio-scroll::-webkit-scrollbar-thumb {
+      background: var(--color-primary-teal);
+      border-radius: 4px;
+    }
+
+    .team-card.executive .bio-scroll::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .team-card.executive .bio-scroll::-webkit-scrollbar-thumb {
+      background: white;
+    }
+
+    @media (max-width: 1024px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .team-card.featured {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-card.featured {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 2.5rem 2rem;
+      }
+
+      .team-card.featured .image-wrap {
+        width: 160px;
+        height: 160px;
+      }
+
+      .team-card.featured .bio-scroll {
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <karmayog-navbar base-path="../"></karmayog-navbar>
+
+  <!-- Massive Hero -->
+  <section class="hero-massive" style="
+        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2024/03/WhatsApp-Image-2024-03-03-at-22.29.23.jpeg');
+        background-color: var(--color-dark-tone);
+        background-position: center;
+        background-size: cover;
+        min-height: 100vh;
+        margin-top: -100px;
+        padding-top: 150px;
+      ">
+    <div class="text-scrim"
+      style="z-index: 1; background: linear-gradient(135deg, rgba(13, 148, 136, 0.55) 0%, rgba(17, 24, 39, 0.5) 100%);">
+    </div>
+    <div class="container text-center" style="position: relative; z-index: 10;">
+      <div style="max-width: 800px; margin: 0 auto;" class="animate-up">
+        <h1 style="
+              color: white;
+              text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+              font-size: clamp(2.5rem, 5vw, 4.5rem);
+              line-height: 1.1;
+              margin-bottom: 1.5rem;
+              margin-top: 5rem;
+            ">
+          Meet Our <span style="color: var(--color-extra-light-teal);">Team</span>
+        </h1>
+        <p class="lead-text"
+          style="color: rgba(255,255,255,0.9); font-size: 1.15rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+          We are proud of our committed and diverse staff driven by our common
+          goal to create lasting wellbeing for children and families.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Unified Core Team Section -->
+  <section class="section bg-secondary" style="padding: 6rem 0;">
+    <div class="container">
+
+      <div class="team-grid">
+        <!-- Founder -->
+        <div class="team-card executive featured animate-up">
+          <div class="image-wrap">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/02/saurav_rimal.jpg" alt="Saurav Rimal" />
+          </div>
+          <div class="featured-content">
+            <h3 style="margin-bottom: 0.25rem; font-size: 1.75rem;">Saurav Rimal</h3>
+            <p
+              style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+              President
+            </p>
+            <div class="bio-scroll">
+              Born in Kathmandu, Nepal, Mr. Saurav Rimal can at best be
+              described as an Entrepreneur/Social Worker with an enthusiasm to
+              make a difference to the society with the best of his abilities
+              and resources. After receiving primary and secondary education in
+              Kathmandu, he graduated from Stratford University (Alexandria,
+              Virginia) with a B. Sc. in Business Administration. Upon returning
+              to Nepal, he joined Investment Board Nepal (IBN) as Communications
+              Officer. His duties there included coordinating with various
+              government ministries, community leaders, and media
+              representatives. During his tenure with IBN, he represented Nepal
+              at the SAARC Investment Forum 2015 in Colombo, Sri Lanka as a
+              Speaker. He has been actively involved in Animal Welfare,
+              Education Development, and Relief Assistance since 2015. In 2018,
+              he was nominated to participate in the US State Department
+              Professional Fellowship Program. He was posted to the Ohio State
+              House where he got to interact with the Speaker, Representatives
+              and Senators, the Chief justice, and Federal Officials. The major
+              focus of the program was to appraise the participants the way
+              democracy and parliamentary system functions in the United States.
+              He participated as a Speaker in TedX, Durbar Marg in ……. 2022 to
+              share his experience on his involvement in animal welfare, child
+              education as well as his future strategies to help uplift the
+              livelihood of the underprivileged. One of the highlights of his
+              career came when he received the Dr.BR Ambedkar Sewashree Award
+              2021 in India that is awarded annually to people who have made
+              exemplary contributions to the society through their social work
+              and other initiatives to uplift the cause of the underprivileged
+              and marginalized community. Past recipients of this award include
+              Late Nelson Mandela and Mother Teresa among others. He was also
+              conferred with Global Youth Leadership Award 2022 in Bangkok,
+              Thailand which is awarded by Global Youth Parliament to the people
+              that make a mark in the area of entrepreneurship, social movement
+              and empowerment. Recently, the Government of Nepal, in recognition
+              of his selfless and outstanding social work, has nominated him for
+              the prestigious "Samaj Sewa Rtna" medal which shall be conferred
+              upon him by the President of Nepal.
+            </div>
+          </div>
+        </div>
+
+        <!-- Exec -->
+        <div class="team-card animate-up delay-1">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23-2.jpeg"
+              alt="Dipesh sharma" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Dipesh Sharma</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Vice-President
+          </p>
+          <div class="bio-scroll">
+            Having worked as a Project Coordinator of a hydropower project in
+            Nepal, Dipesh has diverse experience in hydropower development and
+            foreign investment. MBA graduate with a specialization in
+            Financial Management, Dipesh held a position of Relationship
+            Officer at Sunrise Bank Ltd., overseeing institutional deposits
+            and corporate loan clients. Knowledge he has gained handling these
+            projects has provided him with the insights to different sectors
+            and his experience has been honed to the finest.
+          </div>
+        </div>
+
+        <!-- Advisor -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 0.2s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23-1.jpeg"
+              alt="Mahesh Ghimire" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Mahesh Ghimire</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Secretary
+          </p>
+          <div class="bio-scroll">
+            Meet Mr. Mahesh C. Ghimire, an innovative entrepreneur in the
+            dynamic intersection of Information Technology (IT) and education
+            in Nepal. With a keen eye for innovation and a passion for
+            technological advancements, Mr. Ghimire through KrennovaTech Pvt.
+            Ltd., specializes in providing unique technology solutions for
+            startups and SMEs. From developing scalable IT infrastructure to
+            implementing game-changing software solutions, Mr. Ghimire, is
+            committed to delivering tailored IT solutions that align with the
+            specific needs and goals of each business venture. In addition,
+            with a passion for creating a positive impact and providing
+            quality education opportunities for the young minds of Nepal, Mr.
+            Ghimire, through a network of franchise preschools under Wee Kids
+            Preschool, is revolutionizing the way education is delivered,
+            fostering creativity, critical thinking, and lifelong learning
+            skills. Mr. Ghimire envisions a future where technology and
+            education seamlessly coalesce, laying the groundwork for enduring
+            success. Through his innovative leadership, he continues to shape
+            the landscapes of both IT and early childhood education, making a
+            lasting imprint on the industries he ardently serves.
+          </div>
+        </div>
+
+        <!-- Treasurer -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 0.3s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25.jpeg"
+              alt="Min Sapkota" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Min Sapkota</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Treasurer
+          </p>
+          <div class="bio-scroll">
+            A business graduate from Pokhara University, Min has created quite
+            a bit of portfolio for himself from agriculture to corporate
+            scene. He’s been involved in an agro farm in the outskirts of
+            Kathmandu valley for more than 5 years along with that he has had
+            worked in an advertising agency that promoted a green and unique
+            way advertising in Kathmandu and lalitpur metropolitan. Besides
+            those, he has assisted in commencing new ventures as well! He has
+            been volunteering for Karmayog Foundation, a social initiative for
+            relief distribution during the covid lockdown and recent western
+            Nepal’s earthquake as well. In addition, with a passion for
+            creating a positive impact and providing quality education
+            opportunities for the young minds of Nepal, Mr. Ghimire, through a
+            network of franchise preschools under Wee Kids Preschool, is
+            revolutionizing the way education is delivered, fostering
+            creativity, critical thinking, and lifelong learning skills. Mr.
+            Ghimire envisions a future where technology and education
+            seamlessly coalesce, laying the groundwork for enduring success.
+            Through his innovative leadership, he continues to shape the
+            landscapes of both IT and early childhood education, making a
+            lasting imprint on the industries he ardently serves.
+          </div>
+        </div>
+
+        <!-- Member 1 -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 0.4s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.24.jpeg"
+              alt="Rajiv Poudel" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Rajiv Poudel</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Member
+          </p>
+          <div class="bio-scroll">
+            Rajeev Poudyal has over 22 years experience and expertise in mass
+            retail, corporate finance and governance, information technology,
+            and database management. He completed his studies in the United
+            States and worked there in the corporate environment for almost a
+            decade. He has returned to Nepal to focus mainly on developing
+            entrepreneurial mindset for the poor. Upon his return, he has
+            extensively dedicated his time, money and effort into ways of
+            alleviating poverty, providing education for the marginalized, and
+            providing food, shelter and safety for the local stray animals. He
+            has donated extensively to various non profit organizations like
+            The Red Cross, The Breast Cancer Foundation, Action Against
+            Hunger, St. Jude Children’s Research Hospital, Salvation army,
+            Goodwill Industries International, American Cancer Society,
+            American Heart Association, Make-A-Wish Foundation, Feed the
+            Children etc. He has also helped during major Earthquake relief in
+            Nepal with food and shelter. He was also actively involved to
+            implement protective measures in local communities during Corona
+            Crisis in Nepal.
+          </div>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 0.5s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.24-1.jpeg"
+              alt="Prasul Khadka" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Prasul Khadka</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Member
+          </p>
+          <div class="bio-scroll">
+            Prashil Khadka, an IT enthusiast with a strong background in
+            network administration and Linux systems. A BScIT (Hons.) Graduate
+            from LBEF Kathmandu, in affiliation with APU Malaysia.
+            Professionally, Skilled in technical support and network
+            assistance at companies like Vianet Communications, SmartMandu
+            Technologies, and Park City Pvt. Ltd. Technical expertise includes
+            programming languages like C#, ASP .NET, Python, as well as web
+            technologies such as HTML, CSS, JavaScript, SQL, and MongoDB.
+            Fluent in English and Nepalese, and passionate about delivering
+            effective networking solutions, system management, and providing
+            top-notch technical support.
+          </div>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 0.6s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23.jpeg"
+              alt="Gaurav Sharma" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Gaurav Sharma</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Member
+          </p>
+          <div class="bio-scroll">
+            Dedicated and committed member supporting the core mission and values of the Karmayog Foundation.
+          </div>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 0.7s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-3.jpeg"
+              alt="Anita Dhungel" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Anita Dhungel</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Member
+          </p>
+          <div class="bio-scroll">
+            Anita Dhungel has a Ph. D. in English Literature from Tribhuvan
+            University, Nepal, an M.Phil. Degree in English Literature from
+            Pokhara University, and a Master’s Degree from Tribhuvan
+            University. She has a 23 years of teaching experience on Literary
+            Studies (Literature and Social Studies). Currently, she is
+            involved in research, and teaching/supervising gender through
+            literature and socio/cultural issues —with special focus on
+            women—to M.Phil/Ph.D students at Far Western University,
+            Mahendranagar. Presently, she is supervising Ph.D. scholars, from
+            Tribhuvan University and Far Western University. She has published
+            two books in English: Silence in Poetry: A Trope and Gendered Tone
+            of a Middle-Aged Nepali Woman: Impressions and Approaches. She has
+            also published a book in Nepali: Nakoriyeka Sandarvaharu: Prof.
+            Dr. Anjani Kumar Sharma Ko Jivan Charit. Besides, these she has
+            also published some short stories in Hulaki: A Collection of Short
+            Stories (Vol. 1 and II). Besides the three books and short stories
+            she has continuously published many critical articles, related to
+            gender and women in various peer reviewed academic journals. She
+            has also contributed creative and Freelance Writing with
+            particular focus on women in “The Reporter” and “ECS The Friday.
+          </div>
+        </div>
+
+        <!-- Member 5 -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 0.8s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.22.jpeg"
+              alt="Pooja Pyakurel" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Pooja Pyakurel</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Member
+          </p>
+          <div class="bio-scroll">
+            Pooja Pyakurel, a Certified Project Management Professional (PMP),
+            brings extensive experience in international non-profits,
+            government, and international agencies. With a background in
+            business development and customer success at large organizations,
+            Pooja seeks to leverage her past experience while advancing her
+            project management skills. She holds a Master’s degree in
+            International Business Management from the British College of
+            Nepal and a Bachelor’s degree in Liberal Arts from the White House
+            Graduate School of Management. Currently serving as a Coordinating
+            Partner/Volunteer at RUTA6, a Spanish non-profit providing support
+            to disadvantaged children in Nepal, Pooja manages overall
+            well-being and fundraising efforts. Previously, as Administrative
+            & Member Service Supervisor at the American Mission Association
+            and Sales & Marketing Officer at the Dwarika Hotel Group &
+            Foundation, Pooja demonstrated leadership and organizational
+            skills. With a strong humanitarian background, including
+            coordinating lockdown relief programs and volunteering with
+            orphanages and earthquake relief efforts, Pooja is committed to
+            making a positive impact in society. In addition, with a passion
+            for creating a positive impact and providing quality education
+            opportunities for the young minds of Nepal, Mr. Ghimire, through a
+            network of franchise preschools under Wee Kids Preschool, is
+            revolutionizing the way education is delivered, fostering
+            creativity, critical thinking, and lifelong learning skills. Mr.
+            Ghimire envisions a future where technology and education
+            seamlessly coalesce, laying the groundwork for enduring success.
+            Through his innovative leadership, he continues to shape the
+            landscapes of both IT and early childhood education, making a
+            lasting imprint on the industries he ardently serves.
+          </div>
+        </div>
+
+        <!-- Member 6 -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 0.9s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-2.jpeg"
+              alt="Prakriti Mainali" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Prakriti Mainali</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Member
+          </p>
+          <div class="bio-scroll">
+            Dedicated and committed member supporting the core mission and values of the Karmayog Foundation.
+          </div>
+        </div>
+
+        <!-- Member 7 -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 1s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-1.jpeg"
+              alt="Anjila Dahal" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Anjila Dahal</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Member
+          </p>
+          <div class="bio-scroll">
+            Anjila Dahal is a dedicated and skilled professional with a strong
+            background in project management and program coordination. She
+            holds a postgraduate degree from Kathmandu University and has
+            actively contributed to the development sector for the past seven
+            years. Anjila’s diverse experience spans across multiple
+            organizations and fields, ranging from elections to education to
+            combating human trafficking. Her commitment to addressing critical
+            issues, especially in the field of trafficking and violence, is
+            apparent through her active engagement with organizations like
+            Maiti Nepal, where she has played a crucial role in projects
+            focused on combating human trafficking through various strategic
+            interventions. Anjila’s practical experience in event
+            organization, budget management, and collaboration with
+            stakeholders highlights her capability to navigate challenges,
+            showcasing her dedication to continuous learning and making a
+            positive impact in her field.
+          </div>
+        </div>
+
+        <!-- Member 8 -->
+        <div class="team-card animate-up delay-1" style="animation-delay: 1.1s;">
+          <div class="image-wrap">
+            <img
+              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-15-at-16.45.00.jpeg"
+              alt="Sarvodaya" />
+          </div>
+          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Sarvodaya</h3>
+          <p
+            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
+            Member
+          </p>
+          <div class="bio-scroll">
+            Sarvodaya is a dynamic and versatile professional with a robust
+            work ethic and a keen focus on delivering tangible results. With a
+            Bachelor’s degree in Business Administration, specializing in
+            Marketing & Economics, Sarvodaya brings a rich blend of academic
+            knowledge and practical experience to the table.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Volunteers -->
+  <section class="section" style="background: var(--color-dark-tone); padding: 8rem 0;">
+    <div class="container text-center animate-up">
+      <h2 style="color: white; font-size: clamp(2rem, 4vw, 3rem);">Our <span class="text-gradient">Volunteers</span>
+      </h2>
+      <p style="color: rgba(255,255,255,0.8); font-size: 1.15rem; max-width: 600px; margin: 1rem auto 3rem;">
+        Our work wouldn't be possible without the 100+ volunteers actively working across
+        Nepal.
+      </p>
+      <a href="contact.html" class="btn btn-primary" style="font-size: 1.15rem; padding: 1rem 3rem;">Join the
+        Movement</a>
+    </div>
+  </section>
+
+  <!-- Unified Footer Component -->
+  <karmayog-footer></karmayog-footer>
+
+  <script src="../js/main.js"></script>
+</body>
+
+</html>

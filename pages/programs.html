@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What We Do | Karmayog Foundation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+      .program-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border-top: 4px solid transparent;
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        position: relative;
+        z-index: 1;
+      }
+
+      .program-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: var(--radius-lg);
+        background: var(--gradient-primary);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.4s ease;
+      }
+
+      .program-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(13, 148, 136, 0.15);
+        border-color: transparent;
+      }
+
+      .program-card:hover::after {
+        opacity: 0.05;
+      }
+
+      .program-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--color-extra-light-teal);
+        color: var(--color-primary-teal);
+        box-shadow: 0 10px 20px rgba(13, 148, 136, 0.1);
+      }
+
+      .program-image {
+        height: 250px;
+        margin: -2.5rem -2.5rem 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .program-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          transparent 60%,
+          rgba(255, 255, 255, 1) 100%
+        );
+        z-index: 1;
+      }
+
+      .program-image img {
+        transition: transform 0.6s ease;
+      }
+
+      .program-card:hover .program-image img {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <karmayog-navbar base-path="../"></karmayog-navbar>
+
+    <!-- Massive Emotional Hero -->
+    <section
+      class="hero-massive"
+      style="
+        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20200811_112239_374.jpg');
+        background-color: var(--color-dark-tone);
+        background-position: center;
+        background-size: cover;
+        min-height: 70vh;
+        margin-top: -100px;
+        padding-top: 150px;
+      "
+    >
+      <div
+        class="text-scrim"
+        style="
+          z-index: 1;
+          background: linear-gradient(
+            135deg,
+            rgba(13, 148, 136, 0.85) 0%,
+            rgba(17, 24, 39, 0.8) 100%
+          );
+        "
+      ></div>
+      <div class="container" style="position: relative; z-index: 10">
+        <div style="max-width: 900px" class="animate-up">
+          <span
+            style="
+              color: var(--color-extra-light-teal);
+              font-weight: 700;
+              letter-spacing: 0.15em;
+              text-transform: uppercase;
+              margin-bottom: 1rem;
+              display: block;
+            "
+            >Our Work</span
+          >
+          <h1
+            style="
+              color: white;
+              text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+              font-size: clamp(2.5rem, 5vw, 4rem);
+              line-height: 1.1;
+              margin-bottom: 1.5rem;
+            "
+          >
+            What We <span style="color: var(--color-extra-light-teal)">Do</span>
+          </h1>
+          <p
+            class="lead-text"
+            style="
+              color: rgba(255, 255, 255, 0.9);
+              max-width: 700px;
+              text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+              font-size: 1.15rem;
+            "
+          >
+            We are a worldwide ministry in which millions of children reap the
+            benefits of one man’s clear vision. Explore our core focus areas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro Text -->
+    <section class="section">
+      <div
+        class="container grid grid-cols-2"
+        style="align-items: center; gap: 4rem"
+      >
+        <div class="animate-up">
+          <span
+            style="
+              color: var(--color-primary-teal);
+              font-weight: 700;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+            "
+            >Our Commitment</span
+          >
+          <h2
+            style="
+              margin-top: 0.5rem;
+              margin-bottom: 1.5rem;
+              font-size: 2.25rem;
+            "
+          >
+            A Purpose-Driven <span class="text-gradient">Journey</span>
+          </h2>
+          <h3
+            style="
+              color: var(--color-dark-teal);
+              font-weight: 800;
+              margin-bottom: 1.5rem;
+              font-size: 1.25rem;
+            "
+          >
+            "Selfless Service to the Helpless"
+          </h3>
+          <p style="font-size: 1rem; color: var(--text-secondary)">
+            Embark on a purpose-driven journey with Karmayog Foundation, where
+            our resolute commitment serves as the cornerstone of transformative
+            change. Founded by the visionary Mr. Saurav Rimal, our organization
+            is steadfastly dedicated to the holistic upliftment of
+            underprivileged communities in rural Nepal.
+          </p>
+          <p style="font-size: 1rem; color: var(--text-secondary)">
+            Through meticulously designed and impactful initiatives, we address
+            a spectrum of vital areas, including School Infrastructure
+            Strengthening, Education, Health, Humane Education, Environment
+            Protection, Income Generation, Skill Development, Animal Welfare,
+            and Rapid Response to Disaster Relief.
+          </p>
+        </div>
+        <div
+          class="card animate-up delay-1"
+          style="
+            background: var(--gradient-primary);
+            color: white;
+            padding: 4rem;
+            box-shadow: 0 20px 40px rgba(13, 148, 136, 0.3);
+          "
+        >
+          <h3 style="color: white; margin-bottom: 1.5rem; font-size: 1.75rem">
+            Join the Meaningful Journey
+          </h3>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.9);
+              font-size: 1rem;
+              line-height: 1.8;
+            "
+          >
+            Guided by a mission to create lasting positive change, each of these
+            programs is a testament to our unwavering dedication. Your
+            invaluable support, whether as a Lifetime Member or General Member,
+            plays a pivotal role in propelling these initiatives forward.
+          </p>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.9);
+              font-size: 1rem;
+              line-height: 1.8;
+              margin-bottom: 2.5rem;
+            "
+          >
+            Together, let us forge a path towards empowerment and upliftment,
+            fostering positive change in the communities we serve.
+          </p>
+          <a
+            href="pages/donate.html"
+            class="btn btn-outline"
+            style="
+              background: white;
+              color: var(--color-primary-teal);
+              border-color: white;
+            "
+            >Become a Member</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Care For - Programs Grid -->
+    <section
+      class="section bg-secondary"
+      id="programs-grid"
+      style="padding-top: 8rem"
+    >
+      <div class="container">
+        <div class="text-center mb-4 animate-up">
+          <span
+            style="
+              color: var(--color-primary-teal);
+              font-weight: 700;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+            "
+            >Focus Areas</span
+          >
+          <h2 style="margin-top: 0.5rem">
+            What we <span class="text-gradient">care for</span>
+          </h2>
+          <p
+            class="lead-text"
+            style="
+              max-width: 700px;
+              margin: 0 auto;
+              color: var(--text-primary);
+              font-weight: 500;
+              font-size: 1.15rem;
+            "
+          >
+            Comprehensive, holistic solutions addressing the systemic root
+            causes of poverty, inequality, and lack of opportunity.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-3" style="gap: 2.5rem">
+          <!-- 1. School Infrastructure -->
+          <div class="card program-card animate-up delay-1">
+            <div class="program-image" style="height: 250px">
+              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg"
+                   alt="School Infrastructure"
+                   style="width: 100%; height: 100%; object-fit: cover" />
+            </div>
+            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🏫</div>
+            <h3>School Infrastructure Strengthening</h3>
+            <p style="flex-grow: 1">
+              Most of the government schools in remote areas lack basic
+              facilities i.e. Dilapidated Buildings, Shortage of Classrooms,
+              Poor Sanitation Facility, Playground etc. Karmayog Foundation
+              plans to intervene and provide assistance to create better
+              learning environment, upon consultation with the School Head
+              Master and Local Leaders to ensure sustainability.
+            </p>
+          </div>
+
+          <!-- 2. Education & Sports -->
+          <div
+            class="card program-card animate-up delay-1"
+            style="animation-delay: 0.1s"
+          >
+            <div class="program-image" style="height: 250px">
+              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/skills-competence-knowledge-3260624-pxryr554j9cnuf6tl6p7qsnijig9j65oq64qrh8cs8.jpg"
+                   alt="Education & Sports"
+                   style="width: 100%; height: 100%; object-fit: cover" />
+            </div>
+            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🎓</div>
+            <h3>Education, Sports & Extra-curricular</h3>
+            <p style="flex-grow: 1">
+              An ongoing program providing school children with Uniforms, Warm
+              Clothes, Shoes, and Materials. We envisage raising education
+              standards through:<br /><br />
+              • Teachers’ Training Programs<br />
+              • Setting-up E-Libraries<br />
+              • Creating Sports Facilities
+            </p>
+          </div>
+
+          <!-- 3. Health & Hygiene -->
+          <div
+            class="card program-card animate-up delay-1"
+            style="animation-delay: 0.2s"
+          >
+            <div class="program-image" style="height: 250px">
+              <img
+                src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg"
+                alt="Health Camp"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">❤️</div>
+            <h3>Health, Hygiene & Nutrition</h3>
+            <p style="flex-grow: 1">
+              We conduct regular health camps by volunteer professionals to
+              monitor the health of children and communities, distributing
+              medicines and sanitary products. To combat lack of proper
+              nutritional intake, we distribute appropriate ‘nutritious fruit
+              saplings’ to supplement diets and raise income.
+            </p>
+          </div>
+
+          <!-- 4. Humane Education -->
+          <div
+            class="card program-card animate-up delay-1"
+            style="animation-delay: 0.3s;"
+          >
+            <div class="program-image" style="height: 250px">
+              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/received_702851340877249-pxqtx778sd3zned30smngqb7h3m278l4mmn2voqbaw.jpeg"
+                   alt="Humane Education"
+                   style="width: 100%; height: 100%; object-fit: cover" />
+            </div>
+            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🤝</div>
+            <h3>Humane Education</h3>
+            <p style="flex-grow: 1;">
+              The fragmentation of the joint family system has deprived children
+              the learning of societal values and co-existence. The Foundation
+              has plans to develop training materials in consultation with
+              experts, targeted to students in urban areas including Kathmandu.
+            </p>
+          </div>
+
+          <!-- 5. Skill Development Center -->
+          <div
+            class="card program-card animate-up delay-1"
+            style="animation-delay: 0.4s"
+          >
+            <div class="program-image" style="height: 250px">
+              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/20221106_135524-scaled-pxqtxqxurvv0f7ketj5tf3bvy6wrovrhpcc9yhx1o8.jpg"
+                   alt="Skill Development Center"
+                   style="width: 100%; height: 100%; object-fit: cover" />
+            </div>
+            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🏨</div>
+            <h3>Skill Development Center</h3>
+            <p style="flex-grow: 1">
+              Working on a Concept Proposal to establish a Hospitality Training
+              Center in the mountain of Chepang Village to serve Nepal's growing
+              tourism industry. Affliated with institutions like NATHM to
+              provide accreditation, giving trainees paths to immediate
+              employment.
+            </p>
+          </div>
+
+          <!-- 6. Environment Protection -->
+          <div
+            class="card program-card animate-up delay-1"
+            style="animation-delay: 0.5s"
+          >
+            <div class="program-image" style="height: 250px">
+              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/hands-earth-next-generation-4091879-pxrysollqhgkvey9lco7bwnpl8ux5b9ulsme2sy4l4.jpg"
+                   alt="Environment Protection"
+                   style="width: 100%; height: 100%; object-fit: cover" />
+            </div>
+            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🌲</div>
+            <h3>Environment Protection</h3>
+            <p style="flex-grow: 1">
+              Encouraging communities to plant trees to protect the environment
+              and raise income levels. We distribute tree saplings suitable to
+              typography that control soil erosion and help water retention,
+              guided by forestry experts.
+            </p>
+          </div>
+
+          <!-- 7. Income Generation -->
+          <div
+            class="card program-card animate-up delay-1 income-card"
+            style="animation-delay: 0.6s"
+          >
+            <div>
+              <div class="program-icon" style="margin-bottom: 2rem">💡</div>
+              <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem">
+                Income Generation Activities
+              </h3>
+              <p style="font-size: 1rem">
+                We work on income generating activities like Handicraft
+                Promotion, Soap and Candle Production. Training Workshops
+                advance existing skills.
+              </p>
+              <p style="font-size: 1rem; margin-bottom: 0">
+                Trainings on Sweater Weaving, Sewing etc. are imparted to women.
+                The Foundation provides seed money as a loan, buys back products
+                with a reasonable profit, and sells them in urban centers to
+                ensure sustainable empowerment.
+              </p>
+            </div>
+            <div
+              style="
+                border-radius: var(--radius-lg);
+                overflow: hidden;
+                height: 100%;
+                min-height: 350px;
+                box-shadow: var(--shadow-float);
+              "
+            >
+              <img
+                src="https://karmayogfoundation.org/wp-content/uploads/2023/04/money-profit-finance-2696219-1-pxryosjng64utilpb64sie012u18aetuejf1kkpsc8.jpg"
+                alt="Income Generation"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+          </div>
+
+          <!-- 8. Animal Welfare -->
+          <div
+            class="card program-card animate-up delay-1"
+            style="animation-delay: 0.7s"
+          >
+            <div class="program-image" style="height: 250px">
+              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1.jpg"
+                   alt="Animal Welfare"
+                   style="width: 100%; height: 100%; object-fit: cover" />
+            </div>
+            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🐕</div>
+            <h3>Animal Welfare</h3>
+            <p style="flex-grow: 1">
+              An ongoing program fueled by generous contributors celebrating
+              special occasions. Long-term, the Foundation has plans to
+              establish a "Canine Shelter and Rehabilitation Center" to provide
+              a permanent safe haven for street animals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to action block -->
+    <section
+      style="
+        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20200911_132008_118.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        padding: 8rem 0;
+        text-align: center;
+        position: relative;
+      "
+    >
+      <div style="position: absolute; inset: 0; background: rgba(13, 148, 136, 0.85); z-index: 1;"></div>
+      <div class="container animate-up" style="position: relative; z-index: 2;">
+        <h2
+          style="
+            color: white;
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            line-height: 1.3;
+          "
+        >
+          By investing in children, together, we have the opportunity to create
+          real, long-lasting change for families and communities around the
+          world.
+        </h2>
+        <div
+          style="
+            margin-top: 4rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+          "
+        >
+          <a
+            href="pages/donate.html"
+            class="btn btn-donate"
+            style="
+              font-size: 1.25rem;
+              padding: 1.2rem 3rem;
+              background: white;
+              color: var(--color-primary-teal);
+              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            "
+            >Donate Now</a
+          >
+          <a
+            href="contact.html"
+            class="btn btn-outline"
+            style="
+              font-size: 1.25rem;
+              padding: 1.2rem 3rem;
+              border-color: white;
+              color: white;
+            "
+            >Get Involved</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <karmayog-footer></karmayog-footer>
+
+    <script src="../js/main.js"></script>
+    <style>
+      .income-card {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        padding: 3rem !important;
+      }
+
+      @media (max-width: 1024px) {
+        #programs-grid .grid-cols-3 {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+
+        .income-card {
+          grid-column: span 2 !important;
+          grid-template-columns: 1fr !important;
+          padding: 2.5rem !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #programs-grid .grid-cols-3 {
+          grid-template-columns: 1fr !important;
+        }
+
+        .income-card {
+          grid-column: span 1 !important;
+        }
+
+        .section .grid-cols-2 {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    </style>
+  </body>
+</html>

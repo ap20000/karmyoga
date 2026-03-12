@@ -1,249 +1,353 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Karmayog Foundation - World Class NGO in Nepal. Clean water, education, and equality for all." />
-  <title>Karmayog Foundation | Clean Water & Education in Nepal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <title>Karmayog Foundation | Illuminating Lives</title>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="css/main.css" />
 </head>
-
 <body>
   <karmayog-navbar></karmayog-navbar>
 
-  <!-- Massive Emotional Hero -->
-  <section class="hero-massive" style="
-        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/12/Untitled-video-Made-with-Clipchamp-1.mp4');
-        background-color: var(--color-dark-tone); /* Fallback */
-        background-position: center;
-        background-size: cover;
-      ">
-    <video autoplay muted loop playsinline
-      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
-      <source src="https://karmayogfoundation.org/wp-content/uploads/2023/12/Untitled-video-Made-with-Clipchamp-1.mp4"
-        type="video/mp4" />
-    </video>
-    <!-- Scrim to ensure the white text is readable against the background image -->
-    <div class="text-scrim" style="z-index: 1;"></div>
-    <div class="container" style="position: relative; z-index: 10">
-      <div style="max-width: 900px" class="animate-up">
-        <span
-          style="color: var(--color-extra-light-teal); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; display: block;">Our
-          Mission</span>
-        <h1 style="
-              color: white;
-              text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-              font-size: clamp(1.8rem, 3.5vw, 3rem);
-              line-height: 1.1;
-              margin-bottom: 1.5rem;
-            ">
-          Selfless service to helpless.<br />
+  <section class="hero hero--video-bg">
+    <div class="hero-video-wrapper">
+      <video 
+        class="hero-background-video" 
+        autoplay 
+        loop 
+        muted 
+        playsinline
+        poster="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+      >
+        <source src="video-karmayog.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="hero-video-overlay"></div>
+    </div>
+
+    <div class="hero-ambient">
+      <div class="ambient-particle particle-1"></div>
+      <div class="ambient-particle particle-2"></div>
+      <div class="ambient-particle particle-3"></div>
+    </div>
+
+    <div class="hero-inner container">
+      <div class="hero-content" data-reveal="fade-up">
+        <span class="hero-tagline">✦ Serving Rural Nepal Since 2020</span>
+        
+        <h1 class="hero-heading">
+          <span class="heading-line">Every child</span>
+          <span class="heading-line">deserves a <span class="gradient-text"><em>better</em></span></span>
+          <span class="heading-line">future.</span>
         </h1>
-        <p class="lead-text"
-          style="color: rgba(255,255,255,0.9); max-width: 600px; margin-bottom: 3rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-          We are dedicated to uplifting the living standards of underprivileged and marginalized communities across
-          rural Nepal.
+        
+        <p class="hero-description">
+          Uplifting underprivileged communities through education, clean water, and sustainable development.
         </p>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap">
-          <a href="#impact" class="btn btn-primary" style="font-size: 1.15rem; padding: 1.2rem 2.8rem;">Discover Our
-            Work</a>
-          <a href="pages/donate.html" class="btn btn-outline"
-            style="font-size: 1.15rem; padding: 1.2rem 2.8rem; color: white; border-color: white;">Donate Now</a>
+        
+        <div class="hero-actions">
+          <a href="pages/donate.html" class="btn btn-primary">
+            <span class="heart-icon">❤️</span>
+            Donate Today
+          </a>
+          <a href="#mission" class="btn btn-outline">
+            Our Work
+            <span class="btn-arrow">→</span>
+          </a>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Impact Numbers - Huge & Clean -->
-  <section id="impact" class="section bg-secondary">
-    <div class="container pb-5">
-      <div class="grid-open" style="align-items: center;">
-        <div class="grid-col-6 animate-up">
-          <span
-            style="color: var(--color-primary-teal); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Vision
-            & Mission</span>
-          <h2 style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
-            Who We Are.<br /><span class="text-gradient">Our vision</span>
-          </h2>
-          <p class="lead-text" style="margin-bottom: 1.5rem; color: var(--color-dark-tone); font-weight: 500;">
-            Karmayog Foundation’s core focus is to uplift the living standards of the underprivileged and marginalized
-            community.
-          </p>
-          <p style="margin-bottom: 2.5rem;">
-            Through various focus-based programs especially designed to address the needs of the target community in the
-            select project area in rural Nepal. In addition, Animal Welfare and Rapid Response to Natural Calamities
-            form a priority on a need-to-need basis.
-          </p>
-          <a href="pages/contact.html" class="btn btn-outline">Let's Talk</a>
-        </div>
-        <div class="grid-col-6 animate-up delay-1">
-          <div class="grid grid-cols-2" style="gap: 1.5rem;">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/12/PXL_20230812_080012243-scaled.jpg"
-              class="image-box" style="height: 320px; object-fit: cover;" alt="Community Focus" />
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2023/12/PXL_20230812_075040885.PORTRAIT-scaled.jpg"
-              class="image-box"
-              style="height: 320px; object-fit: cover; transform: translateY(3rem); box-shadow: var(--shadow-float);"
-              alt="Education Initiatives" />
-          </div>
-        </div>
-      </div>
+    <div class="scroll-indicator">
+      <span class="scroll-text">Discover</span>
+      <span class="scroll-line"></span>
     </div>
   </section>
 
-  <!-- Get Involved Section -->
-  <section class="section">
+  <section id="mission" class="section mission-section">
     <div class="container">
-      <div class="text-center mb-4 animate-up">
-        <span
-          style="color: var(--color-primary-teal); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Act
-          Now</span>
-        <h2 style="margin-top: 0.5rem;">
-          Get Involved<br />
-          <span class="text-gradient">Ways you can help</span>
-        </h2>
-        <p style="max-width: 600px; margin: 0 auto; margin-top: 1rem">
-          Whether you want to sponsor a child, volunteer your time, or partner
-          with us for a larger impact—your contribution matters.
-        </p>
+      <div class="section-header text-center" data-reveal="fade-up">
+        <span class="eyebrow">Our Purpose</span>
+        <h2>Who we are and <span class="gradient-text"><em>why we exist</em></span></h2>
+      </div>
+      
+      <div class="mission-feature" data-reveal="fade-up">
+        <div class="mission-feature-image">
+          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Karmayog Foundation mission">
+          <div class="mission-feature-overlay">
+            <div class="mission-feature-content">
+              <h3>Empowering Communities Since 2020</h3>
+              <p>We believe in creating sustainable change through education, clean water, and community development programs that last for generations.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="cta-section">
-        <div class="cta-box animate-up delay-1"
-          style="background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg');">
-          <div class="cta-box-overlay" style="background: rgba(13, 148, 136, 0.85);"></div>
-          <div class="cta-box-content">
-            <h2>Sponsor</h2>
-            <p>
-              Make a lasting impact by sponsoring education or water projects.
-            </p>
-            <a href="pages/donate.html" class="cta-btn">Find Campaign</a>
+      <div class="mission-grid">
+        <div class="mission-grid-item" data-reveal="fade-right">
+          <div class="mission-grid-icon">
+            <i class="fas fa-graduation-cap"></i>
           </div>
+          <h4>Education First</h4>
+          <p>Supporting 8 schools with resources and learning materials for underprivileged children.</p>
         </div>
-
-        <div class="cta-box animate-up delay-2"
-          style="background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125954_946.jpg');">
-          <div class="cta-box-overlay" style="background: rgba(20, 184, 166, 0.85);"></div>
-          <div class="cta-box-content">
-            <h2>Volunteer</h2>
-            <p>
-              Join our on-ground team and help transform rural communities.
-            </p>
-            <a href="pages/contact.html" class="cta-btn">Sign Up</a>
+        <div class="mission-grid-item" data-reveal="fade-up">
+          <div class="mission-grid-icon">
+            <i class="fas fa-water"></i>
           </div>
+          <h4>Clean Water</h4>
+          <p>12 water projects providing safe drinking water to remote villages and school communities.</p>
         </div>
-
-        <div class="cta-box animate-up"
-          style="animation-delay: 0.6s; background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210702_115350_185.jpg');">
-          <div class="cta-box-overlay" style="background: rgba(3, 105, 161, 0.85);"></div>
-          <div class="cta-box-content">
-            <h2>Partner</h2>
-            <p>Collaborate with us for sustainable long-term development.</p>
-            <a href="pages/contact.html" class="cta-btn">Contact Us</a>
+        <div class="mission-grid-item" data-reveal="fade-left">
+          <div class="mission-grid-icon">
+            <i class="fas fa-seedling"></i>
           </div>
+          <h4>Sustainable Development</h4>
+          <p>Long-term programs that empower communities to thrive independently.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Success Stories 1 -->
-  <section class="section bg-secondary">
-    <div class="container grid-open" style="align-items: center;">
-      <div class="grid-col-6 animate-up">
-        <img src="https://karmayogfoundation.org/wp-content/uploads/2023/12/PXL_20230813_050445782-scaled.jpg"
-          alt="School Infrastructure" class="image-box" style="height: 500px; object-fit: cover;" />
-      </div>
-      <div class="grid-col-6 animate-up delay-1" style="padding-left: 2rem;">
-        <span
-          style="color: var(--color-primary-teal); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Success
-          Stories</span>
-        <h2 style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
-          School Infrastructure<br /><span class="text-gradient">Strengthening</span>
-        </h2>
-        <p style="margin-bottom: 1.5rem;">
-          Most of the government schools in remote areas, where Karmayog Foundation focuses its activities, lack
-          essential facilities: dilapidated buildings, shortages of classrooms, poor sanitation facilities, playgrounds,
-          and more.
-        </p>
-        <p style="margin-bottom: 2.5rem;">
-          We intervene and provide assistance to create a better learning environment. Our assistance is provided upon
-          consultation with School Head Masters, School Management Committees, and Local Leaders to ensure
-          sustainability and avoid duplicity.
-        </p>
-        <a href="pages/donate.html" class="btn btn-primary">Read More</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Success Stories 2 -->
-  <section class="section bg-primary">
-    <div class="container grid-open" style="align-items: center;">
-      <div class="grid-col-6 animate-up order-2-mobile" style="padding-right: 2rem;">
-        <span style="color: #0284c7; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Sustainable
-          Play</span>
-        <h2 style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
-          Interactive Playscape<br /><span class="text-gradient">Project</span>
-        </h2>
-        <p style="margin-bottom: 1.5rem;">
-          In the heart of Nepal, we are weaving a story of transformation through our groundbreaking Interactive
-          Playscape. Play is not just a pastime; it’s the key to unlocking the immense potential within every child.
-        </p>
-        <p style="margin-bottom: 1.5rem;">
-          Embracing the philosophy of repurposing, we breathe new life into discarded tires, metals, plastic, pipes, and
-          rubber, proudly showcasing the spirit of "Made in Nepal." These materials, once considered waste, now form
-          safe, colorful, and imaginative spaces.
-        </p>
-        <p style="margin-bottom: 2.5rem;">
-          With your support, we’re not just building playgrounds; we’re reshaping the very essence of schools. Join us
-          in rewriting the narrative for over 35% of children who have never stepped into a classroom.
-        </p>
-        <a href="pages/donate.html" class="btn btn-primary"
-          style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">Read More</a>
-      </div>
-      <div class="grid-col-6 animate-up delay-1 order-1-mobile">
-        <img src="https://karmayogfoundation.org/wp-content/uploads/2023/12/PXL_20230813_075252129-scaled.jpg"
-          alt="Interactive Playscape" class="image-box" style="height: 500px; object-fit: cover;" />
+  <section class="section stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card" data-reveal="zoom-in">
+          <div class="stat-icon-svg">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="stat-number" data-count="5000">0</span>
+          <span class="stat-label">Lives Impacted</span>
+        </div>
+        <div class="stat-card" data-reveal="zoom-in" data-reveal-delay="150">
+          <div class="stat-icon-svg">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 8H4V6H20V8Z" fill="currentColor"/>
+              <path d="M22 12H2V10H22V12Z" fill="currentColor"/>
+              <path d="M20 16H4V14H20V16Z" fill="currentColor"/>
+              <path d="M18 20H6V18H18V20Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="stat-number" data-count="25">0</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-card" data-reveal="zoom-in" data-reveal-delay="300">
+          <div class="stat-icon-svg">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9C5 11.38 6.19 14.47 8.5 18.16C9.54 19.81 10.71 21.37 12 22.84C13.29 21.37 14.46 19.81 15.5 18.16C17.81 14.47 19 11.38 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="stat-number" data-count="15">0</span>
+          <span class="stat-label">Villages</span>
+        </div>
+        <div class="stat-card" data-reveal="zoom-in" data-reveal-delay="450">
+          <div class="stat-icon-svg">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="stat-number" data-count="100">0</span>
+          <span class="stat-label">Transparent</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Edge to Edge Action Block -->
-  <section style="
-        background: var(--gradient-primary);
-        padding: 8rem 0;
-        text-align: center;
-      ">
-    <div class="container animate-up">
-      <h2 style="color: white; max-width: 900px; margin: 0 auto">
-        Help us write the next success story.
-      </h2>
-      <a href="pages/donate.html" class="btn btn-donate"
-        style="font-size: 1.25rem; margin-top: 3rem; background-color: var(--color-dark-tone);">Donate Today</a>
+  <section class="section programs-section" id="programs">
+    <div class="container">
+      <div class="section-header text-center" data-reveal="fade-up">
+        <span class="eyebrow">What We Do</span>
+        <h2>Programs built for <span class="gradient-text"><em>lasting change</em></span></h2>
+      </div>
+      
+      <div class="programs-showcase">
+        <div class="programs-showcase-item" data-reveal="flip-left">
+          <div class="programs-showcase-image">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg" alt="Sponsor a Child">
+            <div class="programs-showcase-overlay">
+              <span class="programs-showcase-category">Education</span>
+              <h3>Sponsor a Child</h3>
+              <p>Make a lasting impact by sponsoring a child's education. Your support provides books, uniforms, and tuition.</p>
+              <a href="pages/donate.html" class="programs-showcase-link">
+                Support Now
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+          <div class="programs-showcase-content-visible">
+            <span class="programs-showcase-category-visible">Education</span>
+            <h3>Sponsor a Child</h3>
+            <p>Make a lasting impact by sponsoring a child's education. Your support provides books, uniforms, and tuition.</p>
+            <a href="pages/donate.html" class="programs-showcase-link-visible">
+              Support Now
+              <span class="btn-arrow">→</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="programs-showcase-item" data-reveal="flip-up">
+          <div class="programs-showcase-image">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125954_946.jpg" alt="Volunteer">
+            <div class="programs-showcase-overlay">
+              <span class="programs-showcase-category">Volunteer</span>
+              <h3>Join the Team</h3>
+              <p>Come on-ground and help transform rural communities. Your time and skills can create lasting change.</p>
+              <a href="pages/contact.html" class="programs-showcase-link">
+                Sign Up
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="programs-showcase-item" data-reveal="flip-right">
+          <div class="programs-showcase-image">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210702_115350_185.jpg" alt="Partner">
+            <div class="programs-showcase-overlay">
+              <span class="programs-showcase-category">Partnership</span>
+              <h3>Become a Partner</h3>
+              <p>Collaborate with us for sustainable long-term development. Together we can reach more communities.</p>
+              <a href="pages/contact.html" class="programs-showcase-link">
+                Let's Talk
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
+
+  <section class="section gallery-section">
+    <div class="container">
+      <div class="section-header text-center" data-reveal="fade-up">
+        <span class="eyebrow">Our Impact</span>
+        <h2>Changing lives <span class="gradient-text"><em>one story at a time</em></span></h2>
+      </div>
+      
+      <div class="impact-feature" data-reveal="fade-up">
+        <div class="impact-feature-image">
+          <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Children learning and smiling">
+          <div class="impact-feature-overlay">
+            <div class="impact-feature-content">
+              <h3>5,000+ Children</h3>
+              <p>Have gained access to quality education through our programs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="impact-grid">
+        <div class="impact-item" data-reveal="fade-right">
+          <div class="impact-item-icon">
+            <i class="fas fa-droplet"></i>
+          </div>
+          <div class="impact-item-content">
+            <h4>12 Water Projects</h4>
+            <p>Clean water for remote villages</p>
+          </div>
+        </div>
+        <div class="impact-item" data-reveal="fade-up">
+          <div class="impact-item-icon">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <div class="impact-item-content">
+            <h4>200+ Volunteers</h4>
+            <p>Making a difference daily</p>
+          </div>
+        </div>
+        <div class="impact-item" data-reveal="fade-left">
+          <div class="impact-item-icon">
+            <i class="fas fa-tree"></i>
+          </div>
+          <div class="impact-item-content">
+            <h4>15 Villages</h4>
+            <p>Transformed communities</p>
+          </div>
+        </div>
+        <div class="impact-item" data-reveal="fade-right" data-reveal-delay="100">
+          <div class="impact-item-icon">
+            <i class="fas fa-school"></i>
+          </div>
+          <div class="impact-item-content">
+            <h4>8 Schools</h4>
+            <p>Built and renovated</p>
+          </div>
+        </div>
+        <div class="impact-item" data-reveal="fade-up" data-reveal-delay="100">
+          <div class="impact-item-icon">
+            <i class="fas fa-truck-medical"></i>
+          </div>
+          <div class="impact-item-content">
+            <h4>20+ Medical Camps</h4>
+            <p>Healthcare for all</p>
+          </div>
+        </div>
+        <div class="impact-item" data-reveal="fade-left" data-reveal-delay="100">
+          <div class="impact-item-icon">
+            <i class="fas fa-badge-check"></i>
+          </div>
+          <div class="impact-item-content">
+            <h4>100% Transparency</h4>
+            <p>Every rupee accounted for</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="section quote-section">
+    <div class="container">
+      <div class="quote-content" data-reveal="scale-up">
+        <div class="quote-icon">
+          <i class="fas fa-quote-right"></i>
+        </div>
+        <blockquote class="quote-text">
+          <em>Every child, regardless of where they are born, deserves access to clean water, quality education, and a safe place to grow.</em>
+        </blockquote>
+        <div class="quote-author">— Karmayog Foundation</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-content" data-reveal="fade-up">
+        <span class="eyebrow light">Make a Difference</span>
+        <h2>Help us write the next <span class="gradient-text-white"><em>success story</em></span></h2>
+        <p>Every contribution creates lasting ripples of change across rural Nepal.</p>
+        <div class="cta-actions">
+          <a href="pages/donate.html" class="btn btn-primary btn-large">
+            <span class="heart-icon">❤️</span>
+            Donate Now
+          </a>
+          <a href="pages/contact.html" class="btn btn-outline btn-large">
+            Get Involved
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="help-section">
+    <div class="help-button" id="helpButton">
+      <i class="fas fa-question-circle"></i>
+      <span>Help?</span>
+    </div>
+    <div class="back-to-top" id="backToTop">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+  </div>
 
   <karmayog-footer></karmayog-footer>
-
-  <style>
-    @media (max-width: 1024px) {
-      .order-1-mobile {
-        order: -1;
-        margin-bottom: 2rem;
-      }
-
-      .grid-col-6[style*="padding"] {
-        padding: 0 !important;
-      }
-    }
-  </style>
-
   <script src="js/main.js"></script>
 </body>
-
 </html>

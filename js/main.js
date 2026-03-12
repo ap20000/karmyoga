@@ -1,335 +1,687 @@
-/**
- * Karmayog Foundation - Premium UI Interactions
- * Features: Deep-scroll reveals, Navbar morphing, and Magnetic buttons.
- */
 
-// 0. Apply saved theme BEFORE DOMContentLoaded to prevent flash
-(function() {
-  const savedTheme = localStorage.getItem('karmayog-theme');
-  if (savedTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Karmayog Foundation - Loaded');
+
+  
+  const cursor = document.createElement('div');
+  cursor.className = 'hover-cursor';
+  document.body.appendChild(cursor);
+
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    cursor.classList.add('active');
+  });
+
+  document.addEventListener('mouseleave', () => {
+    cursor.classList.remove('active');
+  });
+
+  document.addEventListener('mouseenter', () => {
+    cursor.classList.add('active');
+  });
+
+  const interactiveElements = document.querySelectorAll(
+    'a, button, .btn, .nav-links a, .nav-links .newsletter-link, .btn-nav, .hamburger, ' +
+    '.programs-showcase-item, .mission-grid-item, .impact-item, .stat-card, ' +
+    '.social-link, .footer-col ul li a, .footer-contact p, .help-button, ' +
+    '.back-to-top, .modal-close, .issue-btn, .scroll-indicator, input, select, textarea'
+  );
+
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.classList.add('hovered');
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('hovered');
+    });
+
+    el.addEventListener('mousedown', () => {
+      cursor.classList.add('clicked');
+    });
+
+    el.addEventListener('mouseup', () => {
+      cursor.classList.remove('clicked');
+    });
+  });
+
+  if (window.innerWidth <= 768) {
+    cursor.style.display = 'none';
   }
-})();
 
-document.addEventListener("DOMContentLoaded", () => {
-  // 1. Navigation Morphing
-  window.addEventListener("scroll", () => {
-    const navbar = document.getElementById("navbar");
-    if (navbar) {
-      if (window.scrollY > 100) {
-        navbar.classList.add("scrolled");
+  
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
       } else {
-        navbar.classList.remove("scrolled");
+        navbar.classList.remove('scrolled');
       }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); 
+  }
+
+  
+  const reveals = document.querySelectorAll('[data-reveal]');
+  
+  if (reveals.length) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.dataset.revealDelay || 0;
+          setTimeout(() => {
+            entry.target.classList.add('revealed');
+          }, delay);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { 
+      threshold: 0.1, 
+      rootMargin: '0px 0px -50px 0px' 
+    });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  }
+
+  
+  const counters = document.querySelectorAll('.stat-number[data-count]');
+  
+  if (counters.length) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = parseInt(entry.target.dataset.count, 10);
+          animateCounter(entry.target, target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(c => counterObserver.observe(c));
+
+    function animateCounter(el, target) {
+      let current = 0;
+      const duration = 2000; // 2 seconds
+      const steps = 60;
+      const increment = target / steps;
+      let step = 0;
+      
+      const timer = setInterval(() => {
+        step++;
+        current += increment;
+        
+        if (step >= steps) {
+          el.textContent = target.toLocaleString() + (target === 100 ? '%' : '+');
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(current).toLocaleString() + (target === 100 ? '%' : '+');
+        }
+      }, duration / steps);
     }
-  });
+  }
 
-  // 2. Premium Intersection Observer for "Bento Unveil"
-  const bentoObserverOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px",
-  };
-
-  const bentoObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "translateY(0) scale(1)";
-        entry.target.style.filter = "blur(0)";
-      }
-    });
-  }, bentoObserverOptions);
-
-  // Initial state for bento items
-  document.querySelectorAll(".bento-item, .fade-in-up").forEach((el, index) => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(50px) scale(0.95)";
-    el.style.filter = "blur(10px)";
-    el.style.transition = `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`;
-    bentoObserver.observe(el);
-  });
-
-  // 3. Magnetic Hover Effect for Premium Buttons (Simplified)
-  document.querySelectorAll(".btn-premium").forEach((btn) => {
-    btn.addEventListener("mousemove", (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
-    });
-
-    btn.addEventListener("mouseleave", () => {
-      btn.style.transform = "";
-    });
-  });
-
-  // 4. Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      const targetId = this.getAttribute("href").slice(1);
-      const targetEl = document.getElementById(targetId);
-
-      if (targetEl) {
+  /* ═══════════════════════════════════════════════════════════════
+     4. SMOOTH SCROLL FOR ANCHOR LINKS
+  ═══════════════════════════════════════════════════════════════ */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const targetId = anchor.getAttribute('href');
+      if (targetId === '#' || !targetId) return;
+      
+      const target = document.querySelector(targetId);
+      if (target) {
         e.preventDefault();
-        targetEl.scrollIntoView({
-          behavior: "smooth",
+        target.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
         });
+        history.pushState(null, null, targetId);
       }
     });
   });
 
-  // 5. Donation Page UI Interactions
-  const freqBtns = document.querySelectorAll(".freq-btn");
-  if (freqBtns.length > 0) {
+  
+  const heroVideo = document.querySelector('.hero-background-video');
+  
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.playsInline = true;
+    
+    heroVideo.addEventListener('loadeddata', () => {
+      heroVideo.style.opacity = '1';
+    });
+    
+    heroVideo.addEventListener('error', () => {
+      document.querySelector('.hero--video-bg').style.background = 'linear-gradient(135deg, #1A2E40, #2AB7CA)';
+    });
+    
+    const playPromise = heroVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        console.log('Autoplay prevented - will play on interaction');
+      });
+    }
+  }
+
+ 
+  document.addEventListener('click', function playVideoOnFirstInteraction() {
+    const video = document.querySelector('.hero-background-video');
+    if (video && video.paused) {
+      video.play();
+    }
+    document.removeEventListener('click', playVideoOnFirstInteraction);
+  }, { once: true });
+
+  
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (window.innerWidth > 768) {
+        const navLinks = document.getElementById('navLinks');
+        const hamburger = document.querySelector('.hamburger');
+        
+        if (navLinks?.classList.contains('open')) {
+          navLinks.classList.remove('open');
+        }
+        if (hamburger?.classList.contains('open')) {
+          hamburger.classList.remove('open');
+        }
+        document.body.style.overflow = '';
+      }
+      
+      
+      const cursor = document.querySelector('.hover-cursor');
+      if (cursor) {
+        if (window.innerWidth <= 768) {
+          cursor.style.display = 'none';
+        } else {
+          cursor.style.display = 'block';
+        }
+      }
+    }, 250);
+  });
+
+ 
+  function setActiveNavLink() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      link.classList.remove('active');
+      
+      if (currentPath === '/' && href.includes('index')) {
+        link.classList.add('active');
+      } else if (currentPath.endsWith(href) || 
+                 (href.includes('pages/') && currentPath.includes(href.replace('../', '')))) {
+        link.classList.add('active');
+      }
+    });
+  }
+  
+  setActiveNavLink();
+
+ 
+  const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+  
+  if ('loading' in HTMLImageElement.prototype) {
+    lazyImages.forEach(img => {
+      img.src = img.dataset.src || img.src;
+    });
+  } else {
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src || img.src;
+          imageObserver.unobserve(img);
+        }
+      });
+    });
+    
+    lazyImages.forEach(img => imageObserver.observe(img));
+  }
+
+  const freqBtns = document.querySelectorAll('.freq-btn');
+  const amountBtns = document.querySelectorAll('.amount-btn');
+  const customAmt = document.getElementById('custom-amount-container');
+  const impactMsg = document.getElementById('impact-message');
+  
+  // Frequency buttons (Monthly/One-time)
+  if (freqBtns.length) {
     freqBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener('click', () => {
         freqBtns.forEach(b => {
-          b.classList.remove("btn-primary");
-          b.classList.add("btn-outline");
+          b.classList.remove('btn-primary');
+          b.classList.add('btn-outline');
         });
-        btn.classList.remove("btn-outline");
-        btn.classList.add("btn-primary");
+        btn.classList.remove('btn-outline');
+        btn.classList.add('btn-primary');
       });
     });
   }
-
-  const amountBtns = document.querySelectorAll(".amount-btn");
-  const customAmountContainer = document.getElementById("custom-amount-container");
-  const impactMessage = document.getElementById("impact-message");
-
+  
+  // Amount buttons with impact messages
   const impactTexts = {
-    "1000": "NPR 1,000 can provide educational materials for a child for a month.",
-    "5000": "NPR 5,000 can provide clean drinking water to a school for a year.",
-    "10000": "NPR 10,000 can fund a medical camp for an entire community.",
-    "Other": "Every contribution, big or small, creates a lasting impact."
+    '1000': 'NPR 1,000 provides educational materials for a child for a month.',
+    '5000': 'NPR 5,000 provides clean drinking water to a school for a year.',
+    '10000': 'NPR 10,000 funds a medical camp for an entire community.',
+    'Other': 'Every contribution matters and creates a lasting impact.'
   };
-
-  if (amountBtns.length > 0) {
+  
+  if (amountBtns.length) {
     amountBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        // Reset all amount buttons
+      btn.addEventListener('click', () => {
         amountBtns.forEach(b => {
-          b.classList.remove("btn-primary");
-          b.classList.add("btn-outline");
+          b.classList.remove('btn-primary');
+          b.classList.add('btn-outline');
         });
-
-        // Set active button
-        btn.classList.remove("btn-outline");
-        btn.classList.add("btn-primary");
-
-        const amount = btn.getAttribute("data-amount");
-
-        if (btn.id === "btn-other") {
-          customAmountContainer.style.display = "block";
-          impactMessage.innerText = impactTexts["Other"];
+        btn.classList.remove('btn-outline');
+        btn.classList.add('btn-primary');
+        
+        const amount = btn.dataset.amount;
+        
+        if (btn.id === 'btn-other') {
+          if (customAmt) customAmt.style.display = 'block';
+          if (impactMsg) impactMsg.textContent = impactTexts['Other'];
         } else {
-          customAmountContainer.style.display = "none";
-          if (impactTexts[amount]) {
-            impactMessage.innerText = impactTexts[amount];
+          if (customAmt) customAmt.style.display = 'none';
+          if (impactMsg && impactTexts[amount]) {
+            impactMsg.textContent = impactTexts[amount];
           }
         }
       });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BACK TO TOP BUTTON FUNCTIONALITY
+  ═══════════════════════════════════════════════════════════════ */
+  const backToTop = document.getElementById('backToTop');
+  const helpButton = document.getElementById('helpButton');
+
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  if (helpButton) {
+    helpButton.addEventListener('click', () => {
+      // You can customize this to open a help modal or redirect to contact page
+      window.location.href = 'pages/contact.html';
     });
   }
 });
 
-// 6. Reusable Footer Web Component
-class KarmayogFooter extends HTMLElement {
-  connectedCallback() {
-    const basePath = this.getAttribute("base-path") || "";
-
-    this.innerHTML = `
-   <footer class="footer">
-  <div class="container">
-    <div style="
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2rem;
-      padding: 2.5rem 0 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.12);
-    ">
-      <!-- Brand -->
-      <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="${basePath}index.html">
-          <img
-            src="https://karmayogfoundation.org/wp-content/uploads/2023/02/cropped-Karmayog-foundation-logo_transparent-300x300-1.png"
-            alt="Karmayog Foundation Logo"
-            style="height: 128px; width: auto;"
-          />
-        </a>
-        <div style="font-size: 0.8rem; opacity: 0.6; line-height: 1.5;">
-          <div>Baneshwor, Kathmandu, Nepal</div>
-          <div>contact@karmayogfoundation.org</div>
-        </div>
-      </div>
-
-      <!-- Links -->
-      <nav style="display: flex; gap: 3rem; flex-wrap: wrap;">
-        <div>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin: 0; padding: 0;">
-            <li><a href="${basePath}pages/programs.html" style="font-size: 0.85rem; opacity: 0.75;">Privacy</a></li>
-            <li><a href="${basePath}pages/programs.html" style="font-size: 0.85rem; opacity: 0.75;">Policy</a></li>
-            <li><a href="${basePath}pages/donate.html" style="font-size: 0.85rem; opacity: 0.75;">About Us</a></li>
-            <li><a href="${basePath}pages/programs.html" style="font-size: 0.85rem; opacity: 0.75;">Support</a></li>
-            <li><a href="${basePath}pages/programs.html" style="font-size: 0.85rem; opacity: 0.75;">FAQ</a></li>
-            <li><a href="${basePath}pages/programs.html" style="font-size: 0.85rem; opacity: 0.75;">Blog</a></li>
-          </ul>
-        </div>
-        <div>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin: 0; padding: 0;">
-            <li><a href="${basePath}pages/donate.html" style="font-size: 0.85rem; opacity: 0.75;">Our Story</a></li>
-            <li><a href="${basePath}pages/team.html" style="font-size: 0.85rem; opacity: 0.75;">The Team</a></li>
-            <li><a href="${basePath}pages/contact.html" style="font-size: 0.85rem; opacity: 0.75;">Contact Us</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-
-    <!-- Bottom bar -->
-    <div style="
-      padding: 1rem 0;
-      border-top: 1px solid rgba(255,255,255,0.07);
-      font-size: 0.75rem;
-      opacity: 0.4;
-      text-align: center;
-    ">
-      &copy; 2026 Karmayog Foundation. All rights reserved.
-    </div>
-  </div>
-</footer>
-        `;
-  }
-}
-
-customElements.define("karmayog-footer", KarmayogFooter);
-
-// 7. Reusable Navbar Web Component
+/* ════════════════════════════════════════════════════════════════════
+   WEB COMPONENT — NAVBAR
+════════════════════════════════════════════════════════════════════ */
 class KarmayogNavbar extends HTMLElement {
   connectedCallback() {
-    const basePath = this.getAttribute("base-path") || "";
-
-    // Check if navbar was already inserted to avoid duplicate execution
-    if (this.innerHTML.trim() !== "") return;
-
+    if (this.innerHTML.trim()) return;
+    
+    const basePath = this.getAttribute('base-path') || '';
+    
     this.innerHTML = `
     <nav class="navbar" id="navbar">
-      <div class="container navbar-flex">
-        <a href="${basePath}index.html" class="nav-brand">
-          <img
-            src="https://karmayogfoundation.org/wp-content/uploads/2023/02/cropped-Karmayog-foundation-logo_transparent-300x300-1.png"
-            alt="Karmayog Foundation Logo"
-            style="height: 50px; width: auto"
-          />
-        </a>
-        <ul class="nav-links">
-          <li><a href="${basePath}index.html" class="nav-link">Home</a></li>
-       
-          <li><a href="${basePath}pages/programs.html" class="nav-link">What We Do</a></li>
-          <li><a href="${basePath}pages/whoarewe.html" class="nav-link">Who are we</a></li>
-          <li><a href="${basePath}pages/team.html" class="nav-link">Our Team</a></li>
-          <li><a href="${basePath}pages/donate.html" class="nav-link">Donations</a></li>
-          <li><a href="${basePath}pages/contact.html" class="nav-link">Contact</a></li>
-          <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button></li>
-          <li><a href="#" id="navNewsletterBtn" class="btn btn-donate">News Letter</a></li>
-        </ul>
+      <div class="navbar-inner">
+        <!-- Left section with logo and navigation -->
+        <div class="nav-left">
+          <a href="${basePath}index.html" class="nav-brand">
+            <img 
+              src="https://karmayogfoundation.org/wp-content/uploads/2023/02/cropped-Karmayog-foundation-logo_transparent-300x300-1.png" 
+              alt="Karmayog Foundation" 
+            />
+          </a>
+
+          <ul class="nav-links" id="navLinks">
+            <li><a href="${basePath}index.html">Home</a></li>
+            <li><a href="${basePath}pages/programs.html">What We Do</a></li>
+            <li><a href="${basePath}pages/whoarewe.html">About Us</a></li>
+            <li><a href="${basePath}pages/team.html">Our Team</a></li>
+            <li><a href="${basePath}pages/contact.html">Contact</a></li>
+            <li><button class="newsletter-link" id="navNewsletterBtn">Newsletter</button></li>
+          </ul>
+        </div>
+
+        <!-- Right section with donate button -->
+        <div class="nav-right">
+          <a href="${basePath}pages/donate.html" class="btn-nav">
+            <span class="heart-icon">❤️</span>
+            Donate Now
+          </a>
+        </div>
+
+        <!-- Hamburger for mobile -->
+        <button class="hamburger" id="hamburgerBtn" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </nav>
 
-    <!-- Newsletter Modal popup -->
-    <div id="newsletterModal" class="modal-overlay">
-      <div class="modal-box">
-        <button class="modal-close" id="closeNewsletterModal">&times;</button>
+    <!-- Newsletter Modal -->
+    <div class="modal-overlay" id="newsletterModal">
+      <div class="modal-container">
+        <button class="modal-close" id="closeModal">×</button>
         <div class="modal-header">
-          <h3>Select <span class="text-gradient">Issue</span></h3>
-          <p style="color: var(--text-secondary); margin-top: 0.5rem;">Choose a specific newsletter issue to read.</p>
+          <h3>Get the <span class="gradient-text">Newsletter</span></h3>
+          <p>Choose an issue to read</p>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
-          <button class="btn btn-outline issue-select" data-issue="Feb-2024" style="width: 100%;">February 2024 Newsletter</button>
-          <button class="btn btn-outline issue-select" data-issue="Jan-2024" style="width: 100%;">January 2024 Newsletter</button>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <button class="btn btn-outline issue-btn" data-issue="Feb-2024">February 2024 →</button>
+          <button class="btn btn-outline issue-btn" data-issue="Jan-2024">January 2024 →</button>
+          <button class="btn btn-outline issue-btn" data-issue="Dec-2023">December 2023 →</button>
+        </div>
+        <div style="margin-top: 1.5rem; text-align: center;">
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Subscribe for future issues</p>
+          <form id="newsletter-form" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <input type="email" placeholder="Your email" required style="flex: 1; padding: 0.7rem 1rem; border: 1px solid var(--border-light); border-radius: var(--r-full);">
+            <button type="submit" class="btn btn-primary" style="padding: 0.7rem 1.5rem;">Subscribe</button>
+          </form>
         </div>
       </div>
-    </div>
-    `;
+    </div>`;
 
-    // Highlight active link based on current path
+    this.initializeNavbar();
+  }
+
+  initializeNavbar() {
+    // Set active link based on current path
     const currentPath = window.location.pathname;
-    this.querySelectorAll(".nav-link").forEach((link) => {
-      // Very basic active check: if the link's href is included in the current pathname
-      if (
-        link.getAttribute("href") &&
-        currentPath.includes(link.getAttribute("href").replace("../", ""))
-      ) {
-        link.style.color = "var(--text-primary)";
+    this.querySelectorAll('.nav-links a').forEach(link => {
+      const href = link.getAttribute('href') || '';
+      
+      if (currentPath === '/' && href.includes('index')) {
+        link.classList.add('active');
+      } else if (currentPath.endsWith(href) && href !== '#') {
+        link.classList.add('active');
       }
     });
 
-    // Theme Toggle Logic
-    const themeToggle = this.querySelector("#themeToggle");
-    if (themeToggle) {
-      // Set correct icon on load
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    // Hamburger menu functionality
+    const hamburger = this.querySelector('#hamburgerBtn');
+    const navLinks = this.querySelector('#navLinks');
+    
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
 
-      themeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-          document.documentElement.removeAttribute('data-theme');
-          localStorage.setItem('karmayog-theme', 'light');
-          themeToggle.textContent = '🌙';
-        } else {
-          document.documentElement.setAttribute('data-theme', 'dark');
-          localStorage.setItem('karmayog-theme', 'dark');
-          themeToggle.textContent = '☀️';
+      // Close menu when clicking a link
+      navLinks.querySelectorAll('a, .newsletter-link').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (navLinks.classList.contains('open') && 
+            !navLinks.contains(e.target) && 
+            !hamburger.contains(e.target)) {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
         }
       });
     }
 
-    // Modal Logic
-    const newsletterBtn = this.querySelector("#navNewsletterBtn");
-    const modal = this.querySelector("#newsletterModal"); // Use this.querySelector for elements within the component
+    // Newsletter modal functionality
+    const modalBtn = this.querySelector('#navNewsletterBtn');
+    const modal = this.querySelector('#newsletterModal');
+    const closeBtn = this.querySelector('#closeModal');
+    const issueBtns = this.querySelectorAll('.issue-btn');
+    const newsletterForm = this.querySelector('#newsletter-form');
 
-    if (newsletterBtn && modal) {
-      const closeBtn = modal.querySelector("#closeNewsletterModal");
-      const issueBtns = modal.querySelectorAll(".issue-select");
+    const openModal = () => {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
 
-      newsletterBtn.addEventListener("click", () => {
-        modal.classList.add("active");
-        document.body.style.overflow = "hidden"; // Prevent background scrolling
+    const closeModal = () => {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    if (modalBtn) modalBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
       });
+    }
 
-      closeBtn.addEventListener("click", () => {
-        modal.classList.remove("active");
-        document.body.style.overflow = "";
+    // Handle newsletter form submission
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const emailInput = newsletterForm.querySelector('input[type="email"]');
+        
+        // Show success message
+        const successMsg = document.createElement('div');
+        successMsg.textContent = '✓ Subscribed successfully!';
+        successMsg.style.cssText = `
+          background: var(--grad-primary);
+          color: white;
+          padding: 0.75rem;
+          border-radius: var(--r-full);
+          margin-top: 1rem;
+          font-size: 0.9rem;
+          animation: slideUp 0.3s ease;
+        `;
+        
+        newsletterForm.appendChild(successMsg);
+        emailInput.value = '';
+        
+        setTimeout(() => {
+          successMsg.remove();
+        }, 3000);
+        
+        // Close modal after 2 seconds
+        setTimeout(() => {
+          closeModal();
+        }, 2000);
       });
+    }
 
-      // Close modal if overlay is clicked
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.classList.remove("active");
-          document.body.style.overflow = "";
+    // Handle issue buttons
+    issueBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const issue = btn.dataset.issue;
+        const basePath = this.getAttribute('base-path') || '';
+        const currentPath = window.location.pathname;
+        
+        let target = '';
+        if (currentPath.includes('/pages/')) {
+          target = `${basePath}pdf_viewer.html`;
+        } else {
+          target = `pages/pdf_viewer.html`;
         }
+        
+        window.location.href = `${target}?issue=${issue}`;
       });
+    });
 
-      // Proceed on issue selection
-      issueBtns.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const issue = e.target.getAttribute("data-issue");
+    // Keyboard escape for modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = this.querySelector('#newsletterModal');
+        if (modal && modal.classList.contains('active')) {
+          closeModal();
+        }
+      }
+    });
+  }
+}
 
-          let targetPath = `${basePath}pages/pdf_viewer.html`;
-          if (currentPath.includes("/pages/")) {
-            targetPath = `${basePath}pdf_viewer.html`;
-          } else if (basePath === "") {
-            targetPath = "pages/pdf_viewer.html";
-          }
+customElements.define('karmayog-navbar', KarmayogNavbar);
 
-          window.location.href = `${targetPath}?issue=${issue}`;
-        });
+
+class KarmayogFooter extends HTMLElement {
+  connectedCallback() {
+    const basePath = this.getAttribute('base-path') || '';
+    const year = new Date().getFullYear();
+
+    this.innerHTML = `
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <!-- Brand Column -->
+          <div class="footer-brand">
+            <img 
+              src="https://karmayogfoundation.org/wp-content/uploads/2023/02/cropped-Karmayog-foundation-logo_transparent-300x300-1.png" 
+              alt="Karmayog Foundation" 
+            />
+            <p>Uplifting underprivileged communities across rural Nepal through education, clean water, and sustainable development.</p>
+            <div class="footer-socials">
+              <a href="https://www.facebook.com/karmayogfoundation" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/karmayogfoundation" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">in</a>
+              <a href="https://www.youtube.com/@karmayogfoundation" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">▶</a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="${basePath}index.html">Home</a></li>
+              <li><a href="${basePath}pages/programs.html">Our Programs</a></li>
+              <li><a href="${basePath}pages/whoarewe.html">About Us</a></li>
+              <li><a href="${basePath}pages/team.html">Our Team</a></li>
+              <li><a href="${basePath}pages/donate.html">Donate</a></li>
+            </ul>
+          </div>
+
+          <!-- Support -->
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="${basePath}pages/contact.html">Contact Us</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#" id="footerNewsletterBtn">Newsletter</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="footer-col">
+            <h4>Reach Us</h4>
+            <div class="footer-contact">
+              <p><i class="fas fa-map-marker-alt"></i> Baneshwor, Kathmandu</p>
+              <p><i class="fas fa-envelope"></i> contact@karmayog.org</p>
+              <p><i class="fas fa-phone"></i> +977 1 234 5678</p>
+              <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© ${year} Karmayog Foundation. All rights reserved.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Sitemap</a>
+          </div>
+        </div>
+      </div>
+    </footer>`;
+
+    const footerNewsletterBtn = this.querySelector('#footerNewsletterBtn');
+    if (footerNewsletterBtn) {
+      footerNewsletterBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const modal = document.querySelector('#newsletterModal');
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
       });
     }
   }
 }
 
-customElements.define("karmayog-navbar", KarmayogNavbar);
+customElements.define('karmayog-footer', KarmayogFooter);
+
+
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+function throttle(func, limit) {
+  let inThrottle;
+  return function(...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
+
+function isInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+function formatNumber(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function preloadImages(images) {
+  images.forEach(image => {
+    const img = new Image();
+    img.src = image;
+  });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    debounce,
+    throttle,
+    isInViewport,
+    formatNumber,
+    preloadImages
+  };
+}

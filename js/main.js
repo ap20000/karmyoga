@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function animateCounter(el, target) {
       let current = 0;
-      const duration = 2000; // 2 seconds
+      const duration = 2000; 
       const steps = 60;
       const increment = target / steps;
       let step = 0;
@@ -123,9 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ═══════════════════════════════════════════════════════════════
-     4. SMOOTH SCROLL FOR ANCHOR LINKS
-  ═══════════════════════════════════════════════════════════════ */
+  
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const targetId = anchor.getAttribute('href');
@@ -298,9 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ═══════════════════════════════════════════════════════════════
-     BACK TO TOP BUTTON FUNCTIONALITY
-  ═══════════════════════════════════════════════════════════════ */
+  
   const backToTop = document.getElementById('backToTop');
   const helpButton = document.getElementById('helpButton');
 
@@ -323,15 +319,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (helpButton) {
     helpButton.addEventListener('click', () => {
-      // You can customize this to open a help modal or redirect to contact page
       window.location.href = 'pages/contact.html';
     });
   }
 });
 
-/* ════════════════════════════════════════════════════════════════════
-   WEB COMPONENT — NAVBAR
-════════════════════════════════════════════════════════════════════ */
+
 class KarmayogNavbar extends HTMLElement {
   connectedCallback() {
     if (this.innerHTML.trim()) return;
@@ -404,7 +397,6 @@ class KarmayogNavbar extends HTMLElement {
   }
 
   initializeNavbar() {
-    // Set active link based on current path
     const currentPath = window.location.pathname;
     this.querySelectorAll('.nav-links a').forEach(link => {
       const href = link.getAttribute('href') || '';
@@ -416,7 +408,6 @@ class KarmayogNavbar extends HTMLElement {
       }
     });
 
-    // Hamburger menu functionality
     const hamburger = this.querySelector('#hamburgerBtn');
     const navLinks = this.querySelector('#navLinks');
     
@@ -427,11 +418,9 @@ class KarmayogNavbar extends HTMLElement {
         hamburger.classList.toggle('open', isOpen);
         hamburger.setAttribute('aria-expanded', String(isOpen));
         
-        // Prevent body scroll when menu is open
         document.body.style.overflow = isOpen ? 'hidden' : '';
       });
 
-      // Close menu when clicking a link
       navLinks.querySelectorAll('a, .newsletter-link').forEach(link => {
         link.addEventListener('click', () => {
           navLinks.classList.remove('open');
@@ -441,7 +430,6 @@ class KarmayogNavbar extends HTMLElement {
         });
       });
 
-      // Close menu when clicking outside
       document.addEventListener('click', (e) => {
         if (navLinks.classList.contains('open') && 
             !navLinks.contains(e.target) && 
@@ -454,7 +442,6 @@ class KarmayogNavbar extends HTMLElement {
       });
     }
 
-    // Newsletter modal functionality
     const modalBtn = this.querySelector('#navNewsletterBtn');
     const modal = this.querySelector('#newsletterModal');
     const closeBtn = this.querySelector('#closeModal');
@@ -480,13 +467,11 @@ class KarmayogNavbar extends HTMLElement {
       });
     }
 
-    // Handle newsletter form submission
     if (newsletterForm) {
       newsletterForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const emailInput = newsletterForm.querySelector('input[type="email"]');
         
-        // Show success message
         const successMsg = document.createElement('div');
         successMsg.textContent = '✓ Subscribed successfully!';
         successMsg.style.cssText = `
@@ -506,14 +491,12 @@ class KarmayogNavbar extends HTMLElement {
           successMsg.remove();
         }, 3000);
         
-        // Close modal after 2 seconds
         setTimeout(() => {
           closeModal();
         }, 2000);
       });
     }
 
-    // Handle issue buttons
     issueBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const issue = btn.dataset.issue;
@@ -531,7 +514,6 @@ class KarmayogNavbar extends HTMLElement {
       });
     });
 
-    // Keyboard escape for modal
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         const modal = this.querySelector('#newsletterModal');
@@ -685,3 +667,169 @@ if (typeof module !== 'undefined' && module.exports) {
     preloadImages
   };
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  document.body.classList.add('page-loaded');
+
+
+  const cursor = document.getElementById('cursor');
+
+  if (cursor && window.innerWidth > 768) {
+    document.addEventListener('mousemove', function (e) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+      cursor.classList.add('active');
+    });
+
+    document.addEventListener('mouseleave', function () {
+      cursor.classList.remove('active');
+    });
+
+    const hoverEls = document.querySelectorAll(
+      'a, button, .btn, .programs-showcase-item, .mission-grid-item, ' +
+      '.impact-item, .stat-card, .social-link, .help-button, .back-to-top, .scroll-indicator'
+    );
+
+    hoverEls.forEach(function (el) {
+      el.addEventListener('mouseenter', function () { cursor.classList.add('hovered'); });
+      el.addEventListener('mouseleave', function () { cursor.classList.remove('hovered'); });
+    });
+
+    document.addEventListener('mousedown', function () { cursor.classList.add('clicked'); });
+    document.addEventListener('mouseup',   function () { cursor.classList.remove('clicked'); });
+  }
+
+
+  var revealEls = document.querySelectorAll('[data-reveal]');
+
+  if (revealEls.length && 'IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var delay = parseInt(entry.target.dataset.revealDelay || 0);
+          setTimeout(function () {
+            entry.target.classList.add('revealed');
+          }, delay);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('revealed'); });
+  }
+
+
+  var navbar = document.querySelector('.navbar');
+
+  function handleScroll() {
+    if (!navbar) return;
+
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+
+    var btn = document.getElementById('backToTop');
+    if (btn) {
+      if (window.scrollY > 400) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll(); 
+
+
+  var backToTopBtn = document.getElementById('backToTop');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+
+  var helpBtn = document.getElementById('helpButton');
+  if (helpBtn) {
+    helpBtn.addEventListener('click', function () {
+      window.location.href = 'pages/contact.html';
+    });
+  }
+
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+
+ 
+  (function initOrbit() {
+    var wrapper  = document.getElementById('orbitWrapper');
+    var mobileEl = document.getElementById('orbitMobile');
+    var items    = document.querySelectorAll('.orbit-item');
+
+    if (!wrapper || !items.length) return;
+
+    if (window.innerWidth <= 900) {
+      wrapper.style.display = 'none';
+      if (mobileEl) mobileEl.style.display = 'grid';
+      return;
+    }
+
+    if (mobileEl) mobileEl.style.display = 'none';
+
+    var N      = items.length;       
+    var RADIUS = 200;               
+    var SPEED  = 0.012;              
+    var CX     = wrapper.offsetWidth  / 2 || 230;
+    var CY     = wrapper.offsetHeight / 2 || 230;
+
+    var angle  = 0;    
+    var paused = false;
+    var lastT  = null;
+
+    
+    wrapper.addEventListener('mouseenter', function () { paused = true; });
+    wrapper.addEventListener('mouseleave', function () { paused = false; });
+
+    function tick(ts) {
+      if (lastT === null) lastT = ts;
+      var dt = ts - lastT;
+      lastT = ts;
+
+      if (!paused) {
+        angle += SPEED * dt * (Math.PI / 180);
+      }
+
+      items.forEach(function (item, i) {
+        var theta = angle + (i / N) * 2 * Math.PI;   
+        var x = CX + RADIUS * Math.cos(theta);
+        var y = CY + RADIUS * Math.sin(theta);
+
+        
+        item.style.left = x + 'px';
+        item.style.top  = y + 'px';
+        
+      });
+
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  })();
+
+
+}); 

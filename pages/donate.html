@@ -1,437 +1,713 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Donate | Karmayog Foundation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="../css/main.css" />
-</head>
 
-<body class="bg-secondary">
-  <!-- Navigation -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:       #2AB7CA;
+      --teal-dark:  #1a8fa0;
+      --teal-soft:  rgba(42,183,202,0.08);
+      --ink:        #0d1f2d;
+      --ink-mid:    #2e4057;
+      --muted:      #6b7f8e;
+      --font-head:  'DM Serif Display', serif;
+      --font-body:  'DM Sans', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    .w { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+
+    /* ── eyebrow ── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+    .eyebrow::before { content:''; width:22px; height:1.5px; background:var(--teal); flex-shrink:0; }
+
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+    @keyframes dotDrift { from{background-position:0 0} to{background-position:16px 16px} }
+    @keyframes modalIn  { from{opacity:0;transform:scale(0.93) translateY(12px)} to{opacity:1;transform:none} }
+
+    /* ══════════════════════════════════
+       HERO — all light, no dark bg
+    ══════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h, 80px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative; overflow: hidden;
+      background: #fff;
+    }
+
+    /* dot grid across full hero */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(42,183,202,0.09) 1.5px, transparent 1.5px);
+      background-size: 30px 30px;
+      pointer-events: none; z-index: 0;
+      animation: dotDrift 22s ease-in-out infinite alternate;
+    }
+
+    /* ghost letter */
+    .hero::after {
+      content: 'D';
+      position: absolute; bottom: -8%; right: -2%;
+      font-family: var(--font-head); font-size: clamp(18rem,30vw,42rem);
+      line-height: 1; color: rgba(42,183,202,0.04);
+      pointer-events: none; user-select: none; z-index: 0;
+    }
+
+    /* left copy side */
+    .hero-left {
+      padding: 5rem 4rem 5rem 0;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; z-index: 2;
+    }
+
+    .hero-h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem,4vw,3.8rem);
+      font-weight: 400; color: var(--ink); line-height: 1.12;
+      margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-h1 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+
+    .hero-p {
+      font-size: 1rem; line-height: 1.85; color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .hero-p:nth-of-type(1) { opacity:0; animation: fadeUp 0.8s 0.22s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .hero-p:nth-of-type(2) { opacity:0; animation: fadeUp 0.8s 0.34s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+    .hero-tagline {
+      display: flex; align-items: center; gap: 1.25rem;
+      background: var(--teal-soft);
+      border: 1px solid rgba(42,183,202,0.18);
+      border-radius: 18px; padding: 1.25rem 1.5rem;
+      margin-top: 2.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.46s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .tagline-icon {
+      width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+    }
+    .hero-tagline h4 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.2rem; }
+    .hero-tagline p  { font-size: 0.82rem; color: var(--muted); }
+
+    /* right card side */
+    .hero-right {
+      padding: 5rem 0 5rem 4rem;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    /* teal accent strip on the right */
+    .hero-right::before {
+      content: '';
+      position: absolute; top: 0; bottom: 0; right: 0;
+      width: 50vw; /* covers right half of page */
+      background: #f4fbfc;
+      z-index: -1;
+    }
+
+    /* ── DONATION CARD ── */
+    .donate-card {
+      background: #fff;
+      border-radius: 28px;
+      padding: 2.5rem;
+      border: 1px solid rgba(42,183,202,0.14);
+      box-shadow: 0 24px 72px rgba(13,31,45,0.1);
+      width: 100%; max-width: 460px;
+      opacity: 0; animation: fadeUp 0.9s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .freq-toggle {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: #f4fbfc; border-radius: 12px; padding: 4px;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(42,183,202,0.1);
+    }
+    .freq-btn {
+      padding: 0.65rem; border-radius: 9px; border: none;
+      font-family: var(--font-body); font-size: 0.86rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s;
+      background: transparent; color: var(--muted);
+    }
+    .freq-btn.active { background: var(--teal); color: #fff; box-shadow: 0 4px 14px rgba(42,183,202,0.32); }
+
+    .donate-card h3 {
+      font-family: var(--font-head); font-size: 1.2rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 1.25rem;
+    }
+
+    .amount-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.75rem; margin-bottom: 1.25rem;
+    }
+    .amt-btn {
+      padding: 1.1rem; border-radius: 14px;
+      border: 1.5px solid rgba(42,183,202,0.18);
+      background: #fff; color: var(--ink-mid);
+      font-family: var(--font-head); font-size: 1.4rem; font-weight: 400;
+      cursor: pointer; transition: all 0.25s; text-align: center;
+    }
+    .amt-btn:hover { border-color: var(--teal); background: var(--teal-soft); color: var(--teal-dark); }
+    .amt-btn.active { background: var(--teal); color: #fff; border-color: var(--teal); box-shadow: 0 6px 20px rgba(42,183,202,0.32); }
+    .amt-btn.other { font-family: var(--font-body); font-size: 1rem; font-weight: 700; }
+
+    .custom-wrap { display: none; margin-bottom: 1.25rem; }
+    .custom-wrap input {
+      width: 100%; padding: 1rem 1.25rem;
+      border-radius: 14px; border: 1.5px solid rgba(42,183,202,0.22);
+      font-family: var(--font-body); font-size: 1rem; color: var(--ink);
+      background: #f4fbfc; outline: none; transition: all 0.25s;
+    }
+    .custom-wrap input:focus { border-color: var(--teal); background: #fff; box-shadow: 0 0 0 4px rgba(42,183,202,0.1); }
+
+    .impact-msg {
+      background: var(--teal-soft);
+      border: 1px solid rgba(42,183,202,0.18);
+      border-radius: 12px; padding: 1rem 1.25rem;
+      font-size: 0.86rem; color: var(--teal-dark); font-weight: 600;
+      text-align: center; margin-bottom: 1.5rem;
+      min-height: 3rem; display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.25s;
+    }
+
+    .donate-cta {
+      width: 100%; padding: 1.1rem;
+      background: var(--teal); color: #fff;
+      border: none; border-radius: 50px;
+      font-family: var(--font-body); font-size: 1rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 8px 28px rgba(42,183,202,0.35);
+    }
+    .donate-cta:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(42,183,202,0.45); }
+
+    /* ══════════════════════════════════
+       QR POPUP MODAL
+    ══════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(13,31,45,0.55);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      background: #fff; border-radius: 28px;
+      padding: 2.5rem 2.5rem 2rem;
+      max-width: 480px; width: 100%;
+      box-shadow: 0 32px 80px rgba(13,31,45,0.2);
+      border: 1px solid rgba(42,183,202,0.12);
+      position: relative;
+      transform: scale(0.93) translateY(12px);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .modal-overlay.open .modal-box { transform: none; }
+
+    .modal-close {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: #f4f4f4; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: var(--teal); color: #fff; }
+
+    .modal-title {
+      font-family: var(--font-head); font-size: 1.6rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.4rem;
+    }
+    .modal-title em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .modal-sub { font-size: 0.86rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.65; }
+
+    .modal-body {
+      display: flex; gap: 2rem; align-items: flex-start;
+    }
+
+    .modal-qr {
+      width: 180px; height: 180px; flex-shrink: 0;
+      border-radius: 16px; overflow: hidden;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 28px rgba(13,31,45,0.12);
+      background: #fff; padding: 0.3rem;
+    }
+    .modal-qr img { width: 100%; height: 100%; object-fit: contain; }
+
+    .modal-info { flex: 1; }
+    .modal-info-row { margin-bottom: 1.1rem; }
+    .modal-info-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+    .modal-info-value { font-size: 0.94rem; font-weight: 700; color: var(--ink); }
+    .modal-info-value.mono {
+      font-family: monospace; font-size: 1.15rem;
+      color: var(--teal); background: var(--teal-soft);
+      padding: 0.35rem 0.75rem; border-radius: 8px;
+      display: inline-block;
+    }
+
+    .modal-amount-badge {
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      color: #fff; border-radius: 12px; padding: 1rem 1.25rem;
+      margin-top: 1.5rem; text-align: center;
+      font-size: 0.82rem; font-weight: 600;
+    }
+    .modal-amount-badge strong { font-family: var(--font-head); font-size: 1.5rem; display: block; margin-bottom: 0.2rem; }
+
+    .modal-footer {
+      margin-top: 1.75rem; padding-top: 1.25rem;
+      border-top: 1px solid rgba(42,183,202,0.1);
+      font-size: 0.78rem; color: var(--muted); text-align: center; line-height: 1.6;
+    }
+    .modal-footer a { color: var(--teal); font-weight: 600; }
+
+    /* ══════════════════════════════════
+       DIRECT TRANSFER SECTION — light
+    ══════════════════════════════════ */
+    .transfer-section { padding: 7rem 0; background: #f4fbfc; position: relative; overflow: hidden; }
+    .transfer-section::after {
+      content: ''; position: absolute; bottom: -120px; left: -120px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.07), transparent 65%);
+      pointer-events: none;
+    }
+
+    .sec-head { text-align: center; margin-bottom: 4rem; }
+    .sec-head h2 { font-family: var(--font-head); font-size: clamp(2rem,4vw,3rem); font-weight: 400; color: var(--ink); margin-top: 0.5rem; }
+    .sec-head h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+
+    .transfer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; position: relative; z-index: 2; }
+
+    .bank-card {
+      background: #fff; border-radius: 24px;
+      border: 1px solid rgba(42,183,202,0.1);
+      border-left: 4px solid var(--teal);
+      box-shadow: 0 8px 32px rgba(13,31,45,0.07);
+      padding: 2.5rem; transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .bank-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(42,183,202,0.14); }
+    .card-icon { font-size: 2.4rem; margin-bottom: 1rem; opacity: 0.85; }
+    .bank-card h3 { font-family: var(--font-head); font-size: 1.7rem; font-weight: 400; color: var(--ink); margin-bottom: 2rem; }
+    .bank-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid rgba(42,183,202,0.07); }
+    .bank-row:last-child { border-bottom: none; }
+    .bank-label { font-size: 0.86rem; color: var(--muted); }
+    .bank-value { font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .bank-acc { font-family: monospace; font-size: 1.15rem; font-weight: 800; color: var(--teal); background: var(--teal-soft); padding: 0.45rem 0.9rem; border-radius: 8px; }
+
+    .esewa-card {
+      background: linear-gradient(135deg, #f0fdf8, #e8faf4);
+      border-radius: 24px;
+      border: 1px solid rgba(34,197,94,0.2);
+      border-left: 4px solid #22c55e;
+      box-shadow: 0 8px 32px rgba(13,31,45,0.07);
+      padding: 2.5rem; display: flex; gap: 2rem; align-items: flex-start;
+      transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .esewa-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(34,197,94,0.14); }
+    .esewa-info { flex: 1; }
+    .esewa-card h3 { font-family: var(--font-head); font-size: 1.7rem; font-weight: 400; color: var(--ink); margin-bottom: 1.25rem; }
+    .esewa-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+    .esewa-num-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.25rem; }
+    .esewa-num { font-family: monospace; font-size: 1.2rem; font-weight: 800; color: #166534; background: rgba(22,101,52,0.1); padding: 0.45rem 0.9rem; border-radius: 8px; }
+    .qr-wrap { width: 180px; height: 180px; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,0.1); border: 4px solid #fff; flex-shrink: 0; background: #fff; padding: 0.3rem; }
+    .qr-wrap img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* ══════════════════════════════════
+       MISSION/VISION — light bg
+    ══════════════════════════════════ */
+    .mission-section {
+      padding: 8rem 0;
+      background: #fff;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    /* soft teal radial glow instead of dark bg */
+    .mission-section::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%; height: 80%; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .mission-inner { position: relative; z-index: 2; }
+    .mission-kicker { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.25rem; }
+    .mission-quote {
+      font-family: var(--font-head); font-size: clamp(2.4rem,5vw,4rem);
+      font-weight: 400; color: var(--ink); margin-bottom: 6rem; line-height: 1.2;
+    }
+    .mission-quote em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+
+    /* decorative line between mission and vision */
+    .mv-divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(to right, var(--teal), transparent);
+      margin: 0 auto 4rem; border-radius: 2px;
+    }
+
+    .vision-kicker { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.25rem; }
+    .vision-text { font-size: 1.25rem; color: var(--ink-mid); line-height: 1.85; max-width: 860px; margin: 0 auto 1.5rem; }
+    .vision-sub  { font-size: 1.05rem; color: var(--muted); line-height: 1.85; max-width: 860px; margin: 0 auto; }
+
+    /* ══════════════════════════════════
+       MAKE A DIFFERENCE — light bg
+    ══════════════════════════════════ */
+    .diff-section { padding: 7rem 0; background: #f4fbfc; }
+    .diff-head { text-align: center; margin-bottom: 4rem; }
+    .diff-head h2 { font-family: var(--font-head); font-size: clamp(2rem,4vw,3.2rem); font-weight: 400; color: var(--ink); }
+    .diff-head h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+
+    .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+
+    .diff-card {
+      background: #fff; border-radius: 24px; overflow: hidden;
+      border: 1px solid rgba(42,183,202,0.1);
+      box-shadow: 0 8px 32px rgba(13,31,45,0.07);
+      display: flex; flex-direction: column;
+      transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .diff-card:hover { transform: translateY(-8px); box-shadow: 0 24px 64px rgba(42,183,202,0.14); border-color: rgba(42,183,202,0.22); }
+
+    .diff-img { height: 300px; overflow: hidden; }
+    .diff-img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85); transition: transform 9s ease; }
+    .diff-card:hover .diff-img img { transform: scale(1.05); }
+
+    .diff-body { padding: 2.5rem; flex: 1; display: flex; flex-direction: column; }
+    .diff-body h2 { font-family: var(--font-head); font-size: 2rem; font-weight: 400; color: var(--ink); margin-bottom: 1.25rem; }
+    .diff-body p { font-size: 0.92rem; color: var(--muted); line-height: 1.82; flex: 1; }
+
+    .contact-box { background: #f0fdf8; border: 1px solid #bbf7d0; border-radius: 14px; padding: 1.25rem 1.5rem; margin-top: 2rem; }
+    .contact-box h4 { font-size: 0.9rem; font-weight: 700; color: #166534; margin-bottom: 0.5rem; }
+    .contact-box p { font-size: 0.86rem; color: var(--muted); margin-bottom: 0.25rem; }
+    .contact-box strong { color: var(--ink); }
+
+    .partner-cta { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--ink); color: #fff; padding: 0.9rem 2rem; border-radius: 50px; font-size: 0.9rem; font-weight: 700; margin-top: 2rem; transition: all 0.3s; }
+    .partner-cta:hover { background: var(--teal); transform: translateY(-2px); }
+
+    /* ── scroll reveal ── */
+    [data-r] { opacity:0; transition: opacity 0.95s cubic-bezier(0.16,1,0.3,1), transform 0.95s cubic-bezier(0.16,1,0.3,1); }
+    [data-r="up"]    { transform: translateY(36px); }
+    [data-r="right"] { transform: translateX(-36px); }
+    [data-r="left"]  { transform: translateX(36px); }
+    [data-r].on { opacity:1 !important; transform: none !important; }
+    [data-d="1"] { transition-delay: 0.12s; }
+    [data-d="2"] { transition-delay: 0.24s; }
+
+    /* ── responsive ── */
+    @media(max-width:1100px){
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 4rem 2.5rem 3rem; }
+      .hero-right { padding: 3rem 2.5rem 4rem; }
+      .hero-right::before { display: none; }
+      .transfer-grid, .diff-grid { grid-template-columns: 1fr; }
+      .esewa-card { flex-direction: column; }
+      .qr-wrap { width: 160px; height: 160px; }
+    }
+    @media(max-width:640px){
+      .w { padding: 0 1.25rem; }
+      .donate-card { padding: 1.75rem; }
+      .modal-body { flex-direction: column; align-items: center; }
+      .modal-qr { width: 150px; height: 150px; }
+    }
+  </style>
+</head>
+<body data-nav-fixed="true">
+
+  <div class="hover-cursor" id="cursor"></div>
   <karmayog-navbar base-path="../"></karmayog-navbar>
 
-  <!-- Super Clean Donation Checkout Area -->
-  <section class="hero-massive" style="
-        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210425_172542_983-scaled.jpg');
-        background-position: center;
-        background-size: cover;
-        background-attachment: fixed;
-        padding-top: 150px;
-        padding-bottom: 8rem;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        position: relative;
-      ">
-    <div
-      style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13, 148, 136, 0.95) 0%, rgba(17, 24, 39, 0.9) 100%); z-index: 1;">
-    </div>
-    <div class="container grid-open" style="align-items: flex-start; position: relative; z-index: 2;">
-      <!-- Left Side: The "Why" -->
-      <div class="grid-col-6 fade-in-up bento-item" style="padding-right: 2rem">
-        <span style="
-              color: var(--color-extra-light-teal);
-              font-weight: 700;
-              letter-spacing: 0.15em;
-              text-transform: uppercase;
-              margin-bottom: 1rem;
-              display: block;
-            ">Donations</span>
-        <h1 style="
-              font-size: clamp(2.5rem, 4vw, 3.5rem);
-              letter-spacing: -0.05em;
-              line-height: 1.1;
-              color: white;
-            ">
-          We are a worldwide ministry where millions of children reap the benefits of one man’s vision.
-        </h1>
-        <p class="lead-text"
-          style="margin-top: 2rem; color: rgba(255,255,255,0.9); font-size: 1.15rem; line-height: 1.8;">
-          Empower positive change with your contribution to Karmayog Foundation, where every donation is a direct
-          catalyst for impactful initiatives. Whether you choose to be a Lifetime Member or General Member, your support
-          plays a pivotal role in uplifting underprivileged communities in rural Nepal.
-        </p>
-        <p style="margin-top: 1.5rem; color: rgba(255,255,255,0.8); font-size: 1rem; line-height: 1.8;">
-          Our transparent donation process ensures that your generosity directly reaches those in need, contributing to
-          vital programs in Education, Health, Environment Protection, Income Generation, Skill Development, Animal
-          Welfare, and Disaster Relief. Thank you for considering Karmayog Foundation as your partner in philanthropy.
-        </p>
-
-        <div class="card glass-card" style="
-              margin-top: 3rem;
-              display: flex;
-              align-items: center;
-              gap: 1.5rem;
-              padding: 1.5rem;
-              background: rgba(255,255,255,0.05);
-              border: 1px solid rgba(255,255,255,0.1);
-            ">
-          <div style="
-                width: 60px;
-                height: 60px;
-                background: white;
-                color: var(--color-primary-teal);
-                border-radius: 50%;
-                box-shadow: var(--shadow-sm);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.5rem;
-              ">
-            🤝
-          </div>
-          <div>
-            <h3 style="margin: 0; font-size: 1.25rem; color: white;">Bringing people together</h3>
-            <p style="margin: 0.5rem 0 0; font-size: 1rem; color: rgba(255,255,255,0.8);">
-              To end poverty for good.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Side: The "Checkout" Board -->
-      <div class="grid-col-6 fade-in-up delay-1 bento-item">
-        <div class="card glass-card" style="
-              padding: 4rem; 
-              background: var(--glass-bg); 
-              backdrop-filter: blur(16px); 
-              -webkit-backdrop-filter: blur(16px); 
-              border: 1px solid var(--glass-border);
-              box-shadow: var(--glass-shadow);
-            ">
-          <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
-            <button id="btn-monthly" class="btn btn-primary freq-btn" style="flex: 1; border-radius: 8px">
-              Give Monthly
-            </button>
-            <button id="btn-once" class="btn btn-outline freq-btn" style="flex: 1; border-radius: 8px">
-              Give Once
-            </button>
-          </div>
-
-          <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem">
-            Select an amount (NPR)
-          </h3>
-
-          <div id="donation-grid" style="
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-                margin-bottom: 1.5rem;
-              ">
-            <button class="btn-outline amount-btn" data-amount="1000" style="
-                  padding: 1.5rem;
-                  font-size: 1.5rem;
-                  font-weight: 700;
-                  border-radius: 8px;
-                  width: 100%;
-                ">
-              1,000
-            </button>
-            <button class="btn-primary amount-btn active" data-amount="5000" style="
-                  padding: 1.5rem;
-                  font-size: 1.5rem;
-                  font-weight: 700;
-                  border-radius: 8px;
-                  width: 100%;
-                ">
-              5,000
-            </button>
-            <button class="btn-outline amount-btn" data-amount="10000" style="
-                  padding: 1.5rem;
-                  font-size: 1.5rem;
-                  font-weight: 700;
-                  border-radius: 8px;
-                  width: 100%;
-                ">
-              10,000
-            </button>
-            <button class="btn-outline amount-btn" id="btn-other" style="
-                  padding: 1.5rem;
-                  font-size: 1.5rem;
-                  font-weight: 700;
-                  border-radius: 8px;
-                  width: 100%;
-                ">
-              Other
-            </button>
-          </div>
-
-          <div id="custom-amount-container" style="display: none; margin-bottom: 1.5rem;">
-            <input type="number" id="custom-amount" placeholder="Enter custom amount (NPR)" style="
-                 width: 100%; 
-                 padding: 1.5rem; 
-                 font-size: 1.25rem; 
-                 border-radius: 8px; 
-                 border: 2px solid var(--color-primary-teal);
-               ">
-          </div>
-
-          <div style="
-                min-height: 3.5rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 2rem;
-              ">
-            <p id="impact-message" class="impact-msg" style="
-                    font-size: 1rem;
-                    color: var(--color-dark-teal);
-                    font-weight: 600;
-                    text-align: center;
-                    margin: 0;
-                    padding: 1rem;
-                    background: var(--color-extra-light-teal);
-                    border-radius: 8px;
-                    width: 100%;
-                    border: 1px solid rgba(20, 184, 166, 0.2);
-                  ">
-              NPR 5,000 can provide clean drinking water to a school for a year.
-            </p>
-          </div>
-
-          <button class="btn btn-donate btn-premium" style="
-                width: 100%;
-                font-size: 1.25rem;
-                padding: 1.5rem;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-              ">
-            Complete Donation <span style="font-size: 1.5rem;">&rarr;</span>
-          </button>
-
+  <!-- ══════════════════════════════════
+       HERO
+  ══════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-left w" style="max-width:none; padding-left:max(2.5rem, calc((100vw - 1280px)/2 + 2.5rem)); padding-right:4rem;">
+      <span class="eyebrow" style="opacity:0;animation:fadeUp 0.7s 0.02s cubic-bezier(0.16,1,0.3,1) forwards;">Donations</span>
+      <h1 class="hero-h1">We are a worldwide ministry where millions of children reap the benefits of one man's <em>vision.</em></h1>
+      <p class="hero-p">Empower positive change with your contribution to Karmayog Foundation, where every donation is a direct catalyst for impactful initiatives. Whether you choose to be a Lifetime Member or General Member, your support plays a pivotal role in uplifting underprivileged communities in rural Nepal.</p>
+      <p class="hero-p">Our transparent donation process ensures that your generosity directly reaches those in need, contributing to vital programs in Education, Health, Environment Protection, Income Generation, Skill Development, Animal Welfare, and Disaster Relief. Thank you for considering Karmayog Foundation as your partner in philanthropy.</p>
+      <div class="hero-tagline">
+        <div class="tagline-icon">🤝</div>
+        <div>
+          <h4>Bringing people together</h4>
+          <p>To end poverty for good.</p>
         </div>
       </div>
     </div>
-    </div>
-  </section>
 
-  <!-- New Dedicated Direct Transfer Section -->
-  <section class="section" style="padding: 6rem 0; background: var(--color-white);">
-    <div class="container fade-in-up bento-item">
-      <div style="text-align: center; margin-bottom: 4rem;">
-        <span
-          style="color: var(--color-primary-teal); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;">Alternative
-          Ways To Give</span>
-        <h2 style="font-size: 2.5rem; margin-top: 0.5rem; color: var(--color-dark-tone);">Direct <span
-            class="text-gradient">Transfer</span></h2>
-      </div>
-
-      <div class="grid grid-cols-2" style="gap: 3rem; align-items: stretch;">
-
-        <!-- Bank Details Card -->
-        <div class="card glass-card hover-lift" style="
-          padding: 3rem; 
-          background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-          border: 1px solid rgba(13, 148, 136, 0.1);
-          border-left: 4px solid var(--color-primary-teal);
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        ">
-          <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;">🏦</div>
-          <h3 style="font-size: 1.75rem; color: var(--color-dark-tone); margin-bottom: 2rem;">Bank Deposit</h3>
-
-          <div
-            style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1rem; margin-bottom: 1rem;">
-            <span style="color: var(--text-secondary); font-size: 1.1rem;">Account Name:</span>
-            <span style="font-weight: 700; font-size: 1.15rem; color: var(--color-dark-tone);">Karmayog
-              Foundation</span>
-          </div>
-
-          <div
-            style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1rem; margin-bottom: 1rem;">
-            <span style="color: var(--text-secondary); font-size: 1.1rem;">Bank Name:</span>
-            <span style="font-weight: 700; font-size: 1.15rem; color: var(--color-dark-tone);">Kumari Bank</span>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="color: var(--text-secondary); font-size: 1.1rem;">Account Number:</span>
-            <span
-              style="font-weight: 800; font-family: monospace; font-size: 1.5rem; color: var(--color-primary-teal); background: rgba(13, 148, 136, 0.1); padding: 0.5rem 1rem; border-radius: 6px;">0010122706600001</span>
-          </div>
+    <div class="hero-right">
+      <div class="donate-card">
+        <div class="freq-toggle">
+          <button class="freq-btn active" onclick="setFreq('monthly',this)">Give Monthly</button>
+          <button class="freq-btn"        onclick="setFreq('once',this)">Give Once</button>
         </div>
-
-        <!-- eSewa QR Card -->
-        <div class="card glass-card hover-lift" style="
-          padding: 3rem; 
-          background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-          border: 1px solid rgba(34, 197, 94, 0.2);
-          border-left: 4px solid #22c55e;
-          display: flex;
-          gap: 2rem;
-          align-items: center;
-        ">
-          <div style="flex: 1;">
-            <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;">📱</div>
-            <h3 style="font-size: 1.75rem; color: var(--color-dark-tone); margin-bottom: 1.5rem;">eSewa / FonePay</h3>
-            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
-              Simply scan the QR code located on the right with your mobile banking app or eSewa wallet to make an
-              instant, secure transfer.
-            </p>
-            <div style="display: inline-block;">
-              <span
-                style="color: var(--text-secondary); font-size: 0.9rem; display: block; margin-bottom: 0.25rem;">Direct
-                Number:</span>
-              <span
-                style="font-weight: 800; font-family: monospace; font-size: 1.25rem; color: #166534; background: rgba(22, 101, 52, 0.1); padding: 0.5rem 1rem; border-radius: 6px;">9851139412</span>
-            </div>
-          </div>
-
-          <!-- Large prominent QR code -->
-          <div style="
-            width: 220px; 
-            height: 220px; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            border: 4px solid white;
-            flex-shrink: 0;
-            background: white;
-            padding: 0.5rem;
-          ">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/fone_pay-1-931x1024.jpg"
-              alt="FonePay QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
-          </div>
+        <h3>Select an amount (NPR)</h3>
+        <div class="amount-grid">
+          <button class="amt-btn"        data-amount="1000"  onclick="selectAmt(1000,this)">1,000</button>
+          <button class="amt-btn active" data-amount="5000"  onclick="selectAmt(5000,this)">5,000</button>
+          <button class="amt-btn"        data-amount="10000" onclick="selectAmt(10000,this)">10,000</button>
+          <button class="amt-btn other"  id="btn-other"      onclick="toggleOther(this)">Other</button>
         </div>
-
+        <div class="custom-wrap" id="custom-wrap">
+          <input type="number" id="custom-amount" placeholder="Enter custom amount (NPR)" oninput="customChanged()" />
+        </div>
+        <div class="impact-msg" id="impact-msg">NPR 5,000 can provide clean drinking water to a school for a year.</div>
+        <button class="donate-cta" onclick="openModal()">
+          Complete Donation <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- Mission and Vision -->
-  <section class="section"
-    style="padding: 10rem 0; text-align: center; background: var(--color-dark-tone); position: relative; overflow: hidden;">
-    <!-- Abstract glowing orbs -->
-    <div
-      style="position: absolute; top: -20%; left: -10%; width: 50%; height: 50%; background: var(--color-primary-teal); border-radius: 50%; filter: blur(150px); opacity: 0.2; pointer-events: none;">
-    </div>
-    <div
-      style="position: absolute; bottom: -20%; right: -10%; width: 40%; height: 40%; background: #0284c7; border-radius: 50%; filter: blur(120px); opacity: 0.15; pointer-events: none;">
-    </div>
+  <!-- ══════════════════════════════════
+       QR PAYMENT MODAL
+  ══════════════════════════════════ -->
+  <div class="modal-overlay" id="donate-modal" onclick="closeModalOutside(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
 
-    <div class="container fade-in-up bento-item" style="position: relative; z-index: 10;">
-      <h2
-        style="font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-primary-teal); margin-bottom: 2rem;">
-        Our Mission</h2>
-      <p
-        style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; color: white; margin-bottom: 8rem; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        "Selfless Service to the Helpless"
-      </p>
+      <div class="modal-title">Scan to <em>Pay</em></div>
+      <p class="modal-sub">Scan the QR code below with your eSewa or FonePay app to complete your donation securely.</p>
 
-      <h2
-        style="font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-primary-teal); margin-bottom: 2rem;">
-        Our Vision</h2>
-      <p class="lead-text"
-        style="max-width: 900px; margin: 0 auto 2rem; color: rgba(255,255,255,0.9); font-size: 1.5rem; line-height: 1.8;">
-        Karmayog Foundation’s core focus is to uplift the living standards of the underprivileged and marginalized
-        community through various focus based programs especially designed to address the needs of the target community
-        in the select project area in rural Nepal.
-      </p>
-      <p style="max-width: 900px; margin: 0 auto; color: rgba(255,255,255,0.6); font-size: 1.25rem; line-height: 1.8;">
-        In addition, Animal Welfare and Rapid Response to Natural Calamities shall also form a priority on need-to-need
-        basis.
-      </p>
+      <div class="modal-body">
+        <div class="modal-qr">
+          <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/fone_pay-1-931x1024.jpg" alt="FonePay QR Code" />
+        </div>
+        <div class="modal-info">
+          <div class="modal-info-row">
+            <div class="modal-info-label">Platform</div>
+            <div class="modal-info-value">eSewa / FonePay</div>
+          </div>
+          <div class="modal-info-row">
+            <div class="modal-info-label">Direct Number</div>
+            <div class="modal-info-value mono">9851139412</div>
+          </div>
+          <div class="modal-info-row">
+            <div class="modal-info-label">Recipient</div>
+            <div class="modal-info-value">Karmayog Foundation</div>
+          </div>
+          <div class="modal-amount-badge">
+            <strong id="modal-amount-display">NPR 5,000</strong>
+            Selected donation amount
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        After payment, please send a screenshot to <a href="mailto:contact@karmayogfoundation.org">contact@karmayogfoundation.org</a> for confirmation.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       DIRECT TRANSFER
+  ══════════════════════════════════ -->
+  <section class="transfer-section">
+    <div class="w">
+      <div class="sec-head" data-r="up">
+        <span class="eyebrow">Alternative Ways To Give</span>
+        <h2>Direct <em>Transfer</em></h2>
+      </div>
+      <div class="transfer-grid">
+        <div class="bank-card" data-r="right">
+          <div class="card-icon">🏦</div>
+          <h3>Bank Deposit</h3>
+          <div class="bank-row"><span class="bank-label">Account Name</span><span class="bank-value">Karmayog Foundation</span></div>
+          <div class="bank-row"><span class="bank-label">Bank Name</span><span class="bank-value">Kumari Bank</span></div>
+          <div class="bank-row"><span class="bank-label">Account Number</span><span class="bank-acc">0010122706600001</span></div>
+        </div>
+        <div class="esewa-card" data-r="left">
+          <div class="esewa-info">
+            <div class="card-icon">📱</div>
+            <h3>eSewa / FonePay</h3>
+            <p>Simply scan the QR code with your mobile banking app or eSewa wallet to make an instant, secure transfer.</p>
+            <span class="esewa-num-label">Direct Number</span>
+            <span class="esewa-num">9851139412</span>
+          </div>
+          <div class="qr-wrap">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/fone_pay-1-931x1024.jpg" alt="FonePay QR Code" />
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Get Involved Bento Grid -->
-  <section class="section bg-secondary" style="padding: 8rem 0;">
-    <div class="container">
-      <div style="text-align: center; margin-bottom: 4rem;">
-        <h2 style="font-size: 3rem; color: var(--color-dark-tone);">Make A <span class="text-gradient">Difference</span>
-        </h2>
+  <!-- ══════════════════════════════════
+       MISSION & VISION — light bg
+  ══════════════════════════════════ -->
+  <section class="mission-section">
+    <div class="w mission-inner">
+      <div data-r="up">
+        <div class="mission-kicker">Our Mission</div>
+        <div class="mission-quote">"Selfless Service to <em>the Helpless</em>"</div>
       </div>
+      <div class="mv-divider"></div>
+      <div data-r="up" data-d="1">
+        <div class="vision-kicker">Our Vision</div>
+        <p class="vision-text">Karmayog Foundation's core focus is to uplift the living standards of the underprivileged and marginalized community through various focus based programs especially designed to address the needs of the target community in the select project area in rural Nepal.</p>
+        <p class="vision-sub">In addition, Animal Welfare and Rapid Response to Natural Calamities shall also form a priority on need-to-need basis.</p>
+      </div>
+    </div>
+  </section>
 
-      <div class="grid grid-cols-2" style="gap: 3rem; align-items: stretch;">
-        <!-- Volunteer Card -->
-        <div class="fade-in-up bento-item">
-          <div class="card glass-card hover-lift" style="
-              background: white; 
-              border: 1px solid rgba(0,0,0,0.05); 
-              border-radius: var(--radius-lg); 
-              overflow: hidden;
-              height: 100%;
-              display: flex;
-              flex-direction: column;
-              box-shadow: var(--shadow-float);
-          ">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221107-WA0014-1024x577.jpg"
-              style="width: 100%; height: 350px; object-fit: cover; display: block;"
-              alt="Volunteer with Karmayog Foundation" />
-            <div style="padding: 3.5rem; flex-grow: 1; display: flex; flex-direction: column;">
-              <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--color-dark-tone);">Volunteer</h2>
-              <p
-                style="color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.8; flex-grow: 1;">
-                Join our mission at Karmayog Foundation by becoming a volunteer and making a difference in the lives of
-                those in need. Your time and efforts can contribute to impactful programs in Education, Health,
-                Environment Protection, Income Generation, Skill Development, Animal Welfare, and Disaster Relief.
-                Your heartwarming dedication can create positive change, and we look forward to welcoming you into our
-                compassionate community.
-              </p>
-
-              <div
-                style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
-                <h4 style="margin: 0 0 0.5rem 0; color: #166534; font-size: 1.1rem;">Ready to Help?</h4>
-                <p style="margin: 0; font-size: 1rem; color: var(--text-secondary);"><strong
-                    style="color: var(--color-dark-tone);">Email:</strong> saurav@karmayogfoundation.org</p>
-                <p style="margin: 0.5rem 0 0; font-size: 1rem; color: var(--text-secondary);"><strong
-                    style="color: var(--color-dark-tone);">Phone:</strong> 9851139412</p>
-              </div>
+  <!-- ══════════════════════════════════
+       MAKE A DIFFERENCE
+  ══════════════════════════════════ -->
+  <section class="diff-section">
+    <div class="w">
+      <div class="diff-head" data-r="up">
+        <h2>Make A <em>Difference</em></h2>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-card" data-r="right">
+          <div class="diff-img">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221107-WA0014-1024x577.jpg" alt="Volunteer" />
+          </div>
+          <div class="diff-body">
+            <h2>Volunteer</h2>
+            <p>Join our mission at Karmayog Foundation by becoming a volunteer and making a difference in the lives of those in need. Your time and efforts can contribute to impactful programs in Education, Health, Environment Protection, Income Generation, Skill Development, Animal Welfare, and Disaster Relief. Your heartwarming dedication can create positive change, and we look forward to welcoming you into our compassionate community.</p>
+            <div class="contact-box">
+              <h4>Ready to Help?</h4>
+              <p><strong>Email:</strong> saurav@karmayogfoundation.org</p>
+              <p><strong>Phone:</strong> 9851139412</p>
             </div>
           </div>
         </div>
-
-        <!-- Partner Card -->
-        <div class="fade-in-up delay-1 bento-item">
-          <div class="card glass-card hover-lift" style="
-              background: white; 
-              border: 1px solid rgba(0,0,0,0.05); 
-              border-radius: var(--radius-lg); 
-              overflow: hidden;
-              height: 100%;
-              display: flex;
-              flex-direction: column;
-              box-shadow: var(--shadow-float);
-          ">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211103_111643_496-819x1024.jpg"
-              style="width: 100%; height: 350px; object-fit: cover; object-position: center 20%; display: block;"
-              alt="Become A Partner" />
-            <div style="padding: 3.5rem; flex-grow: 1; display: flex; flex-direction: column;">
-              <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--color-dark-tone);">Become A Partner</h2>
-              <p style="color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.8;">
-                Establish a significant connection with corporate social responsibility by fostering a strategic
-                partnership with Karmayog Foundation. Your esteemed company has the opportunity to engage in impactful
-                initiatives spanning critical areas.
-              </p>
-              <p
-                style="color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 2rem; line-height: 1.8; flex-grow: 1;">
-                In envisioning a future where corporate responsibility transcends traditional boundaries, your support
-                becomes a catalyst for transformative impact. By uniting with us, your company assumes a pivotal role in
-                fostering sustainable
-                development within underprivileged communities.
-              </p>
-              <a href="mailto:saurav@karmayogfoundation.org" class="btn btn-primary"
-                style="background: var(--color-dark-tone); border: none; font-size: 1.1rem; padding: 1rem 2rem; text-align: center; margin-top: 2rem;">
-                Contact Partnership Team &rarr;
-              </a>
-            </div>
+        <div class="diff-card" data-r="left">
+          <div class="diff-img">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211103_111643_496-819x1024.jpg" alt="Become A Partner" style="object-position: center 20%;" />
+          </div>
+          <div class="diff-body">
+            <h2>Become A Partner</h2>
+            <p>Establish a significant connection with corporate social responsibility by fostering a strategic partnership with Karmayog Foundation. Your esteemed company has the opportunity to engage in impactful initiatives spanning critical areas. In envisioning a future where corporate responsibility transcends traditional boundaries, your support becomes a catalyst for transformative impact. By uniting with us, your company assumes a pivotal role in fostering sustainable development within underprivileged communities.</p>
+            <a href="mailto:saurav@karmayogfoundation.org" class="partner-cta">Contact Partnership Team <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
+    </div>
   </section>
 
-  <karmayog-footer></karmayog-footer>
+  <div class="help-section">
+    <div class="help-button" id="helpButton"><i class="fas fa-question-circle"></i><span>Help?</span></div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></div>
+  </div>
 
+  <karmayog-footer base-path="../"></karmayog-footer>
   <script src="../js/main.js"></script>
-</body>
 
+  <script>
+  var currentAmt = 5000;
+  var currentFreq = 'monthly';
+
+  var impacts = {
+    1000:  'NPR 1,000 can provide school supplies for 5 children.',
+    5000:  'NPR 5,000 can provide clean drinking water to a school for a year.',
+    10000: 'NPR 10,000 funds a month of healthcare for an entire village.'
+  };
+
+  function setFreq(f, el) {
+    currentFreq = f;
+    document.querySelectorAll('.freq-btn').forEach(function(b){ b.classList.remove('active'); });
+    el.classList.add('active');
+  }
+
+  function selectAmt(amt, el) {
+    currentAmt = amt;
+    document.querySelectorAll('.amt-btn').forEach(function(b){ b.classList.remove('active'); });
+    el.classList.add('active');
+    document.getElementById('custom-wrap').style.display = 'none';
+    fadeMsg(impacts[amt] || 'Your generous contribution makes a real difference.');
+  }
+
+  function toggleOther(el) {
+    document.querySelectorAll('.amt-btn').forEach(function(b){ b.classList.remove('active'); });
+    el.classList.add('active');
+    var w = document.getElementById('custom-wrap');
+    var isOpen = w.style.display === 'block';
+    w.style.display = isOpen ? 'none' : 'block';
+    if (!isOpen) document.getElementById('custom-amount').focus();
+  }
+
+  function customChanged() {
+    var v = parseInt(document.getElementById('custom-amount').value);
+    if (!v || v <= 0) return;
+    currentAmt = v;
+    fadeMsg('NPR ' + v.toLocaleString() + ' — thank you for your generous contribution!');
+  }
+
+  function fadeMsg(txt) {
+    var el = document.getElementById('impact-msg');
+    el.style.opacity = '0';
+    setTimeout(function(){ el.textContent = txt; el.style.opacity = '1'; }, 220);
+  }
+
+  /* ── QR Modal ── */
+  function openModal() {
+    /* update amount in modal */
+    var display = 'NPR ' + currentAmt.toLocaleString();
+    if (currentFreq === 'monthly') display += ' / month';
+    document.getElementById('modal-amount-display').textContent = display;
+    document.getElementById('donate-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('donate-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('donate-modal')) closeModal();
+  }
+
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
+  /* ── scroll reveal ── */
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('impact-msg').style.transition = 'opacity 0.22s';
+
+    var els = document.querySelectorAll('[data-r]');
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        var d = parseInt(e.target.dataset.d || 0) * 140;
+        setTimeout(function(){ e.target.classList.add('on'); }, d);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el){ io.observe(el); });
+    setTimeout(function(){ els.forEach(function(el){ el.classList.add('on'); }); }, 3200);
+
+    var btt = document.getElementById('backToTop');
+    if (btt) {
+      window.addEventListener('scroll', function(){ btt.classList.toggle('visible', window.scrollY > 500); });
+      btt.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+    }
+    var hb = document.getElementById('helpButton');
+    if (hb) hb.addEventListener('click', function(){ window.location.href='../pages/contact.html'; });
+  });
+  </script>
+</body>
 </html>

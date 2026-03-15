@@ -1,209 +1,502 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Newsletter | Karmayog Foundation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="../css/main.css" />
-</head>
 
-<body>
-  <!-- Navigation -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #2AB7CA;
+      --teal-dark:  #1a8fa0;
+      --teal-soft:  rgba(42,183,202,0.09);
+      --ink:        #0d1f2d;
+      --ink-mid:    #2e4057;
+      --muted:      #6b7f8e;
+      --font-head:  'DM Serif Display', serif;
+      --font-body:  'DM Sans', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+      --nav:        80px;
+      --side:       2.5rem;   /* left/right page margin */
+    }
+
+    /* ── reset that could block scroll ── */
+    html { overflow-y: scroll; }    /* always show scrollbar, prevents layout shift */
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: #f2fafc;
+      /* only the navbar height as top offset — nothing else */
+      padding-top: var(--nav);
+      /* CRITICAL: no height, no overflow constraints */
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ════════════════════════════════════
+       TOP BAR  (transparent, not sticky)
+    ════════════════════════════════════ */
+    .top-bar {
+      background: transparent;
+      padding: 1.25rem var(--side);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tbr-left { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; }
+
+    .tbr-heading {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 400; color: var(--ink); line-height: 1;
+    }
+    .tbr-heading em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+
+    .tbr-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--teal-soft);
+      border: 1px solid rgba(42,183,202,0.2);
+      border-radius: 50px; padding: 0.28rem 0.9rem;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; color: var(--teal-dark);
+      transition: all 0.35s;
+    }
+    .tbr-tag i { font-size: 0.6rem; }
+
+    .tbr-right { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .tbr-label {
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* issue switch buttons */
+    .iswitch {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1.1rem; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 600;
+      border: 1.5px solid rgba(42,183,202,0.2);
+      color: var(--muted);
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: var(--font-body);
+      white-space: nowrap;
+    }
+    .iswitch i { font-size: 0.62rem; }
+    .iswitch:hover { background: #fff; border-color: var(--teal); color: var(--teal-dark); box-shadow: 0 4px 14px rgba(42,183,202,0.16); }
+    .iswitch.active { background: var(--teal); color: #fff; border-color: var(--teal); box-shadow: 0 6px 20px rgba(42,183,202,0.36); }
+    .iswitch.active i { animation: spinOnce 0.4s ease; }
+    @keyframes spinOnce { from { transform: rotate(-90deg); opacity: 0; } to { transform: rotate(0); opacity: 1; } }
+
+    .dl-btn {
+      display: none; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1.1rem; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 600;
+      background: rgba(255,255,255,0.75); color: var(--ink-mid);
+      border: 1.5px solid rgba(13,31,45,0.12);
+      backdrop-filter: blur(4px);
+      cursor: pointer; transition: all 0.25s;
+      font-family: var(--font-body);
+    }
+    .dl-btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    /* thin progress line */
+    .progress-bar { height: 2px; background: rgba(42,183,202,0.08); position: relative; overflow: hidden; margin: 0 var(--side); border-radius: 2px; }
+    .progress-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(to right, var(--teal), var(--teal-dark)); transition: width 0.5s; border-radius: 2px; }
+    .progress-bar.loading .progress-fill { width: 100% !important; animation: pulse 1.1s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+    /* ════════════════════════════════════
+       TWO-COLUMN LAYOUT
+    ════════════════════════════════════ */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr 270px;
+      gap: 1.5rem;
+      padding: 1.25rem var(--side) 2.5rem;
+      /* no height, no overflow — content determines height */
+    }
+
+    /* ── PDF viewer column ── */
+    .pdf-col { position: relative; }
+
+    .pdf-box {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(13,31,45,0.1);
+      border: 1px solid rgba(42,183,202,0.1);
+      background: #fff;
+      /* 80vh is the PDF height — page can scroll below it if sidebar is taller */
+      height: 80vh;
+      min-height: 480px;
+      position: relative;
+      transition: box-shadow 0.3s;
+    }
+    .pdf-box:hover { box-shadow: 0 18px 60px rgba(42,183,202,0.13); }
+
+    #pdf-frame {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    #pdf-frame.show { opacity: 1; }
+
+    /* loading overlay */
+    .pdf-loader {
+      position: absolute; inset: 0;
+      background: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 4;
+      transition: opacity 0.35s;
+    }
+    .pdf-loader.gone { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(42,183,202,0.12);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+      margin-bottom: 0.9rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loader-txt { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+
+    /* placeholder */
+    .pdf-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2.5rem;
+      background: #f8feff; z-index: 3;
+    }
+    .pdf-placeholder.gone { display: none; }
+    .ph-blob {
+      width: 72px; height: 72px; border-radius: 18px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.4rem;
+      box-shadow: 0 10px 32px rgba(42,183,202,0.36);
+      animation: float 3.5s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    .ph-blob i { font-size: 1.9rem; color: #fff; }
+    .ph-title { font-family: var(--font-head); font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 0.6rem; }
+    .ph-title em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .ph-hint { font-size: 0.82rem; color: var(--muted); line-height: 1.7; max-width: 280px; }
+
+    /* ── Sidebar column ── */
+    .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+
+    .scard {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid rgba(42,183,202,0.1);
+      box-shadow: 0 4px 18px rgba(13,31,45,0.06);
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .scard:hover { box-shadow: 0 8px 28px rgba(42,183,202,0.11); }
+
+    .sc-head {
+      padding: 0.8rem 1.2rem;
+      border-bottom: 1px solid rgba(42,183,202,0.08);
+      font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .sc-body { padding: 1rem 1.2rem; }
+
+    /* current issue */
+    .ci-date  { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.3rem; }
+    .ci-title { font-family: var(--font-head); font-size: 0.98rem; font-weight: 400; color: var(--ink); line-height: 1.3; }
+
+    /* issue list */
+    .ilist { display: flex; flex-direction: column; }
+    .il-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.78rem 0;
+      border-bottom: 1px solid rgba(42,183,202,0.07);
+      cursor: pointer; transition: padding-left 0.2s;
+    }
+    .il-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .il-item:hover { padding-left: 5px; }
+    .il-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); opacity: 0.35; flex-shrink: 0; transition: all 0.2s; }
+    .il-item:hover .il-dot, .il-item.on .il-dot { opacity: 1; box-shadow: 0 0 0 3px rgba(42,183,202,0.18); }
+    .il-name { font-size: 0.82rem; font-weight: 600; color: var(--ink); flex: 1; transition: color 0.2s; }
+    .il-item:hover .il-name, .il-item.on .il-name { color: var(--teal); }
+    .il-badge {
+      font-size: 0.52rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.16rem 0.55rem;
+      border-radius: 50px; background: var(--teal-soft); color: var(--teal-dark);
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .il-item.on .il-badge { opacity: 1; }
+    .il-arr { font-size: 0.58rem; color: var(--muted); transition: all 0.2s; }
+    .il-item:hover .il-arr { color: var(--teal); transform: translateX(2px); }
+
+    /* subscribe card */
+    .sub-card {
+      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
+      border-radius: 16px; padding: 1.4rem 1.2rem;
+    }
+    .sub-card h4 { font-family: var(--font-head); font-size: 1.05rem; font-weight: 400; color: #fff; margin-bottom: 0.4rem; }
+    .sub-card h4 em { font-family: var(--font-serif); font-style: italic; }
+    .sub-card p { font-size: 0.74rem; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 1rem; }
+    .sub-form { display: flex; gap: 0.45rem; }
+    .sub-input {
+      flex: 1; padding: 0.56rem 0.85rem; border-radius: 50px;
+      border: none; font-family: var(--font-body); font-size: 0.75rem;
+      background: rgba(255,255,255,0.18); color: #fff; outline: none;
+      transition: background 0.22s;
+    }
+    .sub-input::placeholder { color: rgba(255,255,255,0.55); }
+    .sub-input:focus { background: rgba(255,255,255,0.28); }
+    .sub-go {
+      padding: 0.56rem 1rem; border-radius: 50px; border: none;
+      background: #fff; color: var(--teal-dark);
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
+      cursor: pointer; transition: all 0.22s; white-space: nowrap;
+    }
+    .sub-go:hover { background: var(--ink); color: #fff; }
+    .sub-ok { font-size: 0.74rem; color: rgba(255,255,255,0.9); margin-top: 0.5rem; display: none; }
+
+    /* ── responsive ── */
+    @media(max-width: 1024px) {
+      .page-grid { grid-template-columns: 1fr; }
+      .pdf-box   { height: 78vh; }
+    }
+    @media(max-width: 640px) {
+      :root { --side: 1rem; }
+      .top-bar { flex-direction: column; align-items: flex-start; }
+      .pdf-box { height: 68vh; min-height: 380px; }
+    }
+  </style>
+</head>
+<body data-nav-fixed="true">
+
+  <div class="hover-cursor" id="cursor"></div>
   <karmayog-navbar base-path="../"></karmayog-navbar>
 
-  <!-- Header & Breadcrumbs Section -->
-  <section class="section" style="
-        padding-top: 150px;
-        padding-bottom: 3rem;
-        background: var(--bg-secondary);
-      ">
-    <div class="container fade-in-up bento-item">
-      <!-- Breadcrumbs -->
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <a href="../index.html">Home</a>
-        <span class="separator">/</span>
-        <span style="color: var(--text-primary); font-weight: 600">Newsletter</span>
-      </nav>
-
-      <h1 style="max-width: 900px; line-height: 1.1">
-        Our <span class="text-gradient">Newsletters</span>
-      </h1>
-      <p class="lead-text" style="
-            max-width: 800px;
-            margin-top: 1.5rem;
-            font-size: clamp(1.125rem, 2vw, 1.25rem);
-          ">
-        Catch up on our latest stories, project updates, and the impact your
-        support brings to the communities of Nepal.
-      </p>
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="tbr-left">
+      <div class="tbr-heading">Our <em>Newsletters</em></div>
+      <div class="tbr-tag" id="tbr-tag">
+        <i class="fas fa-newspaper"></i> <span id="tbr-tag-text">Loading…</span>
+      </div>
     </div>
-  </section>
+    <div class="tbr-right">
+      <span class="tbr-label">Issues</span>
+      <button class="iswitch" id="btn-Feb-2024" onclick="openIssue('Feb-2024')">
+        <i class="fas fa-file-pdf"></i> February 2024
+      </button>
+      <button class="iswitch" id="btn-Jan-2024" onclick="openIssue('Jan-2024')">
+        <i class="fas fa-file-pdf"></i> January 2024
+      </button>
+      <button class="dl-btn" id="dl-btn" onclick="downloadPDF()">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+  </div>
 
-  <!-- Newsletter Timeline / Archive -->
-  <section class="section">
-    <div class="container grid-open">
-      <!-- Latest Newsletter -->
-      <div class="grid-col-8 fade-in-up delay-1 bento-item">
-        <h2 style="margin-bottom: 2rem; font-size: 2rem">Latest Issue</h2>
-        <div class="card glass-card" style="
-              padding: 0;
-              overflow: hidden;
-              display: flex;
-              flex-direction: column;
-              background: var(--glass-bg); 
-              backdrop-filter: blur(16px); 
-              -webkit-backdrop-filter: blur(16px); 
-              border: 1px solid var(--glass-border);
-              box-shadow: var(--glass-shadow);
-            ">
-          <div style="
-                height: 300px;
-                background: url(&quot;https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-1.jpeg&quot;)
-                  center/cover;
-              "></div>
-          <div style="padding: 2.5rem">
-            <div style="
-                  font-size: 0.875rem;
-                  color: var(--color-primary-teal);
-                  font-weight: 700;
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                  margin-bottom: 1rem;
-                ">
-              February 2024
+  <!-- progress line -->
+  <div class="progress-bar" id="prog-bar">
+    <div class="progress-fill" id="prog-fill"></div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="page-grid">
+
+    <!-- PDF viewer -->
+    <div class="pdf-col">
+      <div class="pdf-box">
+
+        <div class="pdf-loader gone" id="pdf-loader">
+          <div class="spinner"></div>
+          <div class="loader-txt">Loading newsletter…</div>
+        </div>
+
+        <div class="pdf-placeholder" id="pdf-ph">
+          <div class="ph-blob"><i class="fas fa-newspaper"></i></div>
+          <div class="ph-title">Choose an <em>Issue</em></div>
+          <p class="ph-hint">Pick February 2024 or January 2024 from the buttons above.</p>
+        </div>
+
+        <iframe id="pdf-frame" src="" title="Newsletter PDF" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+
+
+      <div class="scard">
+        <div class="sc-head"><i class="fas fa-list"></i> All Issues</div>
+        <div class="sc-body" style="padding-top:0.3rem;padding-bottom:0.3rem;">
+          <div class="ilist">
+            <div class="il-item" id="il-Feb-2024" onclick="openIssue('Feb-2024')">
+              <div class="il-dot"></div>
+              <span class="il-name">February 2024</span>
+              <span class="il-badge">Reading</span>
+              <i class="fas fa-chevron-right il-arr"></i>
             </div>
-            <h3 style="margin-bottom: 1rem">
-              Empowering Education in Rural Sindhulpalchok
-            </h3>
-            <p style="margin-bottom: 2rem">
-              Discover how our new interactive playscape is transforming the
-              daily lives of over 500 children. See the updates from our
-              ongoing water sanitation projects and meet the new volunteers
-              who joined us this month.
-            </p>
-            <a href="../pages/pdf_viewer.html?issue=Feb-2024" class="btn btn-primary btn-premium"
-              style="padding: 0.8rem 2rem; display: inline-flex; align-items: center; gap: 0.5rem;">Read Full Issue
-              <span style="font-size: 1.25rem;">&rarr;</span></a>
+            <div class="il-item" id="il-Jan-2024" onclick="openIssue('Jan-2024')">
+              <div class="il-dot"></div>
+              <span class="il-name">January 2024</span>
+              <span class="il-badge">Reading</span>
+              <i class="fas fa-chevron-right il-arr"></i>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Previous Issues sidebar -->
-      <div class="grid-col-4 fade-in-up delay-2 bento-item">
-        <h2 style="margin-bottom: 2rem; font-size: 2rem">Archive</h2>
-        <div style="display: flex; flex-direction: column; gap: 1.5rem">
-          <a href="../pages/pdf_viewer.html?issue=Jan-2024" class="card" style="
-                padding: 1.5rem;
-                display: flex;
-                gap: 1rem;
-                align-items: center;
-                text-decoration: none;
-                border-left: 4px solid var(--color-primary-teal);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              " onmouseover="this.style.transform='translateX(8px)'; this.style.boxShadow='var(--shadow-md)';"
-            onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-            <div>
-              <h4 style="
-                    font-size: 1.1rem;
-                    color: var(--text-primary);
-                    margin-bottom: 0.25rem;
-                  ">
-                January 2024
-              </h4>
-              <p style="font-size: 0.875rem; margin-bottom: 0">
-                New Year, New Healthcare Initiatives starting soon.
-              </p>
-            </div>
-          </a>
-
-          <a href="#" class="card" style="
-                padding: 1.5rem;
-                display: flex;
-                gap: 1rem;
-                align-items: center;
-                text-decoration: none;
-                border-left: 4px solid var(--color-light-teal);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              " onmouseover="this.style.transform='translateX(8px)'; this.style.boxShadow='var(--shadow-md)';"
-            onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-            <div>
-              <h4 style="
-                    font-size: 1.1rem;
-                    color: var(--text-primary);
-                    margin-bottom: 0.25rem;
-                  ">
-                December 2023
-              </h4>
-              <p style="font-size: 0.875rem; margin-bottom: 0">
-                Year in Review: Celebrating our milestones and donors.
-              </p>
-            </div>
-          </a>
-
-          <a href="#" class="card" style="
-                padding: 1.5rem;
-                display: flex;
-                gap: 1rem;
-                align-items: center;
-                text-decoration: none;
-                border-left: 4px solid var(--color-extra-light-teal);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              " onmouseover="this.style.transform='translateX(8px)'; this.style.boxShadow='var(--shadow-md)';"
-            onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-            <div>
-              <h4 style="
-                    font-size: 1.1rem;
-                    color: var(--text-primary);
-                    margin-bottom: 0.25rem;
-                  ">
-                November 2023
-              </h4>
-              <p style="font-size: 0.875rem; margin-bottom: 0">
-                Winter Relief Distribution across 5 mountain villages.
-              </p>
-            </div>
-          </a>
+      <div class="sub-card">
+        <h4>Stay <em>Updated</em></h4>
+        <p>Get the next issue delivered to your inbox every month.</p>
+        <div class="sub-form">
+          <input type="email" class="sub-input" id="sub-email" placeholder="Your email" />
+          <button class="sub-go" onclick="handleSub()">Join</button>
         </div>
+        <div class="sub-ok" id="sub-ok"><i class="fas fa-check-circle"></i> Subscribed! Thank you.</div>
       </div>
-    </div>
-  </section>
 
-  <!-- Call to action inside newsletter page -->
-  <section class="section dark-surface" style="background: var(--gradient-primary); color: white;">
-    <div class="container text-center fade-in-up bento-item delay-1">
-      <h2 style="color: white; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.02em;">Haven't Subscribed Yet?
-      </h2>
-      <p style="
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            font-size: 1.25rem;
-          ">
-        Don't miss out on important updates. Join our mailing list to receive
-        the newsletter directly in your inbox every month.
-      </p>
-      <button id="pageSubscribeBtn" class="btn btn-primary btn-premium" style="
-            background: white; 
-            color: var(--color-primary-teal); 
-            padding: 1rem 3rem; 
-            font-size: 1.25rem;
-          " onclick="
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            setTimeout(() => { document.getElementById('navNewsletterBtn').click(); }, 300);
-          ">
-        Subscribe Now
-      </button>
     </div>
-  </section>
+  </div>
+
+  <div class="help-section">
+    <div class="help-button" id="helpButton"><i class="fas fa-question-circle"></i><span>Help?</span></div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></div>
+  </div>
 
   <karmayog-footer base-path="../"></karmayog-footer>
-
   <script src="../js/main.js"></script>
-</body>
 
+  <script>
+  /* ══════════════════════════════════════
+     PDF MAP — update these paths
+  ══════════════════════════════════════ */
+  var PDF_MAP = {
+    'Feb-2024': '/newsletter-feb-2024.pdf',
+    'Jan-2024': '/newsletter-jan-2024.pdf'
+  };
+
+  var META = {
+    'Feb-2024': { label: 'February 2024', title: 'Empowering Education in Rural Sindhulpalchok' },
+    'Jan-2024': { label: 'January 2024',  title: 'New Year, New Healthcare Initiatives' }
+  };
+
+  var current = null;
+
+  function openIssue(key) {
+    if (current === key) return;
+    current = key;
+
+    var meta   = META[key];
+    var path   = (PDF_MAP[key] || '').trim();
+    var frame  = document.getElementById('pdf-frame');
+    var loader = document.getElementById('pdf-loader');
+    var ph     = document.getElementById('pdf-ph');
+    var dl     = document.getElementById('dl-btn');
+    var pb     = document.getElementById('prog-bar');
+    var pf     = document.getElementById('prog-fill');
+
+    /* tag + sidebar */
+    document.getElementById('tbr-tag-text').textContent = meta ? meta.label : key;
+    if (meta) {
+
+    }
+
+    /* active states */
+    document.querySelectorAll('.iswitch').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.il-item').forEach(function(i){ i.classList.remove('on'); });
+    var ab = document.getElementById('btn-' + key); if (ab) ab.classList.add('active');
+    var ai = document.getElementById('il-' + key);  if (ai) ai.classList.add('on');
+
+    history.pushState({ issue: key }, '', '?issue=' + key);
+
+    if (!path) {
+      frame.style.display = 'none';
+      frame.classList.remove('show');
+      ph.classList.remove('gone');
+      loader.classList.add('gone');
+      dl.style.display = 'none';
+      return;
+    }
+
+    /* show loader */
+    ph.classList.add('gone');
+    loader.classList.remove('gone');
+    frame.style.display = 'block';
+    frame.classList.remove('show');
+    pb.classList.add('loading');
+    dl.style.display = 'none';
+
+    frame.src = path;
+    frame.onload = function() {
+      loader.classList.add('gone');
+      frame.classList.add('show');
+      pb.classList.remove('loading');
+      pf.style.width = '100%';
+      dl.style.display = 'inline-flex';
+      dl.setAttribute('data-pdf', path);
+      setTimeout(function(){ pf.style.width = '0'; }, 1000);
+    };
+    frame.onerror = function() {
+      loader.classList.add('gone');
+      pb.classList.remove('loading');
+    };
+  }
+
+  function downloadPDF() {
+    var p = document.getElementById('dl-btn').getAttribute('data-pdf');
+    if (!p) return;
+    var a = document.createElement('a'); a.href = p; a.download = p.split('/').pop(); a.click();
+  }
+
+  function handleSub() {
+    var e = document.getElementById('sub-email').value.trim();
+    if (!e || !e.includes('@')) { document.getElementById('sub-email').style.boxShadow = '0 0 0 2px rgba(255,100,100,0.5)'; return; }
+    document.getElementById('sub-email').style.boxShadow = '';
+    document.querySelector('.sub-form').style.display = 'none';
+    var ok = document.getElementById('sub-ok'); ok.style.display = 'block';
+    setTimeout(function(){ ok.style.display='none'; document.querySelector('.sub-form').style.display='flex'; document.getElementById('sub-email').value=''; }, 4000);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var p = new URLSearchParams(window.location.search).get('issue');
+    openIssue((p && META[p]) ? p : 'Feb-2024');
+
+    window.addEventListener('popstate', function() {
+      var i = new URLSearchParams(window.location.search).get('issue');
+      if (i && META[i]) openIssue(i);
+    });
+
+    document.getElementById('sub-email').addEventListener('keydown', function(e){ if(e.key==='Enter') handleSub(); });
+
+    var btt = document.getElementById('backToTop');
+    if (btt) {
+      window.addEventListener('scroll', function(){ btt.classList.toggle('visible', window.scrollY > 300); });
+      btt.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+    }
+    var hb = document.getElementById('helpButton');
+    if (hb) hb.addEventListener('click', function(){ window.location.href='../pages/contact.html'; });
+  });
+  </script>
+</body>
 </html>

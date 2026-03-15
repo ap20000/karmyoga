@@ -1,383 +1,545 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us | Karmayog Foundation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="../css/main.css" />
+
   <style>
-    .contact-card {
-      padding: 3rem;
-      border-radius: var(--radius-lg);
-      background: var(--surface);
-      box-shadow: var(--shadow-md);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:      #2AB7CA;
+      --teal-dark: #1a8fa0;
+      --teal-soft: rgba(42,183,202,0.08);
+      --ink:       #0d1f2d;
+      --ink-mid:   #2e4057;
+      --muted:     #6b7f8e;
+      --font-head: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-serif:'Playfair Display', serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    .w { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+
+    /* ════════════════════════════
+       HERO — typographic split
+    ════════════════════════════ */
+    .hero {
+      min-height: 56vh;
+      padding-top: var(--nav-h, 80px);
+      background: #fff;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(42,183,202,0.09) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      pointer-events: none; z-index: 0;
+      animation: dotDrift 22s ease-in-out infinite alternate;
+    }
+    @keyframes dotDrift { from{background-position:0 0} to{background-position:16px 16px} }
+    .hero::after {
+      content: 'C';
+      position: absolute; top: -8%; right: -2%;
+      font-family: var(--font-head);
+      font-size: clamp(18rem, 32vw, 46rem);
+      line-height: 1; color: rgba(42,183,202,0.04);
+      pointer-events: none; user-select: none; z-index: 0;
     }
 
-    .contact-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      display: inline-block;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      padding: 5rem 0;
     }
 
-    .social-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition);
-      margin-right: 1.5rem;
-      margin-top: 1rem;
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+    .eyebrow::before { content:''; width:22px; height:1.5px; background:var(--teal); flex-shrink:0; }
+    .eyebrow.lt { color: rgba(255,255,255,0.6); }
+    .eyebrow.lt::before { background: rgba(255,255,255,0.5); }
+
+    .hero-h1 {
+      font-family: var(--font-head);
+      font-size: clamp(4rem, 8vw, 7.5rem);
+      line-height: 0.9; font-weight: 400; color: var(--ink);
+      margin-bottom: 2rem;
+      opacity: 0; animation: rUp 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-h1 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); display: block; }
+    @keyframes rUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
+
+    .hero-desc {
+      font-size: 1.1rem; line-height: 1.82; color: var(--muted);
+      border-left: 3px solid var(--teal); padding-left: 1.5rem;
+      max-width: 440px;
+      opacity: 0; animation: rUp 0.8s 0.28s cubic-bezier(0.16,1,0.3,1) forwards;
     }
 
-    .social-link:hover {
-      color: var(--color-primary-teal);
+    /* hero right — quick info cards stacked */
+    .hero-info-stack {
+      display: flex; flex-direction: column; gap: 1.25rem;
+      opacity: 0; animation: rUp 0.8s 0.42s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hic {
+      background: #fff; border-radius: 18px;
+      padding: 1.4rem 1.75rem;
+      border: 1px solid rgba(42,183,202,0.12);
+      box-shadow: 0 6px 24px rgba(13,31,45,0.06);
+      display: flex; align-items: center; gap: 1.25rem;
+      transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .hic:hover { transform: translateX(6px); box-shadow: 0 12px 36px rgba(42,183,202,0.14); border-color: rgba(42,183,202,0.28); }
+    .hic-icon {
+      width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.1rem;
+    }
+    .hic-lbl { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+    .hic-val { font-size: 0.96rem; font-weight: 600; color: var(--ink); line-height: 1.4; }
+
+    /* ════════════════════════════
+       MAIN CONTENT: form + contact panel
+    ════════════════════════════ */
+    .contact-section {
+      padding: 6rem 0 8rem;
+      background: #f4fbfc;
+      position: relative; overflow: hidden;
+    }
+    .contact-section::before {
+      content: ''; position: absolute; top: -150px; left: -150px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.06), transparent 65%);
+      pointer-events: none;
+    }
+    .contact-section::after {
+      content: ''; position: absolute; bottom: -100px; right: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.05), transparent 65%);
+      pointer-events: none;
     }
 
-    .form-group {
-      margin-bottom: 1.5rem;
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.55fr;
+      gap: 3rem; align-items: start;
+      position: relative; z-index: 2;
     }
 
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
+    /* ── left: location card + social card ── */
+    .left-col { display: flex; flex-direction: column; gap: 2rem; }
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 1.25rem;
-      border-radius: var(--radius-md);
-      background: var(--bg-secondary);
-      border: 2px solid transparent;
-      transition: var(--transition);
-      font-family: inherit;
-      font-size: 1rem;
+    .loc-card {
+      background: linear-gradient(145deg, var(--teal) 0%, #1a7a9e 100%);
+      border-radius: 28px; padding: 2.75rem;
+      color: #fff; position: relative; overflow: hidden;
     }
+    .loc-card::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); pointer-events: none;
+    }
+    .loc-card::after {
+      content: ''; position: absolute; bottom: -60px; left: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,255,255,0.04); pointer-events: none;
+    }
+    .loc-card h3 {
+      font-family: var(--font-head); font-size: 1.55rem; font-weight: 400;
+      color: #fff; margin-bottom: 2.25rem; position: relative; z-index: 1;
+    }
+    .loc-row { margin-bottom: 2rem; position: relative; z-index: 1; }
+    .loc-row:last-child { margin-bottom: 0; }
+    .loc-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.62);
+      margin-bottom: 0.35rem;
+    }
+    .loc-val {
+      font-size: 1.05rem; font-weight: 600; color: #fff;
+      line-height: 1.5;
+    }
+    .loc-val a { color: #fff; transition: opacity 0.2s; }
+    .loc-val a:hover { opacity: 0.75; }
 
-    input:focus,
-    textarea:focus {
+    .social-card {
+      background: var(--ink); border-radius: 28px; padding: 2.25rem 2.5rem;
+    }
+    .social-card h3 {
+      font-family: var(--font-head); font-size: 1.35rem; font-weight: 400;
+      color: #fff; margin-bottom: 1.5rem;
+    }
+    .social-icons { display: flex; gap: 1rem; }
+    .si {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.32s cubic-bezier(0.16,1,0.3,1);
+      cursor: pointer;
+    }
+    .si:hover { transform: translateY(-5px); }
+    .si.fb:hover { background: #1877F2; border-color: #1877F2; box-shadow: 0 8px 24px rgba(24,119,242,0.4); }
+    .si.tw:hover { background: #000; border-color: #555; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .si.li:hover { background: #0A66C2; border-color: #0A66C2; box-shadow: 0 8px 24px rgba(10,102,194,0.4); }
+
+    /* ── right: form ── */
+    .form-card {
+      background: #fff; border-radius: 28px;
+      padding: 3.5rem;
+      border: 1px solid rgba(42,183,202,0.1);
+      box-shadow: 0 12px 48px rgba(13,31,45,0.08);
+    }
+    .form-card h2 {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400; color: var(--ink);
+      margin-bottom: 0.5rem; line-height: 1.1;
+    }
+    .form-card h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .form-card .sub { font-size: 0.96rem; color: var(--muted); margin-bottom: 2.75rem; line-height: 1.7; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .fg { margin-bottom: 1.5rem; }
+    .fg label {
+      display: block; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-mid); margin-bottom: 0.6rem;
+    }
+    .fg input, .fg textarea {
+      width: 100%; padding: 1rem 1.25rem;
+      border-radius: 14px;
+      background: #f7fbfc;
+      border: 1.5px solid rgba(42,183,202,0.15);
+      font-family: var(--font-body); font-size: 0.96rem;
+      color: var(--ink);
+      transition: all 0.3s;
       outline: none;
-      background: var(--color-white);
-      border-color: var(--color-primary-teal);
-      box-shadow: 0 0 0 4px var(--color-extra-light-teal);
     }
-
-    /* Dark theme overrides for contact page */
-    [data-theme="dark"] .contact-card {
-      background: var(--surface);
-      box-shadow: var(--shadow-md);
+    .fg input::placeholder, .fg textarea::placeholder { color: var(--muted); }
+    .fg input:focus, .fg textarea:focus {
+      background: #fff;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 4px rgba(42,183,202,0.1);
     }
+    .fg textarea { resize: vertical; min-height: 140px; }
 
-    [data-theme="dark"] .contact-card.glass-card {
-      background: rgba(30, 41, 59, 0.8) !important;
-      border-color: rgba(148, 163, 184, 0.1) !important;
+    .submit-btn {
+      width: 100%; padding: 1.15rem;
+      background: var(--teal); color: #fff;
+      border: none; border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 1rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(42,183,202,0.32);
+      transition: all 0.3s; margin-top: 0.75rem;
     }
+    .submit-btn:hover { background: var(--teal-dark); transform: translateY(-3px); box-shadow: 0 16px 44px rgba(42,183,202,0.45); }
+    .form-note { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 1.25rem; }
 
-    [data-theme="dark"] input,
-    [data-theme="dark"] textarea {
-      background: #1e293b !important;
-      color: #f1f5f9;
-      border-color: #334155;
+    /* ════════════════════════════
+       MAP
+    ════════════════════════════ */
+    .map-section {
+      position: relative; height: 420px; width: 100%;
     }
-
-    [data-theme="dark"] input:focus,
-    [data-theme="dark"] textarea:focus {
-      background: #0f172a !important;
-      border-color: var(--color-primary-teal);
-      box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.2);
+    .map-section iframe {
+      width: 100%; height: 100%; border: 0; display: block;
     }
-
-    [data-theme="dark"] input::placeholder,
-    [data-theme="dark"] textarea::placeholder {
-      color: #64748b;
+    /* map label overlay */
+    .map-label {
+      position: absolute; top: 2rem; left: 2rem; z-index: 5;
+      background: #fff; border-radius: 14px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 12px 36px rgba(13,31,45,0.14);
+      border: 1px solid rgba(42,183,202,0.12);
+      display: flex; align-items: center; gap: 0.75rem;
     }
+    .map-label-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 4px rgba(42,183,202,0.2);
+      flex-shrink: 0;
+      animation: mapPulse 2s ease-in-out infinite;
+    }
+    @keyframes mapPulse {
+      0%,100% { box-shadow: 0 0 0 4px rgba(42,183,202,0.2); }
+      50%      { box-shadow: 0 0 0 8px rgba(42,183,202,0.08); }
+    }
+    .map-label-text { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .map-label-text span { font-size: 0.7rem; color: var(--muted); display: block; }
 
-    [data-theme="dark"] .social-card-dark {
-      background: #1e293b !important;
-      border: 1px solid rgba(148, 163, 184, 0.1) !important;
+    /* ════════════════════════════
+       SCROLL REVEAL
+    ════════════════════════════ */
+    [data-r] {
+      opacity: 0;
+      transition: opacity 0.95s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.95s cubic-bezier(0.16,1,0.3,1);
+    }
+    [data-r="up"]    { transform: translateY(36px); }
+    [data-r="right"] { transform: translateX(-36px); }
+    [data-r="left"]  { transform: translateX(36px); }
+    [data-r].on { opacity: 1 !important; transform: none !important; }
+    [data-d="1"] { transition-delay: 0.1s; }
+    [data-d="2"] { transition-delay: 0.22s; }
+
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+    @media(max-width:1024px){
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero::after { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media(max-width:768px){
+      .hero-h1 { font-size: 3.5rem; }
+      .form-card { padding: 2.25rem; }
+      .hero::before { display: none; }
+    }
+    @media(max-width:480px){
+      .hero-h1 { font-size: 2.8rem; }
+      .w { padding: 0 1.25rem; }
     }
   </style>
 </head>
+<body data-nav-fixed="true">
 
-<body>
-  <!-- Navigation -->
+  <div class="hover-cursor" id="cursor"></div>
   <karmayog-navbar base-path="../"></karmayog-navbar>
 
-  <!-- Header Section -->
-  <section class="section" style="
-        padding-top: 180px;
-        padding-bottom: 5rem;
-        background: var(--bg-secondary);
-      ">
-    <div class="container text-center fade-in-up bento-item">
-      <span class="impact-label" style="
-            color: var(--color-primary-teal);
-            margin-bottom: 1rem;
-            display: block;
-          ">Connect With Us</span>
-      <h1 style="max-width: 900px; margin: 0 auto; line-height: 1.1">
-        Contact <span class="text-gradient">Us</span>
-      </h1>
-      <p class="lead-text" style="
-            max-width: 800px;
-            margin: 2rem auto 0;
-            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-          ">
-        Want to reach out? We’d love to hear from you!
-      </p>
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section class="hero">
+    <div class="w" style="width:100%;">
+      <div class="hero-inner">
+
+        <!-- left: headline -->
+        <div>
+          <span class="eyebrow" style="opacity:0;animation:rUp 0.7s 0.02s cubic-bezier(0.16,1,0.3,1) forwards;">Connect With Us</span>
+          <h1 class="hero-h1">Contact<br><em>Us.</em></h1>
+          <p class="hero-desc">Want to reach out? We'd love to hear from you. Fill in the form or use any of the details below.</p>
+        </div>
+
+        <!-- right: quick info stack -->
+        <div class="hero-info-stack">
+          <div class="hic">
+            <div class="hic-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <div class="hic-lbl">Call us</div>
+              <div class="hic-val">+977 9851139412</div>
+            </div>
+          </div>
+          <div class="hic">
+            <div class="hic-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div class="hic-lbl">E-mail us</div>
+              <div class="hic-val">contact@karmayogfoundation.org</div>
+            </div>
+          </div>
+          <div class="hic">
+            <div class="hic-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div class="hic-lbl">Main office</div>
+              <div class="hic-val">145/63, Rohini Marg-10, Baneshwor Height, Kathmandu</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <!-- Content Grid -->
-  <section class="section">
-    <div class="container grid-open">
-      <!-- Contact Information Area (Left Col) -->
-      <div class="grid-col-4 fade-in-up delay-1 bento-item" style="display: flex; flex-direction: column; gap: 2rem">
-        <div>
-          <h2 style="font-size: 2.5rem; margin-bottom: 2rem">
-            Our <span class="text-gradient">Location</span>
-          </h2>
+  <!-- ══════════════════════════════════════
+       CONTACT SECTION
+  ══════════════════════════════════════ -->
+  <section class="contact-section">
+    <div class="w">
+      <div class="contact-grid">
+
+        <!-- ── left column ── -->
+        <div class="left-col">
+
+          <!-- location card -->
+          <div class="loc-card" data-r="right">
+            <h3>Our Location</h3>
+
+            <div class="loc-row">
+              <div class="loc-label">Call us</div>
+              <div class="loc-val">
+                <a href="tel:+9779851139412">+977 9851139412</a>
+              </div>
+            </div>
+
+            <div class="loc-row">
+              <div class="loc-label">E-mail us</div>
+              <div class="loc-val">
+                <a href="mailto:contact@karmayogfoundation.org">contact@karmayogfoundation.org</a>
+              </div>
+            </div>
+
+            <div class="loc-row">
+              <div class="loc-label">Main office</div>
+              <div class="loc-val">
+                145/63, Rohini Marg-10,<br>Baneshwor Height (Sano Gaucharan),<br>Kathmandu, Nepal
+              </div>
+            </div>
+          </div>
+
+          <!-- social card -->
+          <div class="social-card" data-r="right" data-d="1">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <!-- Facebook -->
+              <a href="#" title="Facebook" class="si fb">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <!-- Twitter/X -->
+              <a href="#" title="Twitter / X" class="si tw">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <!-- LinkedIn -->
+              <a href="#" title="LinkedIn" class="si li">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
         </div>
 
-        <div class="contact-card" style="background: var(--gradient-primary); color: white; border: none;">
-          <h3 style="
-                color: white;
-                margin-bottom: 2rem;
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-              ">
-            CONTACT INFO
-          </h3>
-
-          <div style="margin-bottom: 2rem">
-            <p style="
-                  color: rgba(255,255,255,0.8);
-                  font-weight: 600;
-                  margin-bottom: 0.25rem;
-                  font-size: 0.875rem;
-                  text-transform: uppercase;
-                  letter-spacing: 0.05em;
-                ">
-              Call us
-            </p>
-            <p style="color: white; font-size: 1.25rem; margin-bottom: 0; font-weight: 600;">
-              +977 9851139412
-            </p>
-          </div>
-
-          <div style="margin-bottom: 2rem">
-            <p style="
-                  color: rgba(255,255,255,0.8);
-                  font-weight: 600;
-                  margin-bottom: 0.25rem;
-                  font-size: 0.875rem;
-                  text-transform: uppercase;
-                  letter-spacing: 0.05em;
-                ">
-              E-mail us
-            </p>
-            <p style="
-                  color: white;
-                  font-size: 1.125rem;
-                  margin-bottom: 0;
-                  word-break: break-all;
-                  font-weight: 600;
-                ">
-              contact@karmayogfoundation.org
-            </p>
-          </div>
-
-          <div>
-            <p style="
-                  color: rgba(255,255,255,0.8);
-                  font-weight: 600;
-                  margin-bottom: 0.25rem;
-                  font-size: 0.875rem;
-                  text-transform: uppercase;
-                  letter-spacing: 0.05em;
-                ">
-              Main office
-            </p>
-            <p style="
-                  color: white;
-                  font-size: 1.125rem;
-                  margin-bottom: 0;
-                  line-height: 1.5;
-                ">
-              145/63, Rohini Marg-10,<br />Baneshwor Height (Sano
-              Gaucharan),<br />Kathmandu, Nepal
-            </p>
-          </div>
-        </div>
-
-        <div class="contact-card social-card-dark"
-          style="padding: 2.5rem; background: var(--color-dark-tone); border: none; border-radius: var(--radius-lg);">
-          <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; color: white;">
-            Follow Us
-          </h3>
-          <div style="display: flex; gap: 1rem;">
-            <!-- Facebook -->
-            <a href="#" title="Facebook" style="
-                  width: 52px; height: 52px;
-                  border-radius: 50%;
-                  background: rgba(255,255,255,0.08);
-                  border: 1px solid rgba(255,255,255,0.12);
-                  display: flex; align-items: center; justify-content: center;
-                  transition: all 0.3s ease;
-                  text-decoration: none;
-                "
-              onmouseover="this.style.background='#1877F2'; this.style.borderColor='#1877F2'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 20px rgba(24,119,242,0.4)'"
-              onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
-                <path
-                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-            </a>
-            <!-- Twitter/X -->
-            <a href="#" title="Twitter / X" style="
-                  width: 52px; height: 52px;
-                  border-radius: 50%;
-                  background: rgba(255,255,255,0.08);
-                  border: 1px solid rgba(255,255,255,0.12);
-                  display: flex; align-items: center; justify-content: center;
-                  transition: all 0.3s ease;
-                  text-decoration: none;
-                "
-              onmouseover="this.style.background='#000'; this.style.borderColor='#555'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.4)'"
-              onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path
-                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-            <!-- LinkedIn -->
-            <a href="#" title="LinkedIn" style="
-                  width: 52px; height: 52px;
-                  border-radius: 50%;
-                  background: rgba(255,255,255,0.08);
-                  border: 1px solid rgba(255,255,255,0.12);
-                  display: flex; align-items: center; justify-content: center;
-                  transition: all 0.3s ease;
-                  text-decoration: none;
-                "
-              onmouseover="this.style.background='#0A66C2'; this.style.borderColor='#0A66C2'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 20px rgba(10,102,194,0.4)'"
-              onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
-                <path
-                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contact Form Area (Right Col) -->
-      <div class="grid-col-8 fade-in-up delay-2 bento-item">
-        <div class="contact-card glass-card"
-          style="padding: 4rem; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);">
-          <h2 style="font-size: 3rem; margin-bottom: 0.5rem">
-            Drop Us a <span class="text-gradient">Line</span>
-          </h2>
-          <p style="
-                margin-bottom: 3rem;
-                font-size: 1.125rem;
-                color: var(--text-secondary);
-              ">
-            Fill out the form below and we'll get back to you as soon as
-            possible.
-          </p>
+        <!-- ── right: form ── -->
+        <div class="form-card" data-r="left">
+          <h2>Drop Us a <em>Line</em></h2>
+          <p class="sub">Fill out the form below and we'll get back to you as soon as possible.</p>
 
           <form action="#" method="POST" id="contactForm">
-            <div style="
-                  display: grid;
-                  grid-template-columns: repeat(2, 1fr);
-                  gap: 1.5rem;
-                ">
-              <div class="form-group" style="grid-column: span 1">
-                <label for="name">Your name*</label>
-                <input type="text" id="name" name="name" required placeholder="John Doe"
-                  style="background: rgba(255,255,255,0.7);" />
+            <div class="form-row">
+              <div class="fg">
+                <label for="name">Your name *</label>
+                <input type="text" id="name" name="name" required placeholder="John Doe" />
               </div>
-
-              <div class="form-group" style="grid-column: span 1">
-                <label for="email">Your email*</label>
-                <input type="email" id="email" name="email" required placeholder="john@example.com"
-                  style="background: rgba(255,255,255,0.7);" />
+              <div class="fg">
+                <label for="email">Your email *</label>
+                <input type="email" id="email" name="email" required placeholder="john@example.com" />
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="fg">
               <label for="subject">Subject</label>
-              <input type="text" id="subject" name="subject" placeholder="How can we help you?"
-                style="background: rgba(255,255,255,0.7);" />
+              <input type="text" id="subject" name="subject" placeholder="How can we help you?" />
             </div>
 
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="6" required placeholder="Type your message here..."
-                style="background: rgba(255,255,255,0.7);"></textarea>
+            <div class="fg">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" rows="6" required placeholder="Type your message here..."></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-premium" style="
-                  width: 100%;
-                  margin-top: 1rem;
-                  padding: 1.25rem;
-                  font-size: 1.125rem;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  gap: 0.5rem;
-                ">
-              Send Message <span style="font-size: 1.5rem;">&rarr;</span>
+            <button type="submit" class="submit-btn">
+              Send Message <i class="fas fa-arrow-right"></i>
             </button>
 
-            <p style="
-                  text-align: center;
-                  margin-top: 1.5rem;
-                  font-size: 0.875rem;
-                  color: var(--text-muted);
-                ">
-              Or you can directly Chat with us via our social channels!
-            </p>
+            <p class="form-note">Or you can directly chat with us via our social channels!</p>
           </form>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Map Section Edge to Edge -->
-  <section style="
-        height: 400px;
-        width: 100%;
-        background: var(--color-neutral-200);
-        position: relative;
-      " class="fade-in-up delay-3 bento-item">
+  <!-- ══════════════════════════════════════
+       MAP
+  ══════════════════════════════════════ -->
+  <div class="map-section">
+    <div class="map-label">
+      <div class="map-label-dot"></div>
+      <div class="map-label-text">
+        Karmayog Foundation
+        <span>Baneshwor Height, Kathmandu</span>
+      </div>
+    </div>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14129.873216896172!2d85.3284033!3d27.7028442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb199a06c2eaf9%3A0xc5670a9173e161de!2sNew%20Baneshwor%2C%20Kathmandu%2044600%2C%20Nepal!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
-      width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </section>
+      width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
 
-  <karmayog-footer></karmayog-footer>
+  <div class="help-section">
+    <div class="help-button" id="helpButton"><i class="fas fa-question-circle"></i><span>Help?</span></div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></div>
+  </div>
 
+  <karmayog-footer base-path="../"></karmayog-footer>
   <script src="../js/main.js"></script>
-</body>
 
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    /* scroll reveal */
+    var els = document.querySelectorAll('[data-r]');
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        var d = parseInt(e.target.dataset.d || 0) * 140;
+        setTimeout(function() { e.target.classList.add('on'); }, d);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el) { io.observe(el); });
+    setTimeout(function() { els.forEach(function(el) { el.classList.add('on'); }); }, 3000);
+
+    /* form submit */
+    var form = document.getElementById('contactForm');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var btn = form.querySelector('.submit-btn');
+        btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+        btn.style.background = '#1a8fa0';
+        setTimeout(function() {
+          btn.innerHTML = 'Send Message <i class="fas fa-arrow-right"></i>';
+          btn.style.background = '';
+          form.reset();
+        }, 3000);
+      });
+    }
+
+    /* back to top */
+    var btt = document.getElementById('backToTop');
+    if (btt) {
+      window.addEventListener('scroll', function() { btt.classList.toggle('visible', window.scrollY > 500); });
+      btt.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+
+    /* help */
+    var hb = document.getElementById('helpButton');
+    if (hb) hb.addEventListener('click', function() { window.location.href = 'contact.html'; });
+
+  });
+  </script>
+</body>
 </html>

@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap');
+
+:root {
+  --primary: #2AB7CA;
+  --primary-dark: #1E8A9A;
+  --primary-light: #77DDEE;
+  --primary-soft: rgba(42, 183, 202, 0.08);
+  --accent: #FF8A7A;
+  --accent-light: #FFB4A6;
+
+  --bg-white: #F7FBFD;
+  --bg-off-white: #F2F7FB;
+  --bg-soft-blue: #EBF4FA;
+  --bg-very-light-blue: #EFF6FB;
+  --bg-card: #FFFFFF;
+
+  --text-primary: #0D1F2D;
+  --text-secondary: #3D5166;
+  --text-muted: #6B7E8F;
+  --border-light: #E0E8EF;
+  --border-subtle: rgba(42, 183, 202, 0.12);
+
+  --font-head: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', serif;
+
+  --container: 1320px;
+  --nav-h: 84px;
+
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-xxl: 40px;
+  --r-full: 9999px;
+
+  --shadow-sm: 0 2px 8px rgba(13, 31, 45, 0.06);
+  --shadow-md: 0 8px 24px rgba(13, 31, 45, 0.08);
+  --shadow-lg: 0 20px 48px rgba(13, 31, 45, 0.10);
+  --shadow-xl: 0 32px 64px rgba(13, 31, 45, 0.12);
+  --shadow-soft: 0 16px 48px rgba(42, 183, 202, 0.12);
+  --shadow-glow: 0 0 40px rgba(42, 183, 202, 0.25);
+
+  --grad-primary: linear-gradient(135deg, #2AB7CA 0%, #1a7a9e 60%, #3B6FA5 100%);
+  --grad-warm: linear-gradient(135deg, #FF8A7A 0%, #FF6B5B 100%);
+  --grad-dark: linear-gradient(160deg, #0D1F2D 0%, #1a3548 50%, #0f2a3e 100%);
+
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --t: all 0.4s var(--ease);
+  --t-fast: all 0.2s var(--ease);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-white);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.4;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  width: 100%;
+}
+
+.section { padding: 7rem 0; }
+.mission-section { background: var(--bg-white); }
+.stats-section { background: var(--bg-soft-blue); }
+.programs-section { background: var(--bg-off-white); }
+.gallery-section { background: var(--bg-very-light-blue); }
+.quote-section { background: var(--bg-soft-blue); }
+.cta-section { background: var(--grad-primary); }
+
+/* ─── TYPOGRAPHY ─── */
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(3.2rem, 5.5vw, 5rem); font-weight: 400; }
+h2 { font-size: clamp(2.2rem, 4vw, 3.4rem); margin-bottom: 1rem; font-weight: 400; }
+h3 { font-size: clamp(1.4rem, 2.2vw, 1.75rem); margin-bottom: 0.75rem; font-weight: 400; }
+h4 { font-size: clamp(1.05rem, 1.5vw, 1.2rem); margin-bottom: 0.5rem; font-weight: 400; }
+
+p { color: var(--text-secondary); font-size: 1rem; line-height: 1.75; font-family: var(--font-body); font-weight: 400; }
+a { text-decoration: none; color: inherit; }
+
+.gradient-text {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-white {
+  background: linear-gradient(135deg, #FFFFFF 0%, rgba(255,255,255,0.75) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ─── PAGE LOAD ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.page-loaded { animation: fadeIn 0.6s; }
+
+/* ─── SELECTION COLOR ─── */
+::selection { background: rgba(42, 183, 202, 0.2); color: var(--text-primary); }

@@ -1,583 +1,1072 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>What We Do | Karmayog Foundation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../css/main.css" />
-    <style>
-      .program-card {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        border-top: 4px solid transparent;
-        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        overflow: hidden;
-        border-radius: var(--radius-lg);
-        position: relative;
-        z-index: 1;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="What We Do - Karmayog Foundation programs across education, health, environment and more in rural Nepal." />
+  <title>What We Do | Karmayog Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/main.css" />
 
-      .program-card::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: var(--radius-lg);
-        background: var(--gradient-primary);
-        opacity: 0;
-        z-index: -1;
-        transition: opacity 0.4s ease;
-      }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:      #2AB7CA;
+      --teal-dark: #1a8fa0;
+      --teal-soft: rgba(42,183,202,0.09);
+      --teal-pale: rgba(42,183,202,0.06);
+      --ink:       #0d1f2d;
+      --ink-mid:   #2e4057;
+      --muted:     #6b7f8e;
+      --font-head: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-serif:'Playfair Display', serif;
+    }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
 
-      .program-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(13, 148, 136, 0.15);
-        border-color: transparent;
-      }
+    /* ══════════════════════════════
+       HERO — reimagined
+    ══════════════════════════════ */
+    .wwd-hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h, 80px);
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
 
-      .program-card:hover::after {
-        opacity: 0.05;
-      }
+    /* animated dot grid */
+    .wwd-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(42,183,202,0.1) 1.5px, transparent 1.5px);
+      background-size: 36px 36px;
+      pointer-events: none;
+      animation: dotDrift 20s ease-in-out infinite alternate;
+    }
+    @keyframes dotDrift {
+      from { background-position: 0 0; }
+      to   { background-position: 18px 18px; }
+    }
 
-      .program-icon {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: var(--color-extra-light-teal);
-        color: var(--color-primary-teal);
-        box-shadow: 0 10px 20px rgba(13, 148, 136, 0.1);
-      }
+    /* big decorative letter */
+    .wwd-hero::after {
+      content: 'W';
+      position: absolute; top: -6%; right: -4%;
+      font-family: var(--font-head); font-size: clamp(18rem,32vw,44rem);
+      color: rgba(42,183,202,0.035); line-height: 1;
+      pointer-events: none; user-select: none;
+    }
 
-      .program-image {
-        height: 250px;
-        margin: -2.5rem -2.5rem 2rem;
-        position: relative;
-        overflow: hidden;
-      }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center; max-width: 1280px; margin: 0 auto;
+      padding: 2.5rem 2.5rem 3rem; width: 100%;
+      position: relative; z-index: 2;
+      flex: 1;
+    }
 
-      .program-image::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to bottom,
-          transparent 60%,
-          rgba(255, 255, 255, 1) 100%
-        );
-        z-index: 1;
-      }
+    /* ── left copy ── */
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 2rem;
+    }
+    .hero-kicker::before { content:''; width:32px; height:1.5px; background:var(--teal); }
 
-      .program-image img {
-        transition: transform 0.6s ease;
-      }
+    .hero-headline {
+      font-family: var(--font-head);
+      font-size: clamp(4rem, 7.5vw, 7rem);
+      line-height: 0.9;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+    .hero-headline em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--teal);
+      display: block;
+    }
 
-      .program-card:hover .program-image img {
-        transform: scale(1.05);
-      }
-    </style>
-  </head>
+    .hero-desc {
+      font-size: 1.1rem; line-height: 1.8;
+      color: var(--muted); max-width: 460px;
+      margin-bottom: 3rem;
+    }
 
-  <body>
-    <!-- Navigation -->
-    <karmayog-navbar base-path="../"></karmayog-navbar>
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-    <!-- Massive Emotional Hero -->
-    <section
-      class="hero-massive"
-      style="
-        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20200811_112239_374.jpg');
-        background-color: var(--color-dark-tone);
-        background-position: center;
-        background-size: cover;
-        min-height: 70vh;
-        margin-top: -100px;
-        padding-top: 150px;
-      "
-    >
-      <div
-        class="text-scrim"
-        style="
-          z-index: 1;
-          background: linear-gradient(
-            135deg,
-            rgba(13, 148, 136, 0.85) 0%,
-            rgba(17, 24, 39, 0.8) 100%
-          );
-        "
-      ></div>
-      <div class="container" style="position: relative; z-index: 10">
-        <div style="max-width: 900px" class="animate-up">
-          <span
-            style="
-              color: var(--color-extra-light-teal);
-              font-weight: 700;
-              letter-spacing: 0.15em;
-              text-transform: uppercase;
-              margin-bottom: 1rem;
-              display: block;
-            "
-            >Our Work</span
-          >
-          <h1
-            style="
-              color: white;
-              text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-              font-size: clamp(2.5rem, 5vw, 4rem);
-              line-height: 1.1;
-              margin-bottom: 1.5rem;
-            "
-          >
-            What We <span style="color: var(--color-extra-light-teal)">Do</span>
-          </h1>
-          <p
-            class="lead-text"
-            style="
-              color: rgba(255, 255, 255, 0.9);
-              max-width: 700px;
-              text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-              font-size: 1.15rem;
-            "
-          >
-            We are a worldwide ministry in which millions of children reap the
-            benefits of one man’s clear vision. Explore our core focus areas.
-          </p>
+    .btn-primary {
+      background: var(--teal); color: white;
+      padding: 1rem 2.5rem; border-radius: 50px;
+      font-weight: 600; font-size: 0.9rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.3s;
+      box-shadow: 0 8px 28px rgba(42,183,202,0.32);
+    }
+    .btn-primary:hover {
+      background: var(--teal-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 44px rgba(42,183,202,0.42);
+    }
+    .btn-ghost {
+      border: 1.5px solid rgba(13,31,45,0.15);
+      color: var(--ink-mid);
+      padding: 1rem 2.5rem; border-radius: 50px;
+      font-weight: 500; font-size: 0.9rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.3s;
+    }
+    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── right visual cluster ── */
+    .hero-right { position: relative; height: 580px; }
+
+    .hero-photo-a {
+      position: absolute; top: 0; right: 0;
+      width: 78%; height: 420px;
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 40px 80px rgba(13,31,45,0.14);
+    }
+    .hero-photo-a img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.85);
+      transition: transform 9s ease;
+    }
+    .hero-photo-a:hover img { transform: scale(1.05); }
+
+    .hero-photo-b {
+      position: absolute; bottom: 20px; left: 0;
+      width: 52%; height: 270px;
+      border-radius: 18px; overflow: hidden;
+      box-shadow: 0 24px 56px rgba(13,31,45,0.14);
+      border: 5px solid white;
+    }
+    .hero-photo-b img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.88);
+    }
+
+    /* floating pill */
+    .hero-pill {
+      position: absolute; top: 1.5rem; left: -1.5rem;
+      background: white; border-radius: 16px;
+      padding: 1.1rem 1.5rem;
+      box-shadow: 0 16px 48px rgba(13,31,45,0.1);
+      display: flex; align-items: center; gap: 0.85rem;
+      z-index: 5; min-width: 170px;
+      border: 1px solid rgba(42,183,202,0.12);
+      animation: pillFloat 4s ease-in-out infinite;
+    }
+    @keyframes pillFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+    .hero-pill-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 0.95rem; flex-shrink: 0;
+    }
+    .hero-pill strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--ink); }
+    .hero-pill span   { font-size: 0.68rem; color: var(--muted); }
+
+    /* badge bottom-right */
+    .hero-badge {
+      position: absolute; bottom: 2rem; right: 1rem;
+      background: linear-gradient(135deg, var(--teal), #1a7a9e);
+      border-radius: 50%; width: 96px; height: 96px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: white; text-align: center;
+      box-shadow: 0 12px 36px rgba(42,183,202,0.4);
+      z-index: 5;
+      animation: badgeSpin 20s linear infinite;
+    }
+    @keyframes badgeSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .hero-badge-inner {
+      display: flex; flex-direction: column; align-items: center;
+      animation: badgeSpinReverse 20s linear infinite;
+    }
+    @keyframes badgeSpinReverse {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(-360deg); }
+    }
+    .hero-badge strong { font-family: var(--font-head); font-size: 1.6rem; line-height: 1; }
+    .hero-badge span   { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
+
+    /* ══════════════════════════════
+       INTRO
+    ══════════════════════════════ */
+    .intro-section { padding: 8rem 0; background: white; }
+    .intro-wrap {
+      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+      align-items: center;
+    }
+    .eyebrow-line {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem;
+    }
+    .eyebrow-line::before { content:''; width:24px; height:1.5px; background:var(--teal); }
+    .intro-left h2 {
+      font-family: var(--font-head); font-size: clamp(2rem,3.5vw,3rem);
+      font-weight: 400; line-height: 1.15; color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .intro-left h2 em { font-family: var(--font-serif); color: var(--teal); font-style: italic; }
+    .mantra {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: var(--teal-soft); border: 1px solid rgba(42,183,202,0.2);
+      border-radius: 50px; padding: 0.55rem 1.4rem;
+      font-family: var(--font-serif); font-size: 0.9rem;
+      font-style: italic; color: var(--teal-dark); margin-bottom: 1.75rem;
+    }
+    .mantra i { font-size: 0.75rem; color: var(--teal); }
+    .intro-left p { font-size: 1rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.2rem; }
+
+    .intro-right {
+      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
+      border-radius: 28px; padding: 3.5rem;
+      color: white; position: relative; overflow: hidden;
+    }
+    .intro-right::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); pointer-events: none;
+    }
+    .intro-right::after {
+      content: ''; position: absolute; bottom: -60px; left: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,255,255,0.04); pointer-events: none;
+    }
+    .intro-right h3 {
+      font-family: var(--font-head); font-weight: 400;
+      font-size: 1.75rem; color: white; margin-bottom: 1.25rem;
+      position: relative; z-index: 1;
+    }
+    .intro-right p {
+      color: rgba(255,255,255,0.82); font-size: 0.96rem;
+      line-height: 1.82; margin-bottom: 1rem; position: relative; z-index: 1;
+    }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: white; color: var(--teal-dark);
+      padding: 0.9rem 2.2rem; border-radius: 50px;
+      font-weight: 600; font-size: 0.88rem;
+      transition: all 0.3s; margin-top: 1.5rem;
+      position: relative; z-index: 1;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,0.22); }
+
+    /* ══════════════════════════════════════════════
+       JOURNEY SECTION — light bg
+    ══════════════════════════════════════════════ */
+    .journey-section {
+      padding: 7rem 0 0;
+      background: #f7fcfd;
+      position: relative; overflow: hidden;
+    }
+    .journey-section::before {
+      content: '';
+      position: absolute; top: -200px; left: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .journey-head {
+      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem 5rem;
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem;
+      position: relative; z-index: 2;
+    }
+    .journey-head h2 {
+      font-family: var(--font-head); font-size: clamp(2.2rem,4vw,3.4rem);
+      font-weight: 400; line-height: 1.1; color: var(--ink);
+    }
+    .journey-head h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+
+    .wave-track {
+      position: relative; max-width: 1400px; margin: 0 auto;
+      padding: 0 60px; z-index: 2;
+    }
+    .wave-svg { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 0; overflow: visible; }
+
+    /* ── stop node ── */
+    .wave-stop {
+      position: absolute; z-index: 5;
+      display: flex; flex-direction: column; align-items: center;
+      transform: translate(-50%,-50%) scale(0.3);
+      opacity: 0;
+      transition: opacity 0.8s cubic-bezier(0.34,1.56,0.64,1),
+                  transform 0.8s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .wave-stop.dot-visible {
+      opacity: 1;
+      transform: translate(-50%,-50%) scale(1);
+    }
+    .wave-stop:hover .stop-dot { transform: scale(1.14); }
+    .stop-dot {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: white;
+      border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 1.05rem;
+      box-shadow: 0 0 0 7px rgba(42,183,202,0.1), 0 4px 20px rgba(42,183,202,0.2);
+      transition: all 0.35s; flex-shrink: 0;
+    }
+    .wave-stop.dot-visible:hover .stop-dot {
+      background: var(--teal); color: white;
+      box-shadow: 0 0 0 12px rgba(42,183,202,0.15), 0 8px 32px rgba(42,183,202,0.5);
+    }
+    .stop-num { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); margin-top: 0.35rem; }
+
+    /* connector */
+    .stop-connector {
+      position: absolute; width: 1.5px; z-index: 2;
+      transform-origin: top center;
+      opacity: 0;
+      transform: translateX(-50%) scaleY(0);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .stop-connector.conn-visible {
+      opacity: 1;
+      transform: translateX(-50%) scaleY(1);
+    }
+
+    /* ── LIGHT CARD (replacing dark) ── */
+    .prog-float {
+      position: absolute; z-index: 4;
+      width: 215px;
+      background: #ffffff;
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(42,183,202,0.15);
+      transform: translateX(-50%) translateY(40px);
+      opacity: 0;
+      transition: opacity 1.1s cubic-bezier(0.16,1,0.3,1),
+                  transform 1.1s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.4s,
+                  border-color 0.4s;
+      box-shadow: 0 6px 24px rgba(13,31,45,0.08);
+    }
+    .prog-float.card-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .prog-float.card-visible:hover {
+      transform: translateX(-50%) translateY(-10px) scale(1.03);
+      box-shadow: 0 24px 52px rgba(13,31,45,0.13), 0 0 0 1.5px rgba(42,183,202,0.35);
+      border-color: rgba(42,183,202,0.35);
+    }
+    .pf-img { height: 120px; position: relative; overflow: hidden; }
+    .pf-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.7) brightness(0.82);
+      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.6s;
+    }
+    .prog-float:hover .pf-img img { transform: scale(1.1); filter: saturate(1) brightness(0.95); }
+    .pf-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.85) 100%);
+    }
+    .pf-num {
+      position: absolute; top: 0.7rem; right: 0.85rem;
+      font-family: var(--font-head); font-size: 1.8rem; line-height: 1;
+      color: rgba(13,31,45,0.07); z-index: 2; user-select: none;
+      transition: color 0.4s;
+    }
+    .prog-float:hover .pf-num { color: rgba(42,183,202,0.18); }
+    .pf-chip {
+      position: absolute; bottom: 0.6rem; left: 0.75rem;
+      background: var(--teal); color: white;
+      font-size: 0.5rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 0.22rem 0.7rem;
+      border-radius: 50px; z-index: 3;
+    }
+
+    /* accent card variant */
+    .prog-float.accent {
+      background: linear-gradient(145deg, #e8f8fb 0%, #d0eff5 100%);
+      border-color: rgba(42,183,202,0.2);
+    }
+    .prog-float.accent .pf-img {
+      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
+    }
+    .prog-float.accent .pf-img::after { display: none; }
+    .pf-accent-icon {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; color: rgba(255,255,255,0.25);
+    }
+
+    .pf-body { padding: 0.85rem 1rem 1rem; position: relative; background: white; }
+    .prog-float.accent .pf-body { background: transparent; }
+    .pf-body::before {
+      content: ''; position: absolute; top: 0; left: 1rem;
+      height: 1.5px; width: 20px;
+      background: var(--teal); border-radius: 2px;
+      transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .prog-float:hover .pf-body::before { width: calc(100% - 2rem); }
+    .pf-title {
+      font-family: var(--font-head); font-size: 0.9rem;
+      font-weight: 400; line-height: 1.25;
+      color: var(--ink); margin-bottom: 0.45rem; margin-top: 0.65rem;
+      transition: color 0.3s;
+    }
+    .prog-float:hover .pf-title { color: var(--teal-dark); }
+    .pf-desc {
+      font-size: 0.74rem; line-height: 1.62;
+      color: var(--muted); transition: color 0.3s;
+    }
+    .prog-float:hover .pf-desc { color: var(--ink-mid); }
+    .pf-arrow {
+      display: flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(42,183,202,0.1); color: var(--teal);
+      font-size: 0.6rem; margin-top: 0.8rem; margin-left: auto;
+      transition: all 0.35s;
+    }
+    .prog-float:hover .pf-arrow {
+      background: var(--teal); color: white;
+      transform: rotate(45deg);
+      box-shadow: 0 4px 14px rgba(42,183,202,0.4);
+    }
+    .prog-float.accent .pf-title { color: var(--teal-dark); }
+    .prog-float.accent .pf-desc  { color: var(--ink-mid); }
+
+    /* ══════════════════════════════════════════════
+       REMAINING CARDS ROW
+    ══════════════════════════════════════════════ */
+    .rest-section {
+      background: #f7fcfd;
+      padding: 4rem 0 7rem;
+      position: relative; z-index: 2;
+    }
+    .rest-divider {
+      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem 3rem;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .rest-divider-line { flex: 1; height: 1px; background: rgba(42,183,202,0.2); }
+    .rest-divider-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--teal); white-space: nowrap;
+    }
+    .rest-grid {
+      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+    }
+    .rest-card {
+      background: #ffffff;
+      border-radius: 22px; overflow: hidden;
+      border: 1px solid rgba(42,183,202,0.12);
+      box-shadow: 0 6px 28px rgba(13,31,45,0.07);
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s, border-color 0.4s;
+      display: flex; flex-direction: column;
+    }
+    .rest-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 56px rgba(13,31,45,0.12), 0 0 0 1.5px rgba(42,183,202,0.28);
+      border-color: rgba(42,183,202,0.28);
+    }
+    .rc-img { height: 200px; position: relative; overflow: hidden; flex-shrink: 0; }
+    .rc-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.7) brightness(0.82);
+      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.6s;
+    }
+    .rest-card:hover .rc-img img { transform: scale(1.08); filter: saturate(1) brightness(0.95); }
+    .rc-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(255,255,255,0.9) 100%);
+    }
+    .rc-num {
+      position: absolute; top: 1rem; right: 1.1rem;
+      font-family: var(--font-head); font-size: 2.5rem; line-height: 1;
+      color: rgba(13,31,45,0.06); z-index: 2; user-select: none;
+      transition: color 0.4s;
+    }
+    .rest-card:hover .rc-num { color: rgba(42,183,202,0.15); }
+    .rc-chip {
+      position: absolute; bottom: 0.8rem; left: 1rem;
+      background: var(--teal); color: white;
+      font-size: 0.54rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 0.28rem 0.85rem;
+      border-radius: 50px; z-index: 3;
+    }
+    .rc-body {
+      padding: 1.4rem 1.5rem 1.75rem; flex: 1;
+      display: flex; flex-direction: column; position: relative;
+    }
+    .rc-body::before {
+      content: ''; position: absolute; top: 0; left: 1.5rem;
+      height: 1.5px; width: 24px; background: var(--teal);
+      border-radius: 2px; transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .rest-card:hover .rc-body::before { width: calc(100% - 3rem); }
+    .rc-cat {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.5rem; margin-top: 0.75rem; display: block;
+    }
+    .rc-title {
+      font-family: var(--font-head); font-size: 1.15rem;
+      font-weight: 400; line-height: 1.25; color: var(--ink);
+      margin-bottom: 0.65rem; transition: color 0.3s;
+    }
+    .rest-card:hover .rc-title { color: var(--teal-dark); }
+    .rc-desc { font-size: 0.84rem; line-height: 1.7; color: var(--muted); transition: color 0.3s; flex: 1; }
+    .rest-card:hover .rc-desc { color: var(--ink-mid); }
+    .rc-arrow {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(42,183,202,0.1); color: var(--teal);
+      font-size: 0.72rem; margin-top: 1.2rem; margin-left: auto;
+      transition: all 0.35s;
+    }
+    .rest-card:hover .rc-arrow {
+      background: var(--teal); color: white;
+      transform: rotate(45deg);
+      box-shadow: 0 4px 16px rgba(42,183,202,0.4);
+    }
+
+    /* mobile fallback */
+    .wave-mobile {
+      display: none; max-width: 1000px; margin: 0 auto; padding: 0 2rem;
+      grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 1.5rem;
+    }
+    .mob-card {
+      background: #ffffff; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 6px 28px rgba(13,31,45,0.08);
+      border: 1px solid rgba(42,183,202,0.12);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .mob-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(42,183,202,0.14);
+      border-color: rgba(42,183,202,0.28);
+    }
+    .mob-card-img { height: 150px; overflow: hidden; position: relative; }
+    .mob-card-img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.75) brightness(0.85); }
+    .mob-card-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.88) 100%);
+    }
+    .mob-chip {
+      position: absolute; bottom: 0.65rem; left: 0.75rem;
+      background: var(--teal); color: white;
+      font-size: 0.52rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 0.25rem 0.75rem;
+      border-radius: 50px; z-index: 3;
+    }
+    .mob-body { padding: 1.1rem 1.2rem 1.4rem; }
+    .mob-cat { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.4rem; display: block; }
+    .mob-title { font-family: var(--font-head); font-size: 1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.25; }
+    .mob-desc { font-size: 0.8rem; line-height: 1.65; color: var(--muted); }
+
+    /* ══ CTA ══ */
+    .cta-strip {
+      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
+      padding: 7rem 0; position: relative; overflow: hidden;
+    }
+    .cta-strip::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle 600px at 20% 50%, rgba(255,255,255,0.07), transparent),
+                  radial-gradient(circle 400px at 80% 50%, rgba(255,255,255,0.04), transparent);
+      pointer-events: none;
+    }
+    .cta-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,0.08); pointer-events: none; }
+    .cta-ring-1 { width:700px; height:700px; top:50%; left:50%; transform:translate(-50%,-50%); animation:ring-pulse 7s ease-in-out infinite; }
+    .cta-ring-2 { width:500px; height:500px; top:50%; left:50%; transform:translate(-50%,-50%); animation:ring-pulse 7s 2s ease-in-out infinite; }
+    .cta-ring-3 { width:300px; height:300px; top:50%; left:50%; transform:translate(-50%,-50%); animation:ring-pulse 7s 4s ease-in-out infinite; }
+    @keyframes ring-pulse {
+      0%,100%{opacity:0;transform:translate(-50%,-50%) scale(0.85);}
+      50%{opacity:1;transform:translate(-50%,-50%) scale(1);}
+    }
+    .cta-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center; position: relative; z-index: 2;
+    }
+    .cta-left .eyebrow-line { color: rgba(255,255,255,0.7); }
+    .cta-left .eyebrow-line::before { background: rgba(255,255,255,0.7); }
+    .cta-left h2 {
+      font-family: var(--font-head); font-weight: 400;
+      font-size: clamp(2rem,3.5vw,3rem); color: white; line-height: 1.2;
+    }
+    .cta-left h2 em { font-style: italic; font-family: var(--font-serif); }
+    .cta-right p { color: rgba(255,255,255,0.78); font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; }
+    .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .cta-btn-white {
+      background: white; color: var(--teal-dark);
+      padding: 1.1rem 2.6rem; border-radius: 50px;
+      font-weight: 700; font-size: 0.92rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+    }
+    .cta-btn-white:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(0,0,0,0.24); }
+    .cta-btn-ghost {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
+      color: white; padding: 1.1rem 2.6rem; border-radius: 50px;
+      font-weight: 500; font-size: 0.92rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.3s; backdrop-filter: blur(8px);
+    }
+    .cta-btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+    /* ══ REVEAL ══ */
+    [data-reveal] { opacity:0; transform:translateY(28px); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    [data-reveal="fade-right"] { transform:translateX(-24px); }
+    [data-reveal="fade-left"]  { transform:translateX(24px); }
+    [data-reveal].revealed { opacity:1!important; transform:none!important; }
+    [data-reveal-delay="1"] { transition-delay:0.12s; }
+    [data-reveal-delay="2"] { transition-delay:0.24s; }
+    [data-reveal-delay="3"] { transition-delay:0.36s; }
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:1100px){
+      .hero-inner { grid-template-columns:1fr; }
+      .hero-right { display:none; }
+      .intro-wrap { grid-template-columns:1fr; gap:3rem; }
+      .journey-head { flex-direction:column; align-items:flex-start; }
+      .wave-track { display:none; }
+      .wave-mobile { display:grid; }
+      .rest-grid { grid-template-columns:repeat(2,1fr); }
+      .cta-inner { grid-template-columns:1fr; gap:2.5rem; }
+    }
+    @media(max-width:768px){
+      .hero-headline { font-size:3.2rem; }
+      .wwd-hero::before,.wwd-hero::after { display:none; }
+      .rest-grid { grid-template-columns:1fr; }
+      .wave-mobile { grid-template-columns:repeat(2,1fr); }
+    }
+    @media(max-width:480px){
+      .hero-headline { font-size:2.5rem; }
+      .hero-btns { flex-direction:column; }
+      .hero-btns a { width:100%; justify-content:center; }
+      .wave-mobile { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body data-nav-fixed="true">
+
+  <div class="hover-cursor" id="cursor"></div>
+  <karmayog-navbar base-path="../"></karmayog-navbar>
+
+  <!-- ══ HERO ══ -->
+  <section class="wwd-hero">
+    <div class="hero-inner">
+
+      <!-- Left copy -->
+      <div class="hero-left" data-reveal="fade-up">
+        <span class="hero-kicker">Our Programs</span>
+        <h1 class="hero-headline">What We<br><em>Do.</em></h1>
+        <p class="hero-desc">We are steadfastly dedicated to the holistic upliftment of underprivileged communities across rural Nepal through programs that create real, lasting change.</p>
+        <div class="hero-btns">
+          <a href="#journey" class="btn-primary">Explore Programs <i class="fas fa-arrow-down"></i></a>
+          <a href="../pages/donate.html" class="btn-ghost">Become a Member <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
-    </section>
 
-    <!-- Intro Text -->
-    <section class="section">
-      <div
-        class="container grid grid-cols-2"
-        style="align-items: center; gap: 4rem"
-      >
-        <div class="animate-up">
-          <span
-            style="
-              color: var(--color-primary-teal);
-              font-weight: 700;
-              letter-spacing: 0.1em;
-              text-transform: uppercase;
-            "
-            >Our Commitment</span
-          >
-          <h2
-            style="
-              margin-top: 0.5rem;
-              margin-bottom: 1.5rem;
-              font-size: 2.25rem;
-            "
-          >
-            A Purpose-Driven <span class="text-gradient">Journey</span>
-          </h2>
-          <h3
-            style="
-              color: var(--color-dark-teal);
-              font-weight: 800;
-              margin-bottom: 1.5rem;
-              font-size: 1.25rem;
-            "
-          >
-            "Selfless Service to the Helpless"
-          </h3>
-          <p style="font-size: 1rem; color: var(--text-secondary)">
-            Embark on a purpose-driven journey with Karmayog Foundation, where
-            our resolute commitment serves as the cornerstone of transformative
-            change. Founded by the visionary Mr. Saurav Rimal, our organization
-            is steadfastly dedicated to the holistic upliftment of
-            underprivileged communities in rural Nepal.
-          </p>
-          <p style="font-size: 1rem; color: var(--text-secondary)">
-            Through meticulously designed and impactful initiatives, we address
-            a spectrum of vital areas, including School Infrastructure
-            Strengthening, Education, Health, Humane Education, Environment
-            Protection, Income Generation, Skill Development, Animal Welfare,
-            and Rapid Response to Disaster Relief.
-          </p>
+      <!-- Right visual -->
+      <div class="hero-right" data-reveal="fade-left" data-reveal-delay="2">
+        <div class="hero-photo-a">
+          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20200811_112239_374.jpg&w=1200&q=85" alt="Karmayog Foundation" />
         </div>
-        <div
-          class="card animate-up delay-1"
-          style="
-            background: var(--gradient-primary);
-            color: white;
-            padding: 4rem;
-            box-shadow: 0 20px 40px rgba(13, 148, 136, 0.3);
-          "
-        >
-          <h3 style="color: white; margin-bottom: 1.5rem; font-size: 1.75rem">
-            Join the Meaningful Journey
-          </h3>
-          <p
-            style="
-              color: rgba(255, 255, 255, 0.9);
-              font-size: 1rem;
-              line-height: 1.8;
-            "
-          >
-            Guided by a mission to create lasting positive change, each of these
-            programs is a testament to our unwavering dedication. Your
-            invaluable support, whether as a Lifetime Member or General Member,
-            plays a pivotal role in propelling these initiatives forward.
-          </p>
-          <p
-            style="
-              color: rgba(255, 255, 255, 0.9);
-              font-size: 1rem;
-              line-height: 1.8;
-              margin-bottom: 2.5rem;
-            "
-          >
-            Together, let us forge a path towards empowerment and upliftment,
-            fostering positive change in the communities we serve.
-          </p>
-          <a
-            href="pages/donate.html"
-            class="btn btn-outline"
-            style="
-              background: white;
-              color: var(--color-primary-teal);
-              border-color: white;
-            "
-            >Become a Member</a
-          >
+        <div class="hero-photo-b">
+          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/12/PXL_20230812_080012243-scaled.jpg&w=600&q=85" alt="Community" />
         </div>
-      </div>
-    </section>
-
-    <!-- What We Care For - Programs Grid -->
-    <section
-      class="section bg-secondary"
-      id="programs-grid"
-      style="padding-top: 8rem"
-    >
-      <div class="container">
-        <div class="text-center mb-4 animate-up">
-          <span
-            style="
-              color: var(--color-primary-teal);
-              font-weight: 700;
-              letter-spacing: 0.1em;
-              text-transform: uppercase;
-            "
-            >Focus Areas</span
-          >
-          <h2 style="margin-top: 0.5rem">
-            What we <span class="text-gradient">care for</span>
-          </h2>
-          <p
-            class="lead-text"
-            style="
-              max-width: 700px;
-              margin: 0 auto;
-              color: var(--text-primary);
-              font-weight: 500;
-              font-size: 1.15rem;
-            "
-          >
-            Comprehensive, holistic solutions addressing the systemic root
-            causes of poverty, inequality, and lack of opportunity.
-          </p>
+        <div class="hero-pill">
+          <div class="hero-pill-icon"><i class="fas fa-heart"></i></div>
+          <div><strong>3,000+ Lives</strong><span>Impacted since 2020</span></div>
         </div>
-
-        <div class="grid grid-cols-3" style="gap: 2.5rem">
-          <!-- 1. School Infrastructure -->
-          <div class="card program-card animate-up delay-1">
-            <div class="program-image" style="height: 250px">
-              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg"
-                   alt="School Infrastructure"
-                   style="width: 100%; height: 100%; object-fit: cover" />
-            </div>
-            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🏫</div>
-            <h3>School Infrastructure Strengthening</h3>
-            <p style="flex-grow: 1">
-              Most of the government schools in remote areas lack basic
-              facilities i.e. Dilapidated Buildings, Shortage of Classrooms,
-              Poor Sanitation Facility, Playground etc. Karmayog Foundation
-              plans to intervene and provide assistance to create better
-              learning environment, upon consultation with the School Head
-              Master and Local Leaders to ensure sustainability.
-            </p>
-          </div>
-
-          <!-- 2. Education & Sports -->
-          <div
-            class="card program-card animate-up delay-1"
-            style="animation-delay: 0.1s"
-          >
-            <div class="program-image" style="height: 250px">
-              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/skills-competence-knowledge-3260624-pxryr554j9cnuf6tl6p7qsnijig9j65oq64qrh8cs8.jpg"
-                   alt="Education & Sports"
-                   style="width: 100%; height: 100%; object-fit: cover" />
-            </div>
-            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🎓</div>
-            <h3>Education, Sports & Extra-curricular</h3>
-            <p style="flex-grow: 1">
-              An ongoing program providing school children with Uniforms, Warm
-              Clothes, Shoes, and Materials. We envisage raising education
-              standards through:<br /><br />
-              • Teachers’ Training Programs<br />
-              • Setting-up E-Libraries<br />
-              • Creating Sports Facilities
-            </p>
-          </div>
-
-          <!-- 3. Health & Hygiene -->
-          <div
-            class="card program-card animate-up delay-1"
-            style="animation-delay: 0.2s"
-          >
-            <div class="program-image" style="height: 250px">
-              <img
-                src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg"
-                alt="Health Camp"
-                style="width: 100%; height: 100%; object-fit: cover"
-              />
-            </div>
-            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">❤️</div>
-            <h3>Health, Hygiene & Nutrition</h3>
-            <p style="flex-grow: 1">
-              We conduct regular health camps by volunteer professionals to
-              monitor the health of children and communities, distributing
-              medicines and sanitary products. To combat lack of proper
-              nutritional intake, we distribute appropriate ‘nutritious fruit
-              saplings’ to supplement diets and raise income.
-            </p>
-          </div>
-
-          <!-- 4. Humane Education -->
-          <div
-            class="card program-card animate-up delay-1"
-            style="animation-delay: 0.3s;"
-          >
-            <div class="program-image" style="height: 250px">
-              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/received_702851340877249-pxqtx778sd3zned30smngqb7h3m278l4mmn2voqbaw.jpeg"
-                   alt="Humane Education"
-                   style="width: 100%; height: 100%; object-fit: cover" />
-            </div>
-            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🤝</div>
-            <h3>Humane Education</h3>
-            <p style="flex-grow: 1;">
-              The fragmentation of the joint family system has deprived children
-              the learning of societal values and co-existence. The Foundation
-              has plans to develop training materials in consultation with
-              experts, targeted to students in urban areas including Kathmandu.
-            </p>
-          </div>
-
-          <!-- 5. Skill Development Center -->
-          <div
-            class="card program-card animate-up delay-1"
-            style="animation-delay: 0.4s"
-          >
-            <div class="program-image" style="height: 250px">
-              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/20221106_135524-scaled-pxqtxqxurvv0f7ketj5tf3bvy6wrovrhpcc9yhx1o8.jpg"
-                   alt="Skill Development Center"
-                   style="width: 100%; height: 100%; object-fit: cover" />
-            </div>
-            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🏨</div>
-            <h3>Skill Development Center</h3>
-            <p style="flex-grow: 1">
-              Working on a Concept Proposal to establish a Hospitality Training
-              Center in the mountain of Chepang Village to serve Nepal's growing
-              tourism industry. Affliated with institutions like NATHM to
-              provide accreditation, giving trainees paths to immediate
-              employment.
-            </p>
-          </div>
-
-          <!-- 6. Environment Protection -->
-          <div
-            class="card program-card animate-up delay-1"
-            style="animation-delay: 0.5s"
-          >
-            <div class="program-image" style="height: 250px">
-              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/hands-earth-next-generation-4091879-pxrysollqhgkvey9lco7bwnpl8ux5b9ulsme2sy4l4.jpg"
-                   alt="Environment Protection"
-                   style="width: 100%; height: 100%; object-fit: cover" />
-            </div>
-            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🌲</div>
-            <h3>Environment Protection</h3>
-            <p style="flex-grow: 1">
-              Encouraging communities to plant trees to protect the environment
-              and raise income levels. We distribute tree saplings suitable to
-              typography that control soil erosion and help water retention,
-              guided by forestry experts.
-            </p>
-          </div>
-
-          <!-- 7. Income Generation -->
-          <div
-            class="card program-card animate-up delay-1 income-card"
-            style="animation-delay: 0.6s"
-          >
-            <div>
-              <div class="program-icon" style="margin-bottom: 2rem">💡</div>
-              <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem">
-                Income Generation Activities
-              </h3>
-              <p style="font-size: 1rem">
-                We work on income generating activities like Handicraft
-                Promotion, Soap and Candle Production. Training Workshops
-                advance existing skills.
-              </p>
-              <p style="font-size: 1rem; margin-bottom: 0">
-                Trainings on Sweater Weaving, Sewing etc. are imparted to women.
-                The Foundation provides seed money as a loan, buys back products
-                with a reasonable profit, and sells them in urban centers to
-                ensure sustainable empowerment.
-              </p>
-            </div>
-            <div
-              style="
-                border-radius: var(--radius-lg);
-                overflow: hidden;
-                height: 100%;
-                min-height: 350px;
-                box-shadow: var(--shadow-float);
-              "
-            >
-              <img
-                src="https://karmayogfoundation.org/wp-content/uploads/2023/04/money-profit-finance-2696219-1-pxryosjng64utilpb64sie012u18aetuejf1kkpsc8.jpg"
-                alt="Income Generation"
-                style="width: 100%; height: 100%; object-fit: cover"
-              />
-            </div>
-          </div>
-
-          <!-- 8. Animal Welfare -->
-          <div
-            class="card program-card animate-up delay-1"
-            style="animation-delay: 0.7s"
-          >
-            <div class="program-image" style="height: 250px">
-              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1.jpg"
-                   alt="Animal Welfare"
-                   style="width: 100%; height: 100%; object-fit: cover" />
-            </div>
-            <div class="program-icon" style="margin-top: -1.5rem; position: relative; z-index: 2; width: 50px; height: 50px; font-size: 1.5rem;">🐕</div>
-            <h3>Animal Welfare</h3>
-            <p style="flex-grow: 1">
-              An ongoing program fueled by generous contributors celebrating
-              special occasions. Long-term, the Foundation has plans to
-              establish a "Canine Shelter and Rehabilitation Center" to provide
-              a permanent safe haven for street animals.
-            </p>
+        <div class="hero-badge">
+          <div class="hero-badge-inner">
+            <strong>2020</strong>
+            <span>Est.</span>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- Call to action block -->
-    <section
-      style="
-        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20200911_132008_118.jpg');
-        background-position: center;
-        background-size: cover;
-        background-attachment: fixed;
-        padding: 8rem 0;
-        text-align: center;
-        position: relative;
-      "
-    >
-      <div style="position: absolute; inset: 0; background: rgba(13, 148, 136, 0.85); z-index: 1;"></div>
-      <div class="container animate-up" style="position: relative; z-index: 2;">
-        <h2
-          style="
-            color: white;
-            max-width: 900px;
-            margin: 0 auto;
-            font-size: clamp(1.75rem, 3vw, 2.5rem);
-            line-height: 1.3;
-          "
-        >
-          By investing in children, together, we have the opportunity to create
-          real, long-lasting change for families and communities around the
-          world.
-        </h2>
-        <div
-          style="
-            margin-top: 4rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-          "
-        >
-          <a
-            href="pages/donate.html"
-            class="btn btn-donate"
-            style="
-              font-size: 1.25rem;
-              padding: 1.2rem 3rem;
-              background: white;
-              color: var(--color-primary-teal);
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            "
-            >Donate Now</a
-          >
-          <a
-            href="contact.html"
-            class="btn btn-outline"
-            style="
-              font-size: 1.25rem;
-              padding: 1.2rem 3rem;
-              border-color: white;
-              color: white;
-            "
-            >Get Involved</a
-          >
+    </div>
+    <!-- No stats bar — removed as requested -->
+  </section>
+
+  <!-- ══ INTRO ══ -->
+  <section class="intro-section">
+    <div class="intro-wrap">
+      <div class="intro-left" data-reveal="fade-right">
+        <span class="eyebrow-line">Our Commitment</span>
+        <h2>A Purpose-Driven <em>Journey</em></h2>
+        <div class="mantra"><i class="fas fa-om"></i>"Selfless Service to the Helpless"</div>
+        <p>Embark on a purpose-driven journey with Karmayog Foundation, where our resolute commitment serves as the cornerstone of transformative change. Founded by the visionary Mr. Saurav Rimal, our organization is dedicated to the holistic upliftment of underprivileged communities in rural Nepal.</p>
+        <p>Through meticulously designed and impactful initiatives, we address a spectrum of vital areas, including School Infrastructure, Education, Health, Humane Education, Environment Protection, Income Generation, Skill Development, Animal Welfare, and Disaster Relief.</p>
+      </div>
+      <div class="intro-right" data-reveal="fade-left">
+        <h3>Join the Meaningful Journey</h3>
+        <p>Guided by a mission to create lasting positive change, each of these programs is a testament to our unwavering dedication. Your invaluable support, whether as a Lifetime Member or General Member, plays a pivotal role in propelling these initiatives forward.</p>
+        <p>Together, let us forge a path towards empowerment and upliftment, fostering positive change in the communities we serve.</p>
+        <a href="../pages/donate.html" class="btn-white">Become a Member <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ WAVE JOURNEY — 5 cards on arc ══ -->
+  <section class="journey-section" id="journey">
+    <div class="journey-head">
+      <div data-reveal="fade-right">
+        <span class="eyebrow-line">Focus Areas</span>
+        <h2>What We <em>Care For</em></h2>
+      </div>
+      <!-- removed the right-side paragraph as requested -->
+    </div>
+
+    <!-- Desktop wave (5 cards) -->
+    <div class="wave-track" id="waveTrack">
+      <svg class="wave-svg" id="waveSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- Mobile fallback (all 8) -->
+    <div class="wave-mobile">
+      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Education</span></div><div class="mob-body"><span class="mob-cat">Education</span><div class="mob-title">School Infrastructure Strengthening</div><p class="mob-desc">Creating better learning environments in remote government schools across Nepal.</p></div></div>
+      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/skills-competence-knowledge-3260624-pxryr554j9cnuf6tl6p7qsnijig9j65oq64qrh8cs8.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Education</span></div><div class="mob-body"><span class="mob-cat">Education</span><div class="mob-title">Education, Sports &amp; Extra-curricular</div><p class="mob-desc">Uniforms, E-Libraries, and Sports Facilities for school children.</p></div></div>
+      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Health</span></div><div class="mob-body"><span class="mob-cat">Health</span><div class="mob-title">Health, Hygiene &amp; Nutrition</div><p class="mob-desc">Regular health camps, medicine distribution, and nutritious saplings.</p></div></div>
+      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Society</span></div><div class="mob-body"><span class="mob-cat">Society</span><div class="mob-title">Humane Education</div><p class="mob-desc">Nurturing empathy and community spirit in students across Nepal.</p></div></div>
+      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20221106_135524-scaled-pxqtxqxurvv0f7ketj5tf3bvy6wrovrhpcc9yhx1o8.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Livelihood</span></div><div class="mob-body"><span class="mob-cat">Livelihood</span><div class="mob-title">Skill Development Center</div><p class="mob-desc">Hospitality Training Center in Chepang Village, affiliated with NATHM.</p></div></div>
+      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/hands-earth-next-generation-4091879-pxrysollqhgkvey9lco7bwnpl8ux5b9ulsme2sy4l4.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Environment</span></div><div class="mob-body"><span class="mob-cat">Environment</span><div class="mob-title">Environment Protection</div><p class="mob-desc">Tree saplings controlling soil erosion and water retention across Nepal.</p></div></div>
+      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/money-profit-finance-2696219-1-pxryosjng64utilpb64sie012u18aetuejf1kkpsc8.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Livelihood</span></div><div class="mob-body"><span class="mob-cat">Livelihood</span><div class="mob-title">Income Generation Activities</div><p class="mob-desc">Handicrafts, soap production and weaving workshops empowering women.</p></div></div>
+      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Animal Welfare</span></div><div class="mob-body"><span class="mob-cat">Animal Welfare</span><div class="mob-title">Animal Welfare</div><p class="mob-desc">Ongoing program with plans for a Canine Shelter and Rehabilitation Center.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ══ REMAINING 3 CARDS ══ -->
+  <section class="rest-section">
+    <div class="rest-divider">
+      <div class="rest-divider-line"></div>
+      <span class="rest-divider-label">More Programs</span>
+      <div class="rest-divider-line"></div>
+    </div>
+    <div class="rest-grid">
+
+      <div class="rest-card" data-reveal="fade-up" data-reveal-delay="1">
+        <div class="rc-img">
+          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/hands-earth-next-generation-4091879-pxrysollqhgkvey9lco7bwnpl8ux5b9ulsme2sy4l4.jpg&w=800&q=85" alt="Environment" loading="lazy">
+          <span class="rc-num">06</span>
+          <span class="rc-chip">Environment</span>
+        </div>
+        <div class="rc-body">
+          <span class="rc-cat">Environment</span>
+          <div class="rc-title">Environment Protection</div>
+          <p class="rc-desc">Distributing tree saplings suited to local topography that control soil erosion and help water retention, guided by forestry experts and community leaders across Nepal.</p>
+          <div class="rc-arrow"><i class="fas fa-arrow-right"></i></div>
         </div>
       </div>
-    </section>
 
-    <karmayog-footer></karmayog-footer>
+      <div class="rest-card" data-reveal="fade-up" data-reveal-delay="2">
+        <div class="rc-img">
+          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/money-profit-finance-2696219-1-pxryosjng64utilpb64sie012u18aetuejf1kkpsc8.jpg&w=800&q=85" alt="Income Generation" loading="lazy">
+          <span class="rc-num">07</span>
+          <span class="rc-chip">Livelihood</span>
+        </div>
+        <div class="rc-body">
+          <span class="rc-cat">Livelihood</span>
+          <div class="rc-title">Income Generation Activities</div>
+          <p class="rc-desc">Handicraft promotion, soap & candle production. Women trained in weaving and sewing, with seed money loans and full product buybacks ensuring sustainable empowerment.</p>
+          <div class="rc-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
 
-    <script src="../js/main.js"></script>
-    <style>
-      .income-card {
-        grid-column: span 2;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-        align-items: center;
-        padding: 3rem !important;
+      <div class="rest-card" data-reveal="fade-up" data-reveal-delay="3">
+        <div class="rc-img">
+          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1.jpg&w=800&q=85" alt="Animal Welfare" loading="lazy">
+          <span class="rc-num">08</span>
+          <span class="rc-chip">Animal Welfare</span>
+        </div>
+        <div class="rc-body">
+          <span class="rc-cat">Animal Welfare</span>
+          <div class="rc-title">Animal Welfare</div>
+          <p class="rc-desc">An ongoing program fueled by generous contributors celebrating special occasions. Long-term plans include establishing a Canine Shelter and Rehabilitation Center for street animals.</p>
+          <div class="rc-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ CTA ══ -->
+  <section class="cta-strip">
+    <div class="cta-ring cta-ring-1"></div>
+    <div class="cta-ring cta-ring-2"></div>
+    <div class="cta-ring cta-ring-3"></div>
+    <div class="cta-inner" data-reveal="fade-up">
+      <div class="cta-left">
+        <span class="eyebrow-line">Make a Difference</span>
+        <h2>By investing in children, together we create real, <em>long-lasting change.</em></h2>
+      </div>
+      <div class="cta-right">
+        <p>For families and communities around the world every contribution matters. Join as a Lifetime Member or General Member and help propel these initiatives forward.</p>
+        <div class="cta-actions">
+          <a href="../pages/donate.html" class="cta-btn-white"><span>❤️</span> Donate Now</a>
+          <a href="../pages/contact.html" class="cta-btn-ghost">Get Involved <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="help-section">
+    <div class="help-button" id="helpButton"><i class="fas fa-question-circle"></i><span>Help?</span></div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></div>
+  </div>
+
+  <karmayog-footer base-path="../"></karmayog-footer>
+  <script src="../js/main.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    var waveProgs = [
+      { icon:'fas fa-building',       num:'01', cat:'Education',  title:'School Infrastructure Strengthening', desc:'Creating better learning environments in remote government schools tackling dilapidated buildings, sanitation, and classroom shortages.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg&w=600&q=85' },
+      { icon:'fas fa-graduation-cap', num:'02', cat:'Education',  title:'Education, Sports & Extra-curricular', desc:'Uniforms, E-Libraries, Teachers\' Training and Sports Facilities because education is more than a classroom.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/skills-competence-knowledge-3260624-pxryr554j9cnuf6tl6p7qsnijig9j65oq64qrh8cs8.jpg&w=600&q=85' },
+      { icon:'fas fa-heartbeat',      num:'03', cat:'Health',     title:'Health, Hygiene & Nutrition', desc:'Regular health camps by volunteer professionals, medicine distribution and nutritious fruit saplings for rural households.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg&w=600&q=85' },
+      { icon:'fas fa-hands-helping',  num:'04', cat:'Society',    title:'Humane Education', desc:'Training materials nurturing empathy and community spirit  for students in both rural communities and urban Kathmandu.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg&w=600&q=85' },
+      { icon:'fas fa-tools',          num:'05', cat:'Livelihood', title:'Skill Development Center', desc:'A Hospitality Training Center in Chepang Village, affiliated with NATHM  paths to employment in Nepal\'s tourism industry.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20221106_135524-scaled-pxqtxqxurvv0f7ketj5tf3bvy6wrovrhpcc9yhx1o8.jpg&w=600&q=85' }
+    ];
+
+    var track = document.getElementById('waveTrack');
+    var svg   = document.getElementById('waveSvg');
+    if (!track || !svg) return;
+
+    var N     = waveProgs.length;
+    var PAD_X = 100;
+    var Y_TOP = 130;
+    var Y_BOT = 430;
+
+    function stopY(i) {
+      var t = i / (N - 1);
+      var v = Math.sin(t * Math.PI);
+      return Y_BOT - v * (Y_BOT - Y_TOP);
+    }
+
+    function buildWave() {
+      svg.innerHTML = '';
+      track.querySelectorAll('.wave-stop,.prog-float,.stop-connector').forEach(function(el){ el.remove(); });
+
+      var W = track.offsetWidth;
+      var pts = [];
+      for (var i = 0; i < N; i++) {
+        pts.push({ x: PAD_X + (i / (N-1)) * (W - PAD_X*2), y: stopY(i) });
       }
 
-      @media (max-width: 1024px) {
-        #programs-grid .grid-cols-3 {
-          grid-template-columns: repeat(2, 1fr) !important;
-        }
+      /* dashed arc path */
+      svg.setAttribute('width', W);
+      var d = 'M '+pts[0].x.toFixed(1)+' '+pts[0].y.toFixed(1);
+      for (var i = 0; i < N-1; i++) {
+        var p0=pts[i], p1=pts[i+1], cpx=(p0.x+p1.x)/2;
+        d += ' C '+cpx.toFixed(1)+' '+p0.y.toFixed(1)+', '+cpx.toFixed(1)+' '+p1.y.toFixed(1)+', '+p1.x.toFixed(1)+' '+p1.y.toFixed(1);
+      }
+      var pathEl = document.createElementNS('http://www.w3.org/2000/svg','path');
+      pathEl.setAttribute('d',d);
+      pathEl.setAttribute('fill','none');
+      pathEl.setAttribute('stroke','#2AB7CA');
+      pathEl.setAttribute('stroke-width','2');
+      pathEl.setAttribute('stroke-dasharray','8 7');
+      pathEl.setAttribute('stroke-linecap','round');
+      pathEl.setAttribute('opacity','0');
+      svg.appendChild(pathEl);
 
-        .income-card {
-          grid-column: span 2 !important;
-          grid-template-columns: 1fr !important;
-          padding: 2.5rem !important;
+      var midY   = (Y_TOP + Y_BOT) / 2;
+      var connLen = 38;
+      var dotR    = 27;
+      var maxBot  = 0;
+
+      for (var i = 0; i < N; i++) {
+        var p  = waveProgs[i];
+        var pt = pts[i];
+        var cardAbove = pt.y > midY;
+
+        /* dot */
+        var stopEl = document.createElement('div');
+        stopEl.className = 'wave-stop';
+        stopEl.style.cssText = 'left:'+pt.x.toFixed(1)+'px;top:'+pt.y.toFixed(1)+'px;';
+        stopEl.innerHTML = '<div class="stop-dot"><i class="'+p.icon+'"></i></div><span class="stop-num">'+p.num+'</span>';
+        track.appendChild(stopEl);
+
+        /* connector */
+        var lineEl = document.createElement('div');
+        lineEl.className = 'stop-connector';
+        lineEl.style.left   = pt.x.toFixed(1)+'px';
+        lineEl.style.height = connLen+'px';
+        if (cardAbove) {
+          lineEl.style.top = (pt.y - dotR - connLen)+'px';
+          lineEl.style.background = 'linear-gradient(to top, rgba(42,183,202,0.5), rgba(42,183,202,0.04))';
+        } else {
+          lineEl.style.top = (pt.y + dotR)+'px';
+          lineEl.style.background = 'linear-gradient(to bottom, rgba(42,183,202,0.5), rgba(42,183,202,0.04))';
         }
+        track.appendChild(lineEl);
+
+        /* light card */
+        var cardEl = document.createElement('div');
+        cardEl.className = 'prog-float';
+        cardEl.style.left = pt.x.toFixed(1)+'px';
+        cardEl.style.top = '-9999px'; /* off-screen to measure */
+        cardEl.style.transition = 'none'; /* no transition while measuring */
+
+        var html = '<div class="pf-img"><img src="'+p.img+'" alt="'+p.title+'" loading="lazy">';
+        html += '<span class="pf-num">'+p.num+'</span>';
+        html += '<span class="pf-chip">'+p.cat+'</span></div>';
+        html += '<div class="pf-body">';
+        html += '<div class="pf-title">'+p.title+'</div>';
+        html += '<p class="pf-desc">'+p.desc+'</p>';
+        html += '<div class="pf-arrow"><i class="fas fa-arrow-right"></i></div>';
+        html += '</div>';
+        cardEl.innerHTML = html;
+        track.appendChild(cardEl);
+
+        /* measure real height now it's in DOM */
+        var ch = cardEl.offsetHeight || 260;
+        var cardTop = cardAbove ? (pt.y - dotR - connLen - ch) : (pt.y + dotR + connLen);
+        cardEl.style.top = cardTop+'px';
+        /* transition restored in animateWaveCards before card-visible is added */
+
+        var bot = cardTop + ch;
+        if (bot > maxBot) maxBot = bot;
       }
 
-      @media (max-width: 768px) {
-        #programs-grid .grid-cols-3 {
-          grid-template-columns: 1fr !important;
-        }
+      var H = maxBot + 60;
+      track.style.minHeight = H+'px';
+      svg.setAttribute('height', H);
+      svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    }
 
-        .income-card {
-          grid-column: span 1 !important;
-        }
+    buildWave();
+    var rTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(rTimer);
+      rTimer = setTimeout(function() {
+        waveAnimated = false;
+        buildWave();
+        // re-observe
+        if (waveSection) sectionObs.observe(waveSection);
+      }, 200);
+    });
 
-        .section .grid-cols-2 {
-          grid-template-columns: 1fr !important;
-        }
+    /* ── staggered card animation on scroll into view ── */
+    var waveSection = document.getElementById('journey');
+    var waveAnimated = false;
+
+    function animateWaveCards() {
+      if (waveAnimated) return;
+      waveAnimated = true;
+
+      var stops = Array.from(track.querySelectorAll('.wave-stop'));
+      var conns = Array.from(track.querySelectorAll('.stop-connector'));
+      var cards = Array.from(track.querySelectorAll('.prog-float'));
+
+      /* 1. Draw the SVG path with a stroke-dashoffset trick */
+      var pathEl = svg.querySelector('path');
+      if (pathEl) {
+        var len = pathEl.getTotalLength ? pathEl.getTotalLength() : 1200;
+        pathEl.style.strokeDasharray  = len + ' ' + len;
+        pathEl.style.strokeDashoffset = len;
+        pathEl.style.opacity = '0.5';
+        pathEl.style.transition = 'stroke-dashoffset 2.2s cubic-bezier(0.4,0,0.2,1)';
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            pathEl.style.strokeDashoffset = '0';
+          });
+        });
       }
-    </style>
-  </body>
+
+      /* 2. For each stop: dot pops → connector extends → card slides in
+            Gap between each stop: 320ms                              */
+      var BASE = 300; // ms before first stop
+      var GAP  = 550; // ms between each stop — slow, beautiful stagger
+
+      stops.forEach(function(dotEl, i) {
+        var connEl  = conns[i];
+        var cardEl  = cards[i];
+        var t0 = BASE + i * GAP;
+
+        /* set correct transform-origin for connector based on direction */
+        if (connEl) {
+          var goingUp = connEl.style.background.indexOf('to top') !== -1;
+          connEl.style.transformOrigin = goingUp ? 'bottom center' : 'top center';
+        }
+
+        /* dot */
+        setTimeout(function() {
+          dotEl.classList.add('dot-visible');
+        }, t0);
+
+        /* connector — 80ms after dot */
+        setTimeout(function() {
+          if (connEl) connEl.classList.add('conn-visible');
+        }, t0 + 80);
+
+        /* card — 180ms after dot, nice smooth fade+rise */
+        setTimeout(function() {
+          if (cardEl) {
+            /* ensure inline transition:none is cleared before animating */
+            cardEl.style.transition = '';
+            requestAnimationFrame(function() {
+              requestAnimationFrame(function() {
+                cardEl.classList.add('card-visible');
+              });
+            });
+          }
+        }, t0 + 180);
+      });
+    }
+
+    var sectionObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          animateWaveCards();
+          sectionObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if (waveSection) sectionObs.observe(waveSection);
+
+    /* scroll reveal */
+    var revEls = document.querySelectorAll('[data-reveal]');
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var d = e.target.dataset.revealDelay||0;
+          setTimeout(function(){ e.target.classList.add('revealed'); }, d*120);
+          obs.unobserve(e.target);
+        }
+      });
+    },{ threshold:0.1 });
+    revEls.forEach(function(el){ obs.observe(el); });
+    setTimeout(function(){ revEls.forEach(function(el){ el.classList.add('revealed'); }); }, 2500);
+
+    /* smooth scroll */
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        var t = document.querySelector(this.getAttribute('href'));
+        if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
+      });
+    });
+
+    var h = document.getElementById('helpButton');
+    if(h) h.addEventListener('click', function(){ window.location.href='../pages/contact.html'; });
+  });
+  </script>
+</body>
 </html>

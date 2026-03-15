@@ -1,199 +1,516 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Newsletter Viewer | Karmayog Foundation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../css/main.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newsletter Viewer | Karmayog Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/main.css" />
 
-  <body>
-    <!-- Navigation -->
-    <karmayog-navbar base-path="../"></karmayog-navbar>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:      #2AB7CA;
+      --teal-dark: #1a8fa0;
+      --teal-soft: rgba(42,183,202,0.08);
+      --ink:       #0d1f2d;
+      --ink-mid:   #2e4057;
+      --muted:     #6b7f8e;
+      --font-head: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-serif:'Playfair Display', serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    .w { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
 
-    <!-- Header & Breadcrumbs Section -->
-    <section
-      class="section"
-      style="
-        padding-top: 150px;
-        padding-bottom: 2rem;
-        background: var(--bg-secondary);
-      "
-    >
-      <div class="container animate-up">
-        <!-- Breadcrumbs -->
-        <nav class="breadcrumbs" aria-label="Breadcrumb" style="margin-top: 0">
-          <a href="../index.html">Home</a>
-          <span class="separator">/</span>
-          <span
-            id="breadcrumb-title"
-            style="color: var(--text-primary); font-weight: 600"
-            >Newsletter Viewer</span
-          >
-        </nav>
+    /* ════════════════════════════
+       TOP BAR
+    ════════════════════════════ */
+    .viewer-topbar {
+      padding-top: var(--nav-h, 80px);
+      background: #fff;
+      border-bottom: 1px solid rgba(42,183,202,0.1);
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; padding: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .topbar-left { display: flex; flex-direction: column; gap: 0.35rem; }
 
-        <h1
-          id="page-title"
-          style="
-            max-width: 900px;
-            line-height: 1.1;
-            font-size: 2.5rem;
-            margin-top: 1rem;
-          "
-        >
-          Issue <span class="text-gradient">Viewer</span>
-        </h1>
-      </div>
-    </section>
+    /* breadcrumb */
+    .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted); }
+    .breadcrumb a { color: var(--teal); font-weight: 500; transition: opacity 0.2s; }
+    .breadcrumb a:hover { opacity: 0.7; }
+    .breadcrumb .sep { opacity: 0.4; }
 
-    <!-- PDF Viewer Section -->
-    <section class="section">
-      <div class="container animate-up delay-1">
-        <div
-          class="card"
-          style="
-            padding: 1rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-          "
-        >
-          <!-- PDF Frame Container -->
-          <div
-            style="
-              flex-grow: 1;
-              width: 100%;
-              height: 100%;
-              background: #222;
-              border-radius: var(--radius-md);
-              overflow: hidden;
-              position: relative;
-            "
-          >
-            <!-- Default Placeholder if no PDF provided -->
-            <div
-              id="pdf-placeholder"
-              style="
-                position: absolute;
-                inset: 0;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                padding: 2rem;
-              "
-            >
-              <svg
-                width="64"
-                height="64"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--color-primary-teal)"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                style="margin-bottom: 1rem; opacity: 0.8"
-              >
-                <path
-                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                ></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-              </svg>
-              <h3
-                style="
-                  font-size: 1.5rem;
-                  margin-bottom: 0.5rem;
-                  color: var(--text-primary);
-                "
-              >
-                Document Reader
-              </h3>
-              <p
-                style="
-                  color: var(--text-secondary);
-                  max-width: 400px;
-                  margin: 0 auto;
-                "
-              >
-                Reading embedded newsletter PDF files.
-              </p>
-            </div>
+    /* page title */
+    .viewer-title {
+      font-family: var(--font-head); font-size: clamp(1.6rem,3vw,2.4rem);
+      font-weight: 400; color: var(--ink); line-height: 1.1;
+    }
+    .viewer-title em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
 
-            <!-- The actual iframe used for the PDF -->
-            <!-- 
-              Note: You would replace the src with actual PDF paths based on the query param. 
-              Modern browsers handle PDFs in iframes natively.
-            -->
-            <iframe
-              id="pdf-frame"
-              src=""
-              width="100%"
-              height="100%"
-              style="
-                border: none;
-                position: relative;
-                z-index: 10;
-                display: none;
-              "
-            ></iframe>
-          </div>
+    /* topbar right: actions */
+    .topbar-actions { display: flex; align-items: center; gap: 1rem; }
+    .tba-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.5rem; border-radius: 50px;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      border: none; font-family: var(--font-body);
+      transition: all 0.3s;
+    }
+    .tba-btn.primary { background: var(--teal); color: #fff; box-shadow: 0 6px 20px rgba(42,183,202,0.3); }
+    .tba-btn.primary:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(42,183,202,0.42); }
+    .tba-btn.ghost { background: var(--teal-soft); color: var(--teal-dark); border: 1px solid rgba(42,183,202,0.2); }
+    .tba-btn.ghost:hover { background: rgba(42,183,202,0.14); }
+
+    /* issue chips row */
+    .issue-chips {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.85rem 0;
+      flex-wrap: wrap;
+    }
+    .issue-chips-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-right: 0.25rem; }
+    .ichip {
+      padding: 0.32rem 1rem; border-radius: 50px;
+      font-size: 0.72rem; font-weight: 600;
+      border: 1.5px solid rgba(42,183,202,0.2);
+      color: var(--muted); cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .ichip:hover, .ichip.active {
+      background: var(--teal); color: #fff;
+      border-color: var(--teal);
+      box-shadow: 0 4px 14px rgba(42,183,202,0.3);
+    }
+
+    /* ════════════════════════════
+       VIEWER AREA
+    ════════════════════════════ */
+    .viewer-section {
+      background: #f4fbfc;
+      padding: 2.5rem 0 4rem;
+      min-height: calc(100vh - 200px);
+    }
+
+    .viewer-layout {
+      display: grid; grid-template-columns: 1fr 300px;
+      gap: 2rem; align-items: start;
+    }
+
+    /* ── PDF frame ── */
+    .pdf-wrap {
+      border-radius: 22px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(13,31,45,0.12);
+      border: 1px solid rgba(42,183,202,0.1);
+      background: #1a1a2e;
+      min-height: 80vh;
+      position: relative;
+    }
+
+    #pdf-frame {
+      width: 100%;
+      height: 85vh;
+      border: none;
+      display: block;
+    }
+
+    /* placeholder shown when no PDF loaded */
+    .pdf-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 3rem;
+      background: #f8feff;
+    }
+    .pdf-placeholder.hidden { display: none; }
+
+    .placeholder-icon {
+      width: 88px; height: 88px; border-radius: 24px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.75rem;
+      box-shadow: 0 12px 36px rgba(42,183,202,0.35);
+    }
+    .placeholder-icon i { font-size: 2.4rem; color: #fff; }
+
+    .placeholder-title {
+      font-family: var(--font-head); font-size: 1.8rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.75rem;
+    }
+    .placeholder-title em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .placeholder-sub { font-size: 0.96rem; color: var(--muted); line-height: 1.75; max-width: 420px; margin-bottom: 2.5rem; }
+
+    /* step boxes explaining how to add PDFs */
+    .setup-steps { display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 520px; text-align: left; }
+    .setup-step {
+      background: #fff; border-radius: 14px;
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(42,183,202,0.12);
+      box-shadow: 0 3px 12px rgba(13,31,45,0.05);
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--teal); color: #fff;
+      font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-text { font-size: 0.84rem; line-height: 1.6; color: var(--ink-mid); }
+    .step-text strong { color: var(--ink); }
+    .step-text code {
+      background: var(--teal-soft); color: var(--teal-dark);
+      padding: 0.1rem 0.45rem; border-radius: 5px;
+      font-size: 0.78rem; font-family: monospace;
+    }
+
+    /* ── sidebar ── */
+    .viewer-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .sidebar-card {
+      background: #fff; border-radius: 20px;
+      border: 1px solid rgba(42,183,202,0.1);
+      box-shadow: 0 6px 24px rgba(13,31,45,0.06);
+      overflow: hidden;
+    }
+    .sc-head {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(42,183,202,0.08);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--teal);
+    }
+    .sc-body { padding: 1.25rem 1.5rem; }
+
+    /* current issue info */
+    .ci-date { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.4rem; }
+    .ci-title { font-family: var(--font-head); font-size: 1.1rem; font-weight: 400; color: var(--ink); line-height: 1.3; margin-bottom: 0.75rem; }
+    .ci-desc { font-size: 0.82rem; line-height: 1.72; color: var(--muted); }
+
+    /* archive list in sidebar */
+    .sa-list { display: flex; flex-direction: column; }
+    .sa-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.9rem 0; border-bottom: 1px solid rgba(42,183,202,0.07);
+      text-decoration: none; transition: all 0.25s;
+    }
+    .sa-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .sa-item:hover { padding-left: 4px; }
+    .sa-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); flex-shrink: 0; opacity: 0.5; }
+    .sa-item:hover .sa-dot { opacity: 1; }
+    .sa-item.current .sa-dot { opacity: 1; box-shadow: 0 0 0 3px rgba(42,183,202,0.2); }
+    .sa-month { font-size: 0.86rem; font-weight: 600; color: var(--ink); flex: 1; }
+    .sa-item:hover .sa-month { color: var(--teal); }
+    .sa-item.current .sa-month { color: var(--teal); }
+    .sa-arr { font-size: 0.62rem; color: var(--muted); transition: color 0.25s; }
+    .sa-item:hover .sa-arr { color: var(--teal); }
+
+    /* back link card */
+    .back-card {
+      display: flex; align-items: center; gap: 0.75rem;
+      background: #fff; border-radius: 16px;
+      padding: 1.1rem 1.4rem;
+      border: 1px solid rgba(42,183,202,0.1);
+      box-shadow: 0 4px 16px rgba(13,31,45,0.05);
+      font-size: 0.86rem; font-weight: 600; color: var(--teal);
+      transition: all 0.3s;
+    }
+    .back-card:hover { transform: translateX(-4px); box-shadow: 0 8px 28px rgba(42,183,202,0.12); }
+
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+    @media(max-width:1024px){
+      .viewer-layout { grid-template-columns: 1fr; }
+      .viewer-sidebar { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width:640px){
+      .viewer-sidebar { grid-template-columns: 1fr; }
+      .topbar-inner { flex-direction: column; align-items: flex-start; }
+      .w { padding: 0 1.25rem; }
+      #pdf-frame { height: 70vh; }
+    }
+  </style>
+</head>
+<body data-nav-fixed="true">
+
+  <div class="hover-cursor" id="cursor"></div>
+  <karmayog-navbar base-path="../"></karmayog-navbar>
+
+  <!-- ════════════════════════════
+       TOP BAR
+  ════════════════════════════ -->
+  <div class="viewer-topbar">
+    <div class="w">
+
+      <div class="topbar-inner">
+        <div class="topbar-left">
+          <!-- breadcrumb -->
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span class="sep">/</span>
+            <a href="../pages/newsletter.html">Newsletter</a>
+            <span class="sep">/</span>
+            <span id="breadcrumb-title" style="color:var(--ink);font-weight:600;">Viewer</span>
+          </nav>
+          <!-- dynamic title -->
+          <h1 class="viewer-title" id="page-title">Issue <em>Viewer</em></h1>
+        </div>
+
+        <div class="topbar-actions">
+          <a href="../pages/newsletter.html" class="tba-btn ghost">
+            <i class="fas fa-arrow-left"></i> All Issues
+          </a>
+          <button class="tba-btn primary" id="downloadBtn" style="display:none;" onclick="downloadPDF()">
+            <i class="fas fa-download"></i> Download PDF
+          </button>
         </div>
       </div>
-    </section>
 
-    <karmayog-footer base-path="../"></karmayog-footer>
+      <!-- issue quick-nav chips -->
+      <div class="issue-chips">
+        <span class="issue-chips-label">Issues</span>
+        <a href="pdf_viewer.html?issue=Feb-2024" class="ichip" id="chip-Feb-2024">Feb 2024</a>
+        <a href="pdf_viewer.html?issue=Jan-2024" class="ichip" id="chip-Jan-2024">Jan 2024</a>
+        <a href="pdf_viewer.html?issue=Dec-2023" class="ichip" id="chip-Dec-2023">Dec 2023</a>
+        <a href="pdf_viewer.html?issue=Nov-2023" class="ichip" id="chip-Nov-2023">Nov 2023</a>
+      </div>
 
-    <script src="../js/main.js"></script>
-    <script>
-      // Simple logic to read the '?issue=' parameter and set titles/PDFs
-      document.addEventListener("DOMContentLoaded", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const issueParam = urlParams.get("issue");
+    </div>
+  </div>
 
-        const titleEl = document.getElementById("page-title");
-        const breadcrumbEl = document.getElementById("breadcrumb-title");
-        const pdfFrame = document.getElementById("pdf-frame");
-        const placeholder = document.getElementById("pdf-placeholder");
+  <!-- ════════════════════════════
+       VIEWER
+  ════════════════════════════ -->
+  <section class="viewer-section">
+    <div class="w">
+      <div class="viewer-layout">
 
-        if (issueParam === "Feb-2024") {
-          titleEl.innerHTML =
-            'February 2024 <span class="text-gradient">Newsletter</span>';
-          breadcrumbEl.textContent = "February 2024";
-          // Set real PDF path here if you have one. Leaving blank will just show browser PDF tools or fail if empty.
-          // pdfFrame.src = '../assets/newsletters/feb-2024.pdf';
-          // pdfFrame.style.display = 'block';
-        } else if (issueParam === "Jan-2024") {
-          titleEl.innerHTML =
-            'January 2024 <span class="text-gradient">Newsletter</span>';
-          breadcrumbEl.textContent = "January 2024";
-          // pdfFrame.src = '../assets/newsletters/jan-2024.pdf';
-          // pdfFrame.style.display = 'block';
-        }
+        <!-- ── PDF frame ── -->
+        <div class="pdf-wrap">
 
-        // Just for visual completeness in this demo, let's pretend a PDF is loading
-        // Remove this setTimeout logic when you connect real PDF URLs above
-        if (issueParam) {
-          setTimeout(() => {
-            placeholder.querySelector("h3").textContent =
-              "PDF Viewer Loading...";
-            placeholder.querySelector("p").textContent =
-              "Connect actual .pdf paths in pdf_viewer.html to view documents natively.";
-          }, 500);
-        }
-      });
-    </script>
-  </body>
+          <!-- placeholder / setup guide -->
+          <div class="pdf-placeholder" id="pdf-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="placeholder-title" id="placeholder-title">
+              Newsletter <em>Viewer</em>
+            </div>
+            <p class="placeholder-sub" id="placeholder-sub">
+              To display PDFs here, upload your newsletter files to <code>assets/newsletters/</code> and connect the paths below.
+            </p>
+
+            <div class="setup-steps">
+              <div class="setup-step">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                  <strong>Upload your PDF files</strong> to the folder <code>assets/newsletters/</code> in your project. Name them clearly, e.g. <code>feb-2024.pdf</code>.
+                </div>
+              </div>
+              <div class="setup-step">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                  <strong>Open <code>pdf_viewer.html</code></strong> and find the <code>PDF_MAP</code> object near the bottom. Add your issue like:<br>
+                  <code>'Feb-2024': '../assets/newsletters/feb-2024.pdf'</code>
+                </div>
+              </div>
+              <div class="setup-step">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                  <strong>That's it!</strong> The viewer will automatically load the correct PDF when a reader clicks any issue link.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- actual PDF iframe -->
+          <iframe id="pdf-frame" src="" title="Newsletter PDF"></iframe>
+
+        </div>
+
+        <!-- ── sidebar ── -->
+        <div class="viewer-sidebar">
+
+          <!-- current issue info -->
+          <div class="sidebar-card" id="issue-info-card">
+            <div class="sc-head">Current Issue</div>
+            <div class="sc-body">
+              <div class="ci-date" id="si-date">Select an issue</div>
+              <div class="ci-title" id="si-title">Choose a newsletter from the chips above to begin reading.</div>
+              <p class="ci-desc" id="si-desc"></p>
+            </div>
+          </div>
+
+          <!-- archive list -->
+          <div class="sidebar-card">
+            <div class="sc-head">All Issues</div>
+            <div class="sc-body" style="padding-top:0.5rem;padding-bottom:0.5rem;">
+              <div class="sa-list">
+                <a href="pdf_viewer.html?issue=Feb-2024" class="sa-item" id="sa-Feb-2024">
+                  <div class="sa-dot"></div>
+                  <span class="sa-month">February 2024</span>
+                  <i class="fas fa-chevron-right sa-arr"></i>
+                </a>
+                <a href="pdf_viewer.html?issue=Jan-2024" class="sa-item" id="sa-Jan-2024">
+                  <div class="sa-dot"></div>
+                  <span class="sa-month">January 2024</span>
+                  <i class="fas fa-chevron-right sa-arr"></i>
+                </a>
+                <a href="pdf_viewer.html?issue=Dec-2023" class="sa-item" id="sa-Dec-2023">
+                  <div class="sa-dot"></div>
+                  <span class="sa-month">December 2023</span>
+                  <i class="fas fa-chevron-right sa-arr"></i>
+                </a>
+                <a href="pdf_viewer.html?issue=Nov-2023" class="sa-item" id="sa-Nov-2023">
+                  <div class="sa-dot"></div>
+                  <span class="sa-month">November 2023</span>
+                  <i class="fas fa-chevron-right sa-arr"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- back link -->
+          <a href="../pages/newsletter.html" class="back-card">
+            <i class="fas fa-arrow-left"></i>
+            Back to Newsletter
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="help-section">
+    <div class="help-button" id="helpButton"><i class="fas fa-question-circle"></i><span>Help?</span></div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></div>
+  </div>
+
+  <karmayog-footer base-path="../"></karmayog-footer>
+  <script src="../js/main.js"></script>
+
+  <script>
+  /* ══════════════════════════════════════════════════
+     PDF MAP — add your PDF file paths here!
+
+     HOW TO ADD A PDF:
+     1. Put your file in:   assets/newsletters/feb-2024.pdf
+     2. Add an entry below: 'Feb-2024': '../assets/newsletters/feb-2024.pdf'
+     3. Done — the viewer picks it up automatically.
+  ══════════════════════════════════════════════════ */
+  var PDF_MAP = {
+    'Feb-2024': '',   // ← replace '' with '../assets/newsletters/feb-2024.pdf'
+    'Jan-2024': '',   // ← replace '' with '../assets/newsletters/jan-2024.pdf'
+    'Dec-2023': '',   // ← replace '' with '../assets/newsletters/dec-2023.pdf'
+    'Nov-2023': ''    // ← replace '' with '../assets/newsletters/nov-2023.pdf'
+  };
+
+  /* ── issue metadata ── */
+  var ISSUE_META = {
+    'Feb-2024': {
+      label:  'February 2024',
+      title:  'Empowering Education in Rural Sindhulpalchok',
+      desc:   'New interactive playscape transforming the daily lives of over 500 children. Updates from our ongoing water sanitation projects and new volunteers.'
+    },
+    'Jan-2024': {
+      label:  'January 2024',
+      title:  'New Year, New Healthcare Initiatives',
+      desc:   'Starting 2024 with expanded healthcare access across rural Nepal.'
+    },
+    'Dec-2023': {
+      label:  'December 2023',
+      title:  'Year in Review',
+      desc:   'Celebrating our milestones and thanking every donor who made 2023 possible.'
+    },
+    'Nov-2023': {
+      label:  'November 2023',
+      title:  'Winter Relief Distribution',
+      desc:   'Relief distribution across 5 mountain villages ahead of winter.'
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    var urlParams  = new URLSearchParams(window.location.search);
+    var issueParam = urlParams.get('issue');
+
+    var titleEl      = document.getElementById('page-title');
+    var breadcrumbEl = document.getElementById('breadcrumb-title');
+    var pdfFrame     = document.getElementById('pdf-frame');
+    var placeholder  = document.getElementById('pdf-placeholder');
+    var downloadBtn  = document.getElementById('downloadBtn');
+    var siDate       = document.getElementById('si-date');
+    var siTitle      = document.getElementById('si-title');
+    var siDesc       = document.getElementById('si-desc');
+    var phTitle      = document.getElementById('placeholder-title');
+    var phSub        = document.getElementById('placeholder-sub');
+
+    /* mark active chip + sidebar item */
+    if (issueParam) {
+      var chip = document.getElementById('chip-' + issueParam);
+      if (chip) chip.classList.add('active');
+      var saItem = document.getElementById('sa-' + issueParam);
+      if (saItem) saItem.classList.add('current');
+    }
+
+    /* load metadata */
+    var meta = issueParam ? ISSUE_META[issueParam] : null;
+    if (meta) {
+      titleEl.innerHTML       = meta.label + ' <em style="font-family:var(--font-serif);font-style:italic;color:var(--teal);">Newsletter</em>';
+      breadcrumbEl.textContent = meta.label;
+      siDate.textContent       = meta.label;
+      siTitle.textContent      = meta.title;
+      siDesc.textContent       = meta.desc;
+    }
+
+    /* load PDF if path exists */
+    var pdfPath = issueParam ? PDF_MAP[issueParam] : null;
+
+    if (pdfPath && pdfPath.trim() !== '') {
+      /* PDF path provided — show it */
+      pdfFrame.src            = pdfPath;
+      pdfFrame.style.display  = 'block';
+      placeholder.classList.add('hidden');
+      downloadBtn.style.display = 'inline-flex';
+      downloadBtn.setAttribute('data-pdf', pdfPath);
+    } else if (issueParam && meta) {
+      /* Issue known but no PDF uploaded yet */
+      phTitle.innerHTML = meta.label + ' <em style="font-family:var(--font-serif);font-style:italic;color:var(--teal);">Newsletter</em>';
+      phSub.innerHTML   = 'The PDF for this issue hasn\'t been uploaded yet. '
+        + 'Add the file path in <code>PDF_MAP</code> inside <code>pdf_viewer.html</code> to enable reading.';
+    }
+
+    /* back to top */
+    var btt = document.getElementById('backToTop');
+    if (btt) {
+      window.addEventListener('scroll', function () { btt.classList.toggle('visible', window.scrollY > 300); });
+      btt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+
+    /* help */
+    var hb = document.getElementById('helpButton');
+    if (hb) hb.addEventListener('click', function () { window.location.href = '../pages/contact.html'; });
+
+  });
+
+  /* download helper */
+  function downloadPDF() {
+    var btn = document.getElementById('downloadBtn');
+    var path = btn.getAttribute('data-pdf');
+    if (!path) return;
+    var a = document.createElement('a');
+    a.href     = path;
+    a.download = path.split('/').pop();
+    a.click();
+  }
+  </script>
+</body>
 </html>

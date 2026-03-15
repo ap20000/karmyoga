@@ -1,454 +1,756 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Who We Are | Karmayog Foundation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="../css/main.css" />
-</head>
 
-<body class="bg-secondary">
-  <!-- Navigation -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:      #2AB7CA;
+      --teal-dark: #1a8fa0;
+      --teal-soft: rgba(42,183,202,0.08);
+      --ink:       #0d1f2d;
+      --ink-mid:   #2e4057;
+      --muted:     #6b7f8e;
+      --cream:     #faf9f7;
+      --font-head: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-serif:'Playfair Display', serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h, 80px);
+      display: grid;
+      grid-template-columns: 52% 48%;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* animated dot grid */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(42,183,202,0.1) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      pointer-events: none; z-index: 0;
+      animation: gridDrift 24s ease-in-out infinite alternate;
+    }
+    @keyframes gridDrift { from{background-position:0 0} to{background-position:16px 16px} }
+
+    /* ghost letter behind copy */
+    .hero-ghost {
+      position: absolute; bottom: -6rem; left: -2rem;
+      font-family: var(--font-head);
+      font-size: clamp(18rem, 32vw, 46rem);
+      line-height: 1; color: rgba(42,183,202,0.04);
+      pointer-events: none; user-select: none; z-index: 0;
+    }
+
+    /* ── left copy ── */
+    .hero-copy {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3.5rem 5rem 5vw;
+    }
+
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 2.25rem;
+      opacity: 0; animation: rUp 0.75s 0.05s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-kicker::before { content:''; width:28px; height:1.5px; background:var(--teal); }
+
+    .hero-h1 {
+      font-family: var(--font-head);
+      font-size: clamp(4.5rem, 8vw, 7.5rem);
+      line-height: 0.88; font-weight: 400;
+      color: var(--ink); margin-bottom: 2.25rem;
+      opacity: 0; animation: rUp 0.88s 0.18s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-h1 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); display: block; }
+
+    .hero-desc {
+      font-size: 1.05rem; line-height: 1.82; color: var(--muted);
+      max-width: 430px; margin-bottom: 3rem;
+      opacity: 0; animation: rUp 0.8s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .hero-btns {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: rUp 0.8s 0.42s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .btn-p {
+      background: var(--teal); color: #fff; padding: 1rem 2.4rem;
+      border-radius: 50px; font-weight: 600; font-size: 0.88rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      box-shadow: 0 8px 28px rgba(42,183,202,0.32); transition: all 0.3s;
+    }
+    .btn-p:hover { background: var(--teal-dark); transform: translateY(-3px); box-shadow: 0 16px 44px rgba(42,183,202,0.45); }
+    .btn-g {
+      border: 1.5px solid rgba(13,31,45,0.14); color: var(--ink-mid);
+      padding: 1rem 2.4rem; border-radius: 50px;
+      font-weight: 500; font-size: 0.88rem;
+      display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s;
+    }
+    .btn-g:hover { border-color: var(--teal); color: var(--teal); }
+
+    @keyframes rUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+
+    /* ── right: image as a shaped panel ── */
+    .hero-visual {
+      position: relative; z-index: 2;
+      opacity: 0;
+      animation: rRight 1.05s 0.25s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes rRight { from{opacity:0;transform:translateX(55px)} to{opacity:1;transform:none} }
+
+    /* full height image */
+    .hero-img-wrap {
+      position: absolute; inset: 0;
+      clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.82);
+      transition: transform 12s ease;
+    }
+    .hero-visual:hover .hero-img-wrap img { transform: scale(1.04); }
+
+    /* white diagonal bleed from left */
+    .hero-img-wrap::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to right, rgba(255,255,255,0.15) 0%, transparent 30%);
+      pointer-events: none;
+    }
+
+    /* floating stat card */
+    .hero-stat {
+      position: absolute; bottom: 3.5rem; left: 0; z-index: 10;
+      background: #fff; border-radius: 20px;
+      padding: 1.3rem 1.75rem;
+      box-shadow: 0 24px 64px rgba(13,31,45,0.14);
+      border: 1px solid rgba(42,183,202,0.13);
+      display: flex; align-items: center; gap: 1rem;
+      min-width: 210px;
+      animation: pillFloat 4.5s 1.3s ease-in-out infinite;
+    }
+    @keyframes pillFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+    .stat-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem; flex-shrink: 0;
+    }
+    .hero-stat strong { display: block; font-size: 0.92rem; font-weight: 700; color: var(--ink); }
+    .hero-stat span   { font-size: 0.68rem; color: var(--muted); }
+
+    /* spinning year badge */
+    .hero-year {
+      position: absolute; top: 2.5rem; right: 2.5rem; z-index: 10;
+      width: 82px; height: 82px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; text-align: center;
+      box-shadow: 0 12px 40px rgba(42,183,202,0.5);
+      animation: spin 22s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-year-in {
+      display: flex; flex-direction: column; align-items: center;
+      animation: spin 22s linear infinite reverse;
+    }
+    .hero-year strong { font-family: var(--font-head); font-size: 1.45rem; line-height: 1; }
+    .hero-year span   { font-size: 0.48rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.9; }
+
+    /* scroll hint removed */
+
+    /* ════════════════════════════════════════
+       SHARED
+    ════════════════════════════════════════ */
+    .w { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 1.2rem;
+      width: fit-content; /* never stretch wider than content */
+    }
+    .eyebrow::before { content:''; width:22px; height:1.5px; background:var(--teal); flex-shrink:0; }
+    .eyebrow.lt { color: rgba(255,255,255,0.55); }
+    .eyebrow.lt::before { background: rgba(255,255,255,0.45); }
+
+    /* ════════════════════════════════════════
+       JOURNEY
+    ════════════════════════════════════════ */
+    .s-journey {
+      padding: 10rem 0 9rem;
+      background: #fff;
+      position: relative; overflow: hidden;
+    }
+    .s-journey::after {
+      content: '"';
+      position: absolute; top: 0; right: -3rem;
+      font-family: var(--font-serif); font-size: 42rem; line-height: 1;
+      color: rgba(42,183,202,0.03); pointer-events: none; user-select: none;
+    }
+
+    .journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
+
+    .big-quote {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: clamp(1.45rem, 2.2vw, 1.95rem);
+      line-height: 1.62; color: var(--ink);
+      border-left: 3px solid var(--teal); padding-left: 2rem;
+      margin-bottom: 2.75rem; position: relative;
+    }
+    .author-row { display: flex; align-items: center; gap: 1rem; }
+    .author-av {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 0.88rem; flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(42,183,202,0.4);
+    }
+    .author-name { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+    .author-role { font-size: 0.72rem; color: var(--muted); margin-top: 0.12rem; }
+    .j-body {
+      margin-top: 2.5rem; padding-top: 2.5rem;
+      border-top: 1px solid rgba(13,31,45,0.08);
+      font-size: 1rem; line-height: 1.88; color: var(--muted);
+    }
+    .j-body p + p { margin-top: 1.25rem; }
+
+    /* image stacked cluster */
+    .img-cluster { position: relative; height: 580px; }
+    .ic-main {
+      position: absolute; top: 0; left: 0; right: 0; height: 430px;
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 32px 72px rgba(13,31,45,0.14);
+    }
+    .ic-main img { width:100%; height:100%; object-fit:cover; filter:saturate(0.85); transition: transform 10s ease; }
+    .ic-main:hover img { transform: scale(1.05); }
+    .ic-chip {
+      position: absolute; top: 1.4rem; right: 1.4rem; z-index: 5;
+      background: var(--teal); color: #fff;
+      font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em;
+      padding: 0.3rem 1rem; border-radius: 50px;
+    }
+    .ic-sub {
+      position: absolute; bottom: 0; right: -1.5rem; width: 58%;
+      border-radius: 18px; overflow: hidden;
+      box-shadow: 0 20px 52px rgba(13,31,45,0.18);
+      border: 5px solid #fff;
+    }
+    .ic-sub img { width:100%; height: 195px; object-fit:cover; filter:saturate(0.88); }
+
+    /* ════════════════════════════════════════
+       MISSION
+    ════════════════════════════════════════ */
+    .s-mission { padding: 9rem 0; background: #f4fbfc; position: relative; overflow: hidden; }
+    .s-mission::before {
+      content: ''; position: absolute; bottom: -180px; right: -180px;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.07), transparent 65%);
+      pointer-events: none;
+    }
+
+    .mission-top { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; margin-bottom: 5rem; }
+    .mission-top > div:first-child { display: flex; flex-direction: column; justify-content: center; }
+    .mission-top h2 { font-family: var(--font-head); font-size: clamp(2.3rem,3.8vw,3.3rem); font-weight: 400; line-height: 1.1; color: var(--ink); margin-bottom: 1.5rem; }
+    .mission-top h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .mission-top p { font-size: 1.02rem; line-height: 1.86; color: var(--muted); }
+
+    .mic-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+      align-items: start;
+    }
+    .mic {
+      background: #fff; border-radius: 22px; padding: 2rem 1.75rem; text-align: center;
+      border: 1px solid rgba(42,183,202,0.1);
+      box-shadow: 0 4px 20px rgba(13,31,45,0.05);
+      transition: all 0.38s cubic-bezier(0.16,1,0.3,1);
+      /* no offset — clean aligned grid */
+    }
+    .mic:hover { transform: translateY(-8px); box-shadow: 0 20px 48px rgba(42,183,202,0.16); border-color: rgba(42,183,202,0.28); }
+    .mic i { font-size: 2rem; color: var(--teal); display: block; margin-bottom: 0.85rem; }
+    .mic h4 { font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+
+    .ptrio { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .ptile {
+      background: #fff; border-radius: 26px; padding: 2.5rem;
+      border: 1px solid rgba(42,183,202,0.1);
+      box-shadow: 0 6px 30px rgba(13,31,45,0.06);
+      transition: all 0.42s cubic-bezier(0.16,1,0.3,1);
+      position: relative; overflow: hidden;
+    }
+    .ptile::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .ptile:hover { transform: translateY(-10px); box-shadow: 0 28px 60px rgba(42,183,202,0.14); border-color: rgba(42,183,202,0.2); }
+    .ptile:hover::after { transform: scaleX(1); }
+    .ptile-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: var(--teal-soft); display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 1.5rem; margin-bottom: 1.5rem; transition: all 0.35s;
+    }
+    .ptile:hover .ptile-icon { background: var(--teal); color: #fff; transform: rotate(6deg) scale(1.08); }
+    .ptile h3 { font-family: var(--font-head); font-size: 1.35rem; font-weight: 400; color: var(--ink); margin-bottom: 0.85rem; }
+    .ptile p  { font-size: 0.88rem; line-height: 1.82; color: var(--muted); }
+
+    /* ════════════════════════════════════════
+       APPROACH — dark
+    ════════════════════════════════════════ */
+    .s-approach {
+      padding: 9rem 0;
+      background: #fff;
+      position: relative; overflow: hidden;
+    }
+    /* soft teal wash top-right */
+    .s-approach::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.06), transparent 62%);
+      pointer-events: none;
+    }
+    .s-approach::after {
+      content: ''; position: absolute; bottom: -150px; left: -100px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.04), transparent 60%);
+      pointer-events: none;
+    }
+    .approach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; position: relative; z-index: 2; }
+    .approach-grid h2 { font-family: var(--font-head); font-size: clamp(2.3rem,3.8vw,3.3rem); font-weight: 400; color: var(--ink); line-height: 1.1; margin-bottom: 2rem; }
+    .approach-grid h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .approach-body {
+      font-size: 1rem; color: var(--muted);
+      line-height: 1.92; margin-bottom: 2.5rem;
+      border-left: 3px solid var(--teal); padding-left: 1.75rem;
+    }
+    .atag-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .atag {
+      background: var(--teal-soft); border: 1px solid rgba(42,183,202,0.22);
+      color: var(--teal-dark); padding: 0.5rem 1.2rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; transition: all 0.28s;
+    }
+    .atag:hover { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .approach-cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--teal); color: #fff; padding: 1rem 2.4rem; border-radius: 50px;
+      font-weight: 700; font-size: 0.88rem;
+      box-shadow: 0 8px 28px rgba(42,183,202,0.32); transition: all 0.3s;
+    }
+    .approach-cta:hover { background: var(--teal-dark); transform: translateY(-3px); box-shadow: 0 16px 44px rgba(42,183,202,0.45); }
+
+    /* image mosaic — aspect-ratio based, never clips */
+    .mos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      position: relative; z-index: 2;
+      align-items: start;
+    }
+    .mos-right-col {
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .mos-item {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 12px 36px rgba(13,31,45,0.1);
+      border: 1px solid rgba(42,183,202,0.08);
+    }
+    .mos-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      filter: saturate(0.78) brightness(0.92);
+      transition: filter 0.65s, transform 10s ease;
+    }
+    .mos-item:hover img { filter: saturate(1) brightness(1); transform: scale(1.03); }
+    /* tall image: portrait crop */
+    .mos-item.mos-tall img { aspect-ratio: 3/4; object-fit: cover; width: 100%; height: auto; }
+    /* small images: landscape crop */
+    .mos-item.mos-sm img  { aspect-ratio: 4/3; object-fit: cover; width: 100%; height: auto; }
+
+    /* ════════════════════════════════════════
+       CORE PILLARS
+    ════════════════════════════════════════ */
+    .s-pillars { padding: 9rem 0; background: #fff; }
+    .pillars-head { text-align: center; max-width: 560px; margin: 0 auto 5rem; }
+    .pillars-head h2 { font-family: var(--font-head); font-size: clamp(2.3rem,4vw,3.4rem); font-weight: 400; color: var(--ink); }
+    .pillars-head h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .pillars-head p { font-size: 0.96rem; color: var(--muted); margin-top: 1rem; line-height: 1.75; }
+
+    .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .pcard {
+      border-radius: 28px; overflow: hidden;
+      border: 1px solid rgba(42,183,202,0.12);
+      box-shadow: 0 8px 36px rgba(13,31,45,0.07);
+      transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
+      display: flex; flex-direction: column;
+    }
+    .pcard:hover { transform: translateY(-12px); box-shadow: 0 30px 72px rgba(42,183,202,0.16); border-color: rgba(42,183,202,0.28); }
+    .pcard-top { padding: 2.75rem 2.5rem 2rem; border-bottom: 1px solid rgba(42,183,202,0.08); flex: 1; }
+    .pcard-emoji { font-size: 3rem; display: block; margin-bottom: 1.5rem; }
+    .pcard h3 { font-family: var(--font-head); font-size: 2rem; font-weight: 400; color: var(--ink); margin-bottom: 1rem; }
+    .pcard p  { font-size: 0.88rem; line-height: 1.82; color: var(--muted); }
+    .pcard-tags { padding: 1.25rem 2.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .ptag {
+      background: var(--teal-soft); color: var(--teal-dark);
+      padding: 0.28rem 0.9rem; border-radius: 50px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════════
+       ORIGIN — light storytelling arc
+    ════════════════════════════════════════ */
+    .s-origin {
+      padding: 9rem 0 0;
+      background: #f4fbfc;
+      position: relative; overflow: hidden;
+    }
+    .s-origin::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(42,183,202,0.08) 1.5px, transparent 1.5px);
+      background-size: 32px 32px; pointer-events: none;
+    }
+
+    .origin-head {
+      text-align: center; max-width: 640px; margin: 0 auto 4rem;
+      position: relative; z-index: 2;
+    }
+    .origin-head h2 { font-family: var(--font-head); font-size: clamp(2.3rem,4vw,3.4rem); font-weight: 400; color: var(--ink); }
+    .origin-head h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .origin-head p { color: var(--muted); font-size: 1rem; margin-top: 1rem; line-height: 1.75; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    /* ── Arc wrapper — SVG + stops overlay ── */
+    .arc-stage { position: relative; z-index: 2; }
+
+    /* SVG sits behind stops */
+    .arc-svg-wrap {
+      display: block; width: 100%; overflow: visible;
+      margin-bottom: 0;
+    }
+
+    /* Stops row — exactly 5 equal columns aligned over the SVG tick marks */
+    .arc-stage { position: relative; }
+    /* wrapper that gives the stops layer the exact same proportions as the SVG */
+    .arc-stops-layer {
+      position: relative;
+      /* padding-top = 180/1200 * 100 = 15% — matches SVG viewBox aspect ratio */
+      padding-top: 15%;
+      margin-top: -100%; /* overlay on top of SVG */
+      pointer-events: none;
+    }
+    .arc-stops {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: all;
+    }
+    /* stops positioned at their arc coordinates (% of 1200×180 viewBox):
+       ch0: x=120  y=130  → 10.0%, 72.2%
+       ch1: x=360  y=58   → 30.0%, 32.2%
+       ch2: x=600  y=10   → 50.0%,  5.6%
+       ch3: x=840  y=58   → 70.0%, 32.2%
+       ch4: x=1080 y=130  → 90.0%, 72.2%
+    */
+    .arc-stop {
+      position: absolute;
+      display: flex; flex-direction: column; align-items: center;
+      cursor: pointer; gap: 0.5rem;
+      transform: translate(-50%, -50%);
+    }
+    .arc-stop[data-ch="0"] { left: 10.0%; top: 72.2%; }
+    .arc-stop[data-ch="1"] { left: 30.0%; top: 32.2%; }
+    .arc-stop[data-ch="2"] { left: 50.0%; top:  5.6%; }
+    .arc-stop[data-ch="3"] { left: 70.0%; top: 32.2%; }
+    .arc-stop[data-ch="4"] { left: 90.0%; top: 72.2%; }
+    .arc-stop-dot {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #fff;
+      border: 2.5px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 1rem;
+      box-shadow: 0 0 0 7px rgba(42,183,202,0.1), 0 6px 24px rgba(42,183,202,0.18);
+      transition: all 0.42s cubic-bezier(0.34,1.56,0.64,1);
+      flex-shrink: 0;
+    }
+    .arc-stop:hover .arc-stop-dot,
+    .arc-stop.active .arc-stop-dot {
+      background: var(--teal); color: #fff;
+      box-shadow: 0 0 0 10px rgba(42,183,202,0.15), 0 10px 32px rgba(42,183,202,0.5);
+      transform: scale(1.12);
+    }
+    .arc-stop-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+      text-align: center; line-height: 1.4; white-space: nowrap;
+    }
+    .arc-stop.active .arc-stop-label { color: var(--teal); }
+
+    /* Chapter cards — tabs underneath arc */
+    .chapter-cards { margin-top: 3rem; position: relative; z-index: 2; }
+
+    .chapter-panel {
+      display: none;
+      background: #fff;
+      border-radius: 28px 28px 0 0;
+      border: 1px solid rgba(42,183,202,0.1);
+      border-bottom: none;
+      box-shadow: 0 -4px 40px rgba(42,183,202,0.07);
+      padding: 4rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .chapter-panel.active {
+      display: grid;
+      animation: panelFade 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes panelFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .cp-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .cp-label::before { content:''; width:20px; height:1.5px; background: var(--teal); }
+    .cp-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem,3vw,2.8rem);
+      font-weight: 400; color: var(--ink); line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .cp-body { font-size: 0.96rem; line-height: 1.88; color: var(--muted); }
+    .cp-body p + p { margin-top: 1rem; }
+    .cp-strong { color: var(--teal-dark); font-weight: 600; }
+    .cp-award {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      margin-top: 1.75rem; background: var(--teal-soft);
+      border: 1px solid rgba(42,183,202,0.22); color: var(--teal-dark);
+      padding: 0.5rem 1.25rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600;
+    }
+
+    /* Chapter image — natural aspect ratio, never cuts */
+    .cp-img {
+      border-radius: 22px; overflow: hidden;
+      box-shadow: 0 24px 56px rgba(13,31,45,0.12);
+      position: relative;
+    }
+    .cp-img img {
+      display: block;
+      width: 100%; height: auto;
+      aspect-ratio: 4/3;
+      object-fit: cover; object-position: center top;
+      filter: saturate(0.85); transition: transform 10s ease, filter 0.6s;
+    }
+    .cp-img:hover img { transform: scale(1.04); filter: saturate(1); }
+    .cp-img-num {
+      position: absolute; top: 1.25rem; left: 1.25rem; z-index: 3;
+      background: var(--teal); color: #fff;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      padding: 0.28rem 0.9rem; border-radius: 50px;
+    }
+
+    /* flip: image left, text right */
+    .chapter-panel.flip .cp-text { order: 2; }
+    .chapter-panel.flip .cp-img  { order: 1; }
+
+    /* ════════════════════════════════════════
+       STATS
+    ════════════════════════════════════════ */
+    .s-stats { padding: 7rem 0; background: var(--cream); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+    .scard {
+      background: #fff; border-radius: 26px; padding: 3rem 2rem; text-align: center;
+      border: 1px solid rgba(42,183,202,0.1); box-shadow: 0 6px 30px rgba(13,31,45,0.06);
+      transition: all 0.42s cubic-bezier(0.16,1,0.3,1);
+    }
+    .scard:hover { transform: translateY(-10px); box-shadow: 0 24px 60px rgba(42,183,202,0.14); border-color: rgba(42,183,202,0.28); }
+    .snum { font-family: var(--font-head); font-size: 3.5rem; color: var(--teal); line-height: 1; margin-bottom: 0.5rem; }
+    .snum sup { font-size: 1.5rem; }
+    .slbl { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+    /* ════════════════════════════════════════
+       CTA
+    ════════════════════════════════════════ */
+    .s-cta {
+      padding: 9rem 0; text-align: center;
+      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
+      position: relative; overflow: hidden;
+    }
+    .s-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle 700px at 20% 50%, rgba(255,255,255,0.07), transparent),
+                  radial-gradient(circle 400px at 80% 50%, rgba(255,255,255,0.04), transparent);
+      pointer-events: none;
+    }
+    .cr { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,0.08); pointer-events: none; }
+    .cr1 { width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rp 7s ease-in-out infinite; }
+    .cr2 { width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rp 7s 2s ease-in-out infinite; }
+    .cr3 { width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rp 7s 4s ease-in-out infinite; }
+    @keyframes rp { 0%,100%{opacity:0;transform:translate(-50%,-50%) scale(0.85)}50%{opacity:1;transform:translate(-50%,-50%) scale(1)} }
+    .cta-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+    .cta-inner h2 { font-family: var(--font-head); font-size: clamp(2.4rem,4.5vw,3.8rem); font-weight: 400; color: #fff; line-height: 1.14; margin-bottom: 1.25rem; }
+    .cta-inner h2 em { font-family: var(--font-serif); font-style: italic; }
+    .cta-inner p { color: rgba(255,255,255,0.8); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2.75rem; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: #fff; color: var(--teal-dark); padding: 1.2rem 3rem;
+      border-radius: 50px; font-weight: 700; font-size: 1rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2); transition: all 0.3s;
+    }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 52px rgba(0,0,0,0.28); }
+
+    /* ════════════════════════════════════════
+       SCROLL REVEAL
+    ════════════════════════════════════════ */
+    [data-r] {
+      opacity: 0;
+      transition: opacity 0.95s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.95s cubic-bezier(0.16,1,0.3,1);
+    }
+    [data-r="up"]    { transform: translateY(40px); }
+    [data-r="right"] { transform: translateX(-40px); }
+    [data-r="left"]  { transform: translateX(40px); }
+    [data-r="scale"] { transform: scale(0.88); }
+    [data-r].on { opacity: 1 !important; transform: none !important; }
+    [data-d="1"] { transition-delay: 0.12s; }
+    [data-d="2"] { transition-delay: 0.26s; }
+    [data-d="3"] { transition-delay: 0.4s; }
+    [data-d="4"] { transition-delay: 0.54s; }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media(max-width:1100px){
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { height: 55vw; min-height: 360px; }
+      .hero-img-wrap { clip-path: none; }
+      .hero-copy { padding: 4rem 2.5rem; }
+      .journey-grid, .mission-top, .approach-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .ptrio, .pillars-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .ic-sub { right: 0; }
+      .mos { grid-template-rows: 200px 200px; }
+      .chapter-panel { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem; }
+      .chapter-panel.flip .cp-text,
+      .chapter-panel.flip .cp-img { order: unset; }
+    }
+    @media(max-width:768px){
+      .hero-copy { padding: 3rem 1.5rem; }
+      .ptrio, .pillars-grid { grid-template-columns: 1fr; }
+      .mos { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .mos-item.mos-tall { grid-row: span 1; height: 200px; }
+      .mos-item.mos-sm   { height: 160px; }
+      .arc-stop-dot { width: 44px; height: 44px; font-size: 0.9rem; }
+      .arc-stop-label { font-size: 0.52rem; }
+      .cp-img { height: 240px; }
+    }
+    @media(max-width:480px){
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .hero-btns { flex-direction: column; }
+      .hero-btns a { width: 100%; justify-content: center; }
+      .arc-stop-label { display: none; }
+      .arc-stop-dot { width: 40px; height: 40px; }
+    }
+    </style>
+</head>
+<body data-nav-fixed="true">
+
+  <div class="hover-cursor" id="cursor"></div>
   <karmayog-navbar base-path="../"></karmayog-navbar>
 
-  <!-- Hero Section -->
-  <section class="hero-massive" style="
-        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211203_200924_125.jpg');
-        background-position: center;
-        background-size: cover;
-        min-height: 100vh;
-        padding-bottom: 4rem;
-        padding-top: 150px;
-        display: flex;
-        align-items: center;
-      ">
-    <div class="text-scrim"
-      style="background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(13, 148, 136, 0.6) 100%);"></div>
-    <div class="container relative z-10 fade-in-up bento-item">
-      <span style="
-            color: var(--color-extra-light-teal);
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            font-size: 1.125rem;
-          ">About Us</span>
-      <h1
-        style="color: white; margin-bottom: 1.5rem; font-size: clamp(4rem, 8vw, 6rem); max-width: 1000px; line-height: 1;">
-        Who We Are
-      </h1>
-      <p class="lead-text"
-        style="color: rgba(255, 255, 255, 0.85); max-width: 600px; font-size: 1.5rem; border-left: 4px solid var(--color-primary-teal); padding-left: 1.5rem;">
-        We are a worldwide ministry in which millions of children reap the benefits of one man’s clear
-      </p>
+  <!-- ════════════ HERO ════════════ -->
+  <section class="hero">
+    <div class="hero-ghost">W</div>
+
+    <div class="hero-copy">
+      <span class="hero-kicker">Our Story</span>
+      <h1 class="hero-h1">Who We<br><em>Are.</em></h1>
+      <p class="hero-desc">A worldwide ministry where millions of children reap the benefits of one man's clear vision. Karmayog Foundation was born from compassion during Nepal's darkest hour.</p>
+      <div class="hero-btns">
+        <a href="#story-begin" class="btn-p">Begin the Story <i class="fas fa-arrow-down"></i></a>
+        <a href="../pages/donate.html" class="btn-g">❤️ Support Us</a>
+      </div>
     </div>
+
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211203_200924_125.jpg" alt="Karmayog Foundation" />
+      </div>
+      <div class="hero-stat">
+        <div class="stat-icon"><i class="fas fa-heart"></i></div>
+        <div>
+          <strong>5,000+ Families</strong>
+          <span>Reached since 2020</span>
+        </div>
+      </div>
+      <div class="hero-year">
+        <div class="hero-year-in">
+          <strong>2020</strong>
+          <span>Est.</span>
+        </div>
+      </div>
+    </div>
+
+
   </section>
 
-  <!-- Intro / Welcome Section -->
-  <section class="section bg-primary" style="padding: 8rem 0;">
-    <div class="container fade-in-up bento-item">
-      <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); max-width: 900px; margin-bottom: 4rem">
-        Welcome to <span class="text-gradient">Karmayog Foundation</span>
-      </h2>
-
-      <div class="grid-open" style="align-items: start;">
-        <div class="grid-col-8">
-          <p class="lead-text" style="
-                  color: var(--text-primary);
-                  font-weight: 600;
-                  font-size: 1.5rem;
-                  margin-bottom: 2rem;
-                  line-height: 1.6;
-                ">
-            We are a worldwide ministry in which millions of children reap the
-            benefits of one man’s clear vision. Our unwavering vision is dedicated
-            to uplifting the lives of underprivileged and marginalized communities
-            in the picturesque rural landscapes of Nepal.
-          </p>
-          <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--text-secondary);">
-            Through meticulously tailored programs, we embark on a transformative
-            journey, strengthening school infrastructure, nurturing education,
-            fostering sports development, and encouraging a spectrum of
-            extra-curricular activities. Our commitment extends beyond these
-            realms. We passionately promote health, hygiene, and nutritional
-            awareness, emphasizing essential sanitary practices. Embracing the
-            values of humane education and environmental protection, we foster a
-            holistic approach to community development.
-          </p>
-          <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--text-secondary);">
-            Moreover, our initiatives encompass income generation activities and
-            comprehensive skill development training, empowering individuals to
-            chart their course towards self-sufficiency. A distinctive facet of
-            Karmayog Foundation is our active engagement in animal welfare
-            initiatives. We recognize the profound bond between humans and
-            animals, and our efforts strive to ensure their well-being.
-          </p>
-          <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary);">
-            In times of adversity, our foundation stands as a beacon of hope. With
-            a rapid response mechanism, we earnestly address the aftermath of
-            natural calamities such as earthquakes, landslides, floods, and other
-            disasters. Our dedicated team mobilizes swiftly to provide crucial
-            support, demonstrating our unwavering commitment to alleviating
-            immediate needs.
-          </p>
-        </div>
-
-        <div class="grid-col-4">
-          <div class="glass-card fade-in-up delay-2 bento-item sticky" style="
-                  padding: 3rem;
-                  background: var(--gradient-primary);
-                  border: 1px solid rgba(255,255,255,0.2);
-                  box-shadow: var(--shadow-float);
-                  border-radius: var(--radius-lg);
-                  position: sticky;
-                  top: 120px;
-                ">
-            <h3 style="
-                      color: white;
-                      font-size: 2rem;
-                      margin-bottom: 1.5rem;
-                    ">
-              Join Hands With Us
-            </h3>
-            <p style="
-                      margin-bottom: 2rem;
-                      color: rgba(255,255,255,0.9);
-                      font-weight: 500;
-                      font-size: 1.125rem;
-                      line-height: 1.6;
-                    ">
-              Your support is not just a donation; it is a catalyst for hope and
-              change. Join hands with Karmayog Foundation, where compassion meets
-              action.
-            </p>
-
-            <a href="../pages/donate.html" class="btn btn-donate btn-premium"
-              style="background: white; color: var(--color-primary-teal); width: 100%; display: flex; justify-content: center;">
-              Donate Today
-            </a>
-          </div>
-        </div>
+  <!-- ════════════ JOURNEY ════════════ -->
+  <section class="s-journey" id="story-begin">
+    <div class="w">
+      <div style="text-align:center;max-width:580px;margin:0 auto 5.5rem;" data-r="up">
+        <span class="eyebrow">Our Beginning</span>
+        <h2 style="font-family:var(--font-head);font-size:clamp(2.4rem,4vw,3.4rem);font-weight:400;color:var(--ink);">The <em style="font-family:var(--font-serif);font-style:italic;color:var(--teal);">Karmayog</em> Journey</h2>
+        <p style="color:var(--muted);font-size:1rem;margin-top:1rem;line-height:1.75;">From a single vision to a nationwide movement. This is our story.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- What makes us different - DARK THEMED -->
-  <section class="section" style="background: var(--color-dark-tone); color: white; padding: 8rem 0;">
-    <div class="container grid-open" style="align-items: center">
-      <div class="grid-col-5 fade-in-up bento-item">
-        <h2 style="margin-bottom: 2rem; color: white;">
-          What makes us <span class="text-gradient">different?</span>
-        </h2>
-        <p class="lead-text" style="margin-bottom: 2rem; color: rgba(255,255,255,0.9); font-size: 1.25rem;">
-          Karmayog Foundation’s core focus is to uplift the living standards
-          of the underprivileged and marginalized community through various
-          focus based programs especially designed to address the needs of the
-          target community in the select project area in rural Nepal.
-        </p>
-        <p style="margin-bottom: 3rem; color: rgba(255,255,255,0.7); font-size: 1.125rem;">
-          In addition, Animal Welfare and Rapid Response to Natural Calamities
-          shall also form a priority on need-to-need basis. Each contribution,
-          big or small, resonates in creating lasting change to build a
-          brighter, more resilient future for those in need.
-        </p>
-        <a href="../pages/upcoming.html" class="btn btn-primary btn-premium"
-          style="background: var(--gradient-primary); border: none;">See How We Work <span
-            style="font-size: 1.25rem; margin-left: 0.5rem;">&rarr;</span></a>
-      </div>
-      <div class="grid-col-6 fade-in-up delay-1 bento-item" style="position: relative; margin-left: auto;">
-        <!-- Decorative blurred blob backing for images -->
-        <div
-          style="position: absolute; top: 10%; left: 10%; width: 80%; height: 80%; background: var(--color-primary-teal); border-radius: 50%; filter: blur(100px); opacity: 0.3; z-index: 0;">
-        </div>
-
-        <div class="grid grid-cols-2" style="gap: 1.5rem; position: relative; z-index: 1;">
-          <div class="glass-card"
-            style="padding: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: calc(var(--radius-lg) + 0.5rem);">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0037-1024x576.jpg"
-              class="image-box" style="height: 350px; object-fit: cover" alt="Community Support" />
-          </div>
-          <div class="glass-card"
-            style="padding: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: calc(var(--radius-lg) + 0.5rem); transform: translateY(4rem);">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200607-WA0021-1024x576.jpg"
-              class="image-box" style="
-                    height: 350px;
-                    object-fit: cover;
-                    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-                  " alt="Education in Nepal" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Core Pillars -->
-  <section class="section bg-primary" style="padding: 8rem 0;">
-    <div class="container text-center mb-4 fade-in-up bento-item">
-      <span style="
-            color: var(--color-primary-teal);
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-          ">Our Focus Areas</span>
-      <h2 style="margin-top: 0.5rem; font-size: 3rem;">
-        Our Core <span class="text-gradient">Pillars</span>
-      </h2>
-    </div>
-    <div class="container">
-      <div class="grid grid-cols-3" style="gap: 2rem;">
-        <!-- Health -->
-        <div class="card fade-in-up delay-1 bento-item" style="
-              background: linear-gradient(180deg, var(--color-white) 0%, var(--bg-secondary) 100%);
-              border: 1px solid rgba(13, 148, 136, 0.1);
-              padding: 4rem 3rem;
-              position: relative;
-              overflow: hidden;
-            ">
-          <!-- Top Gradient Edge -->
-          <div
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: var(--gradient-primary);">
-          </div>
-
-          <div style="
-                font-size: 4rem;
-                margin-bottom: 2rem;
-                display: inline-block;
-                background: var(--color-extra-light-teal);
-                border-radius: 50%;
-                width: 100px;
-                height: 100px;
-                line-height: 100px;
-                text-align: center;
-              ">
-            ❤️
-          </div>
-          <h3 style="margin-bottom: 1.5rem; font-size: 1.75rem;">Health</h3>
-          <p style="font-size: 1.125rem; margin-bottom: 0; color: var(--text-secondary); line-height: 1.8;">
-            In Nepal, particularly in rural areas, the lack of adequate
-            healthcare infrastructure contributes to alarming statistics. We
-            actively address this through health camps, aiming to bridge the
-            healthcare gap and reduce preventable deaths, fostering a
-            healthier future.
-          </p>
-        </div>
-        <!-- Education -->
-        <div class="card fade-in-up delay-2 bento-item" style="
-              background: linear-gradient(180deg, var(--color-white) 0%, var(--bg-secondary) 100%);
-              border: 1px solid rgba(20, 184, 166, 0.1);
-              padding: 4rem 3rem;
-              position: relative;
-              overflow: hidden;
-            ">
-          <!-- Top Gradient Edge -->
-          <div
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, var(--color-light-teal), #34d399);">
-          </div>
-
-          <div style="
-                font-size: 4rem;
-                margin-bottom: 2rem;
-                display: inline-block;
-                background: #d1fae5;
-                border-radius: 50%;
-                width: 100px;
-                height: 100px;
-                line-height: 100px;
-                text-align: center;
-              ">
-            📚
-          </div>
-          <h3 style="margin-bottom: 1.5rem; font-size: 1.75rem;">Education</h3>
-          <p style="font-size: 1.125rem; margin-bottom: 0; color: var(--text-secondary); line-height: 1.8;">
-            A substantial portion of the population struggles to obtain
-            quality education. We are committed to breaking this cycle by
-            actively modernizing school infrastructure, providing essential
-            educational materials, and implementing crucial teacher training
-            programs.
-          </p>
-        </div>
-        <!-- Empowerment -->
-        <div class="card fade-in-up delay-3 bento-item" style="
-              background: linear-gradient(180deg, var(--color-white) 0%, var(--bg-secondary) 100%);
-              border: 1px solid rgba(2, 132, 199, 0.1);
-              padding: 4rem 3rem;
-              position: relative;
-              overflow: hidden;
-            ">
-          <!-- Top Gradient Edge -->
-          <div
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #0ea5e9, #0284c7);">
-          </div>
-
-          <div
-            style="font-size: 4rem; margin-bottom: 2rem; display: inline-block; background: #e0f2fe; border-radius: 50%; width: 100px; height: 100px; line-height: 100px; text-align: center;">
-            🌱
-          </div>
-          <h3 style="margin-bottom: 1.5rem; font-size: 1.75rem;">Empowerment</h3>
-          <p style="font-size: 1.125rem; margin-bottom: 0; color: var(--text-secondary); line-height: 1.8;">
-            We stand at the forefront of transformative change. Through
-            strategic initiatives focused on skill development and income
-            generation, we actively combat systemic challenges that perpetuate
-            poverty, empowering individuals to break free from the cycle of
-            adversity.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Origin Story Timeline -->
-  <section class="section bg-secondary text-white"
-    style="position: relative; overflow: hidden; padding: 8rem 0; background: #0f172a;">
-    <div class="container relative z-10 grid-open">
-      <!-- Floating Header -->
-      <div class="grid-col-4 fade-in-up bento-item" style="position: relative;">
-        <div style="position: sticky; top: 150px;">
-          <span style="
-                  color: var(--color-light-teal);
-                  font-weight: 700;
-                  letter-spacing: 0.15em;
-                  text-transform: uppercase;
-                  font-size: 0.875rem;
-                ">The Origin Story</span>
-          <h2 style="color: white; margin-top: 0.5rem; margin-bottom: 1.5rem; font-size: 3.5rem; line-height: 1.1;">
-            Our <br /><span class="text-gradient">Background</span>
-          </h2>
-          <p style="color: rgba(255,255,255,0.6); font-size: 1.125rem;">How one man's vision during the COVID-19
-            pandemic birthed an entire movement.</p>
-        </div>
-      </div>
-
-      <!-- Story Timeline Cards -->
-      <div class="grid-col-8">
-        <div style="display: flex; flex-direction: column; gap: 3rem;">
-          <div class="glass-card fade-in-up delay-1 bento-item"
-            style="padding: 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-lg); overflow: hidden;">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200605-WA0065-1024x576.jpg"
-              style="width: 100%; height: 350px; object-fit: cover; display: block;" alt="The Spark" />
-            <div style="padding: 3rem;">
-              <div
-                style="color: var(--color-primary-teal); font-family: monospace; font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">
-                01 // THE SPARK</div>
-              <p style="
-                        color: rgba(255, 255, 255, 0.9);
-                        font-size: 1.25rem;
-                        margin-bottom: 0;
-                        line-height: 1.8;
-                      ">
-                Mr. Saurav Rimal, an alumnus of Stratford University, USA and an
-                entrepreneur in IT solutions, was left dumbstruck when the Covid
-                lockdown forced everything shut and all movements were restricted.
-                Recovering himself from covid infection, he was at a dilemma and
-                felt totally lost as he had no idea where to begin.
-              </p>
+      <div class="journey-grid">
+        <div data-r="right">
+          <div class="big-quote">"We are a worldwide ministry in which millions of children reap the benefits of one man's clear vision."</div>
+          <div class="author-row">
+            <div class="author-av">SR</div>
+            <div>
+              <div class="author-name">Saurav Rimal</div>
+              <div class="author-role">Founder, Karmayog Foundation</div>
             </div>
           </div>
-
-          <div class="glass-card fade-in-up delay-2 bento-item"
-            style="padding: 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-lg); overflow: hidden;">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200601-WA0037-1024x576.jpg"
-              style="width: 100%; height: 350px; object-fit: cover; display: block;" alt="Action Taken" />
-            <div style="padding: 3rem;">
-              <div
-                style="color: var(--color-primary-teal); font-family: monospace; font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">
-                02 // ACTION TAKEN</div>
-              <p style="
-                        color: rgba(255, 255, 255, 0.9);
-                        font-size: 1.25rem;
-                        margin-bottom: 0;
-                        line-height: 1.8;
-                      ">
-                Meanwhile, the news about the shortages of essentials required to
-                fight the pandemic started pouring in which gave him a push to
-                contribute something to the society during these hard times. Saurav,
-                together with his friends and in close association with the Nepal
-                Traffic Police, started formulating Hand Sanitizers which was
-                distributed to Hospitals, Clinics, Essential Workers and Households.
-              </p>
-            </div>
+          <div class="j-body">
+            <p>Embark on a purpose-driven journey with Karmayog Foundation, where our resolute commitment serves as the cornerstone of transformative change. Founded by the visionary Mr. Saurav Rimal, our organization is dedicated to the holistic upliftment of underprivileged communities in rural Nepal.</p>
+            <p>Through meticulously designed and impactful initiatives, we address a spectrum of vital areas, including School Infrastructure, Education, Health, Humane Education, Environment Protection, Income Generation, Skill Development, Animal Welfare, and Disaster Relief.</p>
           </div>
-
-          <div class="glass-card fade-in-up delay-3 bento-item"
-            style="padding: 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-lg); overflow: hidden;">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1-1024x576.jpg"
-              style="width: 100%; height: 350px; object-fit: cover; display: block;" alt="Animal Welfare" />
-            <div style="padding: 3rem;">
-              <div
-                style="color: var(--color-primary-teal); font-family: monospace; font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">
-                03 // ANIMAL WELFARE</div>
-              <p style="
-                        color: rgba(255, 255, 255, 0.9);
-                        font-size: 1.25rem;
-                        margin-bottom: 0;
-                        line-height: 1.8;
-                      ">
-                While his movement was made possible by the Traffic Police, he
-                witnessed the plight of the Street Dogs, Cows and Monkeys, that
-                largely fed on human kindness and leftovers, were totally neglected
-                leaving them hungry and sick. Saurav, then used his own savings to
-                feed these animals on a daily basis. His endeavor was well
-                appreciated and other friends and acquaintances started contributing
-                to this cause and by the time the lockdowns were lifted, he was
-                feeding approximately 300 dogs, 200 monkeys, and 50 cows on a daily
-                basis.
-              </p>
+        </div>
+        <div data-r="left">
+          <div class="img-cluster">
+            <div class="ic-main">
+              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200605-WA0065-1024x576.jpg" alt="Karmayog Foundation work" />
+              <div class="ic-chip">2020 — The Beginning</div>
             </div>
-          </div>
-
-          <div class="glass-card fade-in-up delay-4 bento-item"
-            style="padding: 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-lg); overflow: hidden;">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210627_190615_037.jpg"
-              style="width: 100%; height: 350px; object-fit: cover; display: block;" alt="Community Relief" />
-            <div style="padding: 3rem;">
-              <div
-                style="color: var(--color-primary-teal); font-family: monospace; font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">
-                04 // COMMUNITY RELIEF</div>
-              <p style="
-                        color: rgba(255, 255, 255, 0.9);
-                        font-size: 1.25rem;
-                        margin-bottom: 0;
-                        line-height: 1.8;
-                      ">
-                Saurav also witnessed the difficulties faced by the daily wage
-                earners, beggars and marginalized community living in Kathmandu.
-                Bereft of their wages, they were in dire straits. He started
-                distributing food, medicines, blankets and warm clothes to the most
-                deserved reaching out to over 5000 families. Then the flood and
-                landslides occurred in many parts of the country. He, with the help
-                from his friends and well wishers, distributed relief materials to
-                more than 2000 affected families, accompanied by a group of medical
-                professionals.
-              </p>
-            </div>
-          </div>
-
-          <div class="glass-card fade-in-up delay-5 bento-item"
-            style="padding: 0; background: linear-gradient(135deg, rgba(13, 148, 136, 0.1) 0%, rgba(17, 24, 39, 0) 100%); border: 1px solid rgba(13, 148, 136, 0.3); border-radius: var(--radius-lg); overflow: hidden;">
-            <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210418_150028_835.jpg"
-              style="width: 100%; height: 350px; object-fit: cover; display: block;" alt="The Foundation" />
-            <div style="padding: 3rem;">
-              <div
-                style="color: var(--color-primary-teal); font-family: monospace; font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">
-                05 // THE FOUNDATION</div>
-              <p style="
-                        color: rgba(255, 255, 255, 0.95);
-                        font-size: 1.25rem;
-                        line-height: 1.8;
-                        margin-bottom: 0;
-                      ">
-                Saurav received a lot of accolades, citations, awards and media
-                exposure for his work during and post pandemic. He was also recently
-                conferred with the prestigious Presidential
-                <strong style="color: white">"Samaj Sewa Ratna"</strong> medal in
-                recognition for his outstanding and relentless service to the
-                society. This is when he realized that he now needs to take his
-                initiatives to the next level which is how Karmayog Foundation was
-                founded.
-              </p>
+            <div class="ic-sub">
+              <img src="https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0037-1024x576.jpg" alt="Community" />
             </div>
           </div>
         </div>
@@ -456,40 +758,392 @@
     </div>
   </section>
 
-  <!-- Edge to Edge Action Block -->
-  <section style="
-        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210128_233131_657.jpg');
-        background-position: center;
-        background-size: cover;
-        background-attachment: fixed;
-        position: relative;
-        padding: 8rem 0;
-        text-align: center;
-      ">
-    <div style="position: absolute; inset: 0; background: rgba(13, 148, 136, 0.85); z-index: 1;"></div>
-    <div class="container fade-in-up bento-item" style="position: relative; z-index: 2;">
-      <h2 style="
-            color: white;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            max-width: 800px;
-            margin: 0 auto;
-          ">
-        Help us write the next success story.
-      </h2>
-      <a href="../pages/donate.html" class="btn btn-donate btn-premium" style="
-            font-size: 1.25rem;
-            padding: 1.2rem 3rem;
-            margin-top: 3rem;
-            background-color: var(--color-dark-tone);
-            display: inline-flex; 
-            align-items: center; 
-            gap: 0.5rem;
-          ">Donate Today <span style="font-size: 1.5rem;">&rarr;</span></a>
+  <!-- ════════════ MISSION ════════════ -->
+  <section class="s-mission">
+    <div class="w">
+      <div class="mission-top">
+        <div data-r="right">
+          <span class="eyebrow" style="display:inline-flex;width:fit-content;">Our Mission</span>
+          <h2>Uplifting <em>Nepal's</em><br>Communities</h2>
+          <p style="margin-top:1rem;">Our unwavering vision is dedicated to uplifting the lives of underprivileged and marginalized communities in the picturesque rural landscapes of Nepal.</p>
+        </div>
+        <div data-r="left">
+          <div class="mic-grid">
+            <div class="mic"><i class="fas fa-school"></i><h4>Education</h4></div>
+            <div class="mic"><i class="fas fa-heartbeat"></i><h4>Health</h4></div>
+            <div class="mic"><i class="fas fa-paw"></i><h4>Animal Welfare</h4></div>
+            <div class="mic"><i class="fas fa-hand-holding-heart"></i><h4>Rapid Response</h4></div>
+          </div>
+        </div>
+      </div>
+      <div class="ptrio">
+        <div class="ptile" data-r="up" data-d="1">
+          <div class="ptile-icon"><i class="fas fa-seedling"></i></div>
+          <h3>School Infrastructure</h3>
+          <p>Through meticulously tailored programs, we strengthen school infrastructure, nurturing education, fostering sports development, and encouraging extra-curricular activities.</p>
+        </div>
+        <div class="ptile" data-r="up" data-d="2">
+          <div class="ptile-icon"><i class="fas fa-hand-holding-heart"></i></div>
+          <h3>Health & Hygiene</h3>
+          <p>We passionately promote health, hygiene, and nutritional awareness, emphasizing essential sanitary practices. Embracing humane education and environmental protection.</p>
+        </div>
+        <div class="ptile" data-r="up" data-d="3">
+          <div class="ptile-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Income Generation</h3>
+          <p>Our initiatives encompass income generation activities and comprehensive skill development training, empowering individuals to chart their course towards self-sufficiency.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <karmayog-footer></karmayog-footer>
+  <!-- ════════════ APPROACH ════════════ -->
+  <section class="s-approach">
+    <div class="w">
+      <div style="text-align:center;max-width:580px;margin:0 auto 5.5rem;position:relative;z-index:2;" data-r="up">
+        <span class="eyebrow">What Makes Us Different</span>
+        <h2 style="font-family:var(--font-head);font-size:clamp(2.3rem,4vw,3.4rem);font-weight:400;color:var(--ink);">Our <em style="font-family:var(--font-serif);font-style:italic;color:var(--teal);">Approach</em></h2>
+      </div>
+      <div class="approach-grid">
+        <div data-r="right">
+          <p class="approach-body">Karmayog Foundation's core focus is to uplift the living standards of the underprivileged and marginalized community through various focus based programs especially designed to address the needs of the target community in the select project area in rural Nepal.</p>
+          <div class="atag-row">
+            <span class="atag">Animal Welfare</span>
+            <span class="atag">Rapid Response</span>
+            <span class="atag">Environment</span>
+            <span class="atag">Skill Training</span>
+          </div>
+          <p style="color:var(--muted);font-size:0.96rem;line-height:1.85;margin-bottom:2.75rem;">Each contribution, big or small, resonates in creating lasting change to build a brighter and more resilient future for those in need.</p>
+          <a href="../pages/upcoming.html" class="approach-cta">See How We Work <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="mos" data-r="left">
+          <div class="mos-item mos-tall">
+            <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg&w=700&q=85" alt="Karmayog school work Nepal" />
+          </div>
+          <div class="mos-right-col">
+            <div class="mos-item mos-sm">
+              <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg&w=600&q=85" alt="Karmayog health camp Nepal" />
+            </div>
+            <div class="mos-item mos-sm">
+              <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg&w=600&q=85" alt="Karmayog community Nepal" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ CORE PILLARS ════════════ -->
+  <section class="s-pillars">
+    <div class="w">
+      <div class="pillars-head" data-r="up">
+        <span class="eyebrow">Our Focus Areas</span>
+        <h2>Core <em>Pillars</em></h2>
+        <p>The foundation of everything we do</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pcard" data-r="up" data-d="1">
+          <div class="pcard-top">
+            <span class="pcard-emoji">❤️</span>
+            <h3>Health</h3>
+            <p>In Nepal, particularly in rural areas, the lack of adequate healthcare infrastructure contributes to alarming statistics. We actively address this through health camps, aiming to bridge the healthcare gap and reduce preventable deaths, fostering a healthier future.</p>
+          </div>
+          <div class="pcard-tags"><span class="ptag">Medical Camps</span><span class="ptag">Hygiene</span></div>
+        </div>
+        <div class="pcard" data-r="up" data-d="2">
+          <div class="pcard-top">
+            <span class="pcard-emoji">📚</span>
+            <h3>Education</h3>
+            <p>A substantial portion of the population struggles to obtain quality education. We are committed to breaking this cycle by actively modernizing school infrastructure, providing essential educational materials, and implementing crucial teacher training programs.</p>
+          </div>
+          <div class="pcard-tags"><span class="ptag">School Renovation</span><span class="ptag">Teacher Training</span></div>
+        </div>
+        <div class="pcard" data-r="up" data-d="3">
+          <div class="pcard-top">
+            <span class="pcard-emoji">🌱</span>
+            <h3>Empowerment</h3>
+            <p>We stand at the forefront of transformative change. Through strategic initiatives focused on skill development and income generation, we actively combat systemic challenges that perpetuate poverty, empowering individuals to break free from the cycle of adversity.</p>
+          </div>
+          <div class="pcard-tags"><span class="ptag">Skill Development</span><span class="ptag">Livelihood</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ ORIGIN ════════════ -->
+  <section class="s-origin">
+    <div class="w">
+
+      <div class="origin-head" data-r="up">
+        <span class="eyebrow">The Origin Story</span>
+        <h2>Our <em>Background</em></h2>
+        <p>How one man's vision during COVID-19 birthed an entire movement. Five chapters that changed everything.</p>
+      </div>
+
+      <!-- Story arc stage -->
+      <div class="arc-stage" data-r="up">
+
+        <!-- Arc: SVG + absolutely-positioned stops overlay -->
+        <div style="position:relative;">
+          <!-- SVG arc wave -->
+          <svg class="arc-svg-wrap" viewBox="0 0 1200 180" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;">
+            <path d="M 0 160 C 80 160 100 130 120 130 C 180 130 280 80 360 58 C 440 36 520 12 600 10 C 680 12 760 36 840 58 C 920 80 1020 130 1080 130 C 1100 130 1120 160 1200 160 Z" fill="rgba(42,183,202,0.07)"/>
+            <path d="M 0 160 C 80 160 100 130 120 130 C 180 130 280 80 360 58 C 440 36 520 12 600 10 C 680 12 760 36 840 58 C 920 80 1020 130 1080 130 C 1100 130 1120 160 1200 160" stroke="#2AB7CA" stroke-width="2.5" stroke-dasharray="8 6" stroke-linecap="round" opacity="0.5"/>
+            <line x1="120"  y1="130" x2="120"  y2="158" stroke="#2AB7CA" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.35"/>
+            <line x1="360"  y1="58"  x2="360"  y2="86"  stroke="#2AB7CA" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.35"/>
+            <line x1="600"  y1="10"  x2="600"  y2="38"  stroke="#2AB7CA" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.35"/>
+            <line x1="840"  y1="58"  x2="840"  y2="86"  stroke="#2AB7CA" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.35"/>
+            <line x1="1080" y1="130" x2="1080" y2="158" stroke="#2AB7CA" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.35"/>
+  
+          </svg>
+
+          <!-- Stops layer — same aspect ratio as SVG, stops absolutely positioned -->
+          <div style="position:absolute;inset:0;z-index:5;">
+            <div class="arc-stops">
+          <div class="arc-stop active" data-ch="0">
+            <div class="arc-stop-dot"><i class="fas fa-bolt"></i></div>
+            <div class="arc-stop-label">The<br>Spark</div>
+          </div>
+          <div class="arc-stop" data-ch="1">
+            <div class="arc-stop-dot"><i class="fas fa-hands-helping"></i></div>
+            <div class="arc-stop-label">Action<br>Taken</div>
+          </div>
+          <div class="arc-stop" data-ch="2">
+            <div class="arc-stop-dot"><i class="fas fa-paw"></i></div>
+            <div class="arc-stop-label">Animal<br>Welfare</div>
+          </div>
+          <div class="arc-stop" data-ch="3">
+            <div class="arc-stop-dot"><i class="fas fa-hand-holding-heart"></i></div>
+            <div class="arc-stop-label">Community<br>Relief</div>
+          </div>
+          <div class="arc-stop" data-ch="4">
+            <div class="arc-stop-dot"><i class="fas fa-medal"></i></div>
+            <div class="arc-stop-label">The<br>Foundation</div>
+          </div><!-- /last arc-stop -->
+            </div><!-- /arc-stops -->
+          </div><!-- /stops absolute layer -->
+        </div><!-- /arc SVG+stops wrapper -->
+
+        <!-- Chapter content panels — only one visible at a time -->
+        <div class="chapter-cards">
+
+          <div class="chapter-panel active" data-panel="0">
+            <div class="cp-text">
+              <div class="cp-label">Chapter 01</div>
+              <div class="cp-title">The Spark</div>
+              <div class="cp-body">
+                <p>Mr. Saurav Rimal, an alumnus of Stratford University USA and an IT entrepreneur, was left dumbstruck when the Covid lockdown forced everything shut. Recovering from his own covid infection, he felt totally lost. He had no idea where to begin, or what he could possibly do.</p>
+                <p>It was this uncertainty that became the seed of something extraordinary.</p>
+              </div>
+            </div>
+            <div class="cp-img">
+              <div class="cp-img-num">2020 · Chapter 01</div>
+              <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200605-WA0065-1024x576.jpg&w=900&q=85" alt="The Spark" />
+            </div>
+          </div>
+
+          <div class="chapter-panel flip" data-panel="1">
+            <div class="cp-text">
+              <div class="cp-label">Chapter 02</div>
+              <div class="cp-title">Action Taken</div>
+              <div class="cp-body">
+                <p>News about critical shortages of essentials to fight the pandemic gave him the push he needed. Together with friends and in close association with the Nepal Traffic Police, Saurav started formulating Hand Sanitizers, distributed to Hospitals, Clinics, Essential Workers and Households across Kathmandu.</p>
+              </div>
+            </div>
+            <div class="cp-img">
+              <div class="cp-img-num">2020 · Chapter 02</div>
+              <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200601-WA0037-1024x576.jpg&w=900&q=85" alt="Action Taken" />
+            </div>
+          </div>
+
+          <div class="chapter-panel" data-panel="2">
+            <div class="cp-text">
+              <div class="cp-label">Chapter 03</div>
+              <div class="cp-title">Animal Welfare</div>
+              <div class="cp-body">
+                <p>While working with the Traffic Police, he witnessed Street Dogs, Cows and Monkeys — who relied on human kindness for food — completely neglected and going hungry. Saurav used his own savings to feed them daily.</p>
+                <p>His endeavor was appreciated, others joined in, and by lockdown's end he was feeding <span class="cp-strong">300 dogs, 200 monkeys, and 50 cows</span> every single day.</p>
+              </div>
+            </div>
+            <div class="cp-img">
+              <div class="cp-img-num">2020 · Chapter 03</div>
+              <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1-1024x576.jpg&w=900&q=85" alt="Animal Welfare" />
+            </div>
+          </div>
+
+          <div class="chapter-panel flip" data-panel="3">
+            <div class="cp-text">
+              <div class="cp-label">Chapter 04</div>
+              <div class="cp-title">Community Relief</div>
+              <div class="cp-body">
+                <p>Saurav witnessed daily wage earners, beggars and marginalized families in Kathmandu bereft of any income. He distributed food, medicines, blankets and warm clothes to over <span class="cp-strong">5,000 families</span>.</p>
+                <p>When floods and landslides struck, he and a team of medical professionals delivered relief materials to more than <span class="cp-strong">2,000 affected families</span> across Nepal.</p>
+              </div>
+            </div>
+            <div class="cp-img">
+              <div class="cp-img-num">2021 · Chapter 04</div>
+              <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210627_190615_037.jpg&w=900&q=85" alt="Community Relief" />
+            </div>
+          </div>
+
+          <div class="chapter-panel" data-panel="4">
+            <div class="cp-text">
+              <div class="cp-label">Chapter 05</div>
+              <div class="cp-title">The Foundation</div>
+              <div class="cp-body">
+                <p>Saurav received accolades, citations, awards and media exposure for his pandemic work. He was conferred with the prestigious Presidential <span class="cp-strong">"Samaj Sewa Ratna"</span> medal — the highest recognition for outstanding service to society.</p>
+                <p>This was the moment he realized it was time to formalise everything, and Karmayog Foundation was born.</p>
+              </div>
+              <div class="cp-award"><i class="fas fa-medal"></i> Samaj Sewa Ratna Awardee</div>
+            </div>
+            <div class="cp-img">
+              <div class="cp-img-num">2021 · Chapter 05</div>
+              <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20210418_150028_835.jpg&w=900&q=85" alt="The Foundation" />
+            </div>
+          </div>
+
+        </div><!-- /chapter-cards -->
+      </div><!-- /arc-stage -->
+    </div>
+  </section>
+
+  <!-- ════════════ STATS ════════════ -->
+  <section class="s-stats">
+    <div class="w">
+      <div style="text-align:center;margin-bottom:3.5rem;" data-r="up">
+        <span class="eyebrow">Our Impact</span>
+        <h2 style="font-family:var(--font-head);font-size:clamp(2rem,3.5vw,3rem);font-weight:400;color:var(--ink);">Numbers that <em style="font-family:var(--font-serif);font-style:italic;color:var(--teal);">speak</em></h2>
+      </div>
+      <div class="stats-grid">
+        <div class="scard" data-r="scale" data-d="1"><div class="snum">5000<sup>+</sup></div><div class="slbl">Families Reached</div></div>
+        <div class="scard" data-r="scale" data-d="2"><div class="snum">300</div><div class="slbl">Dogs Fed Daily</div></div>
+        <div class="scard" data-r="scale" data-d="3"><div class="snum">200</div><div class="slbl">Monkeys Fed Daily</div></div>
+        <div class="scard" data-r="scale" data-d="4"><div class="snum">50</div><div class="slbl">Cows Fed Daily</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ CTA ════════════ -->
+  <section class="s-cta">
+    <div class="cr cr1"></div><div class="cr cr2"></div><div class="cr cr3"></div>
+    <div class="w">
+      <div class="cta-inner" data-r="up">
+        <span class="eyebrow lt" style="justify-content:center;display:flex;">Be Part of the Story</span>
+        <h2>Help us write the next <em>success story.</em></h2>
+        <p>Every contribution writes a new chapter in someone's life.</p>
+        <a href="../pages/donate.html" class="cta-btn">❤️ Donate Today <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="help-section">
+    <div class="help-button" id="helpButton"><i class="fas fa-question-circle"></i><span>Help?</span></div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></div>
+  </div>
+
+  <karmayog-footer base-path="../"></karmayog-footer>
   <script src="../js/main.js"></script>
-</body>
 
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    /* scroll reveal */
+    var els = document.querySelectorAll('[data-r]');
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        var d = parseInt(e.target.dataset.d || 0) * 140;
+        setTimeout(function() { e.target.classList.add('on'); }, d);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el) { io.observe(el); });
+    setTimeout(function() { els.forEach(function(el) { el.classList.add('on'); }); }, 3500);
+
+    /* smooth scroll */
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var t = document.querySelector(this.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    /* back to top */
+    var btt = document.getElementById('backToTop');
+    if (btt) {
+      window.addEventListener('scroll', function() { btt.classList.toggle('visible', window.scrollY > 500); });
+      btt.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+
+    /* help */
+    var hb = document.getElementById('helpButton');
+    if (hb) hb.addEventListener('click', function() { window.location.href = '../pages/contact.html'; });
+
+    /* hero parallax */
+    var hImg = document.querySelector('.hero-img-wrap img');
+    if (hImg) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY < window.innerHeight * 1.2)
+          hImg.style.transform = 'translateY(' + (window.scrollY * 0.14) + 'px) scale(1.04)';
+      }, { passive: true });
+    }
+
+    /* ── Arc chapter switcher ── */
+    var arcStops = document.querySelectorAll('.arc-stop');
+    var arcPanels = document.querySelectorAll('.chapter-panel');
+
+    arcStops.forEach(function(stop) {
+      stop.addEventListener('click', function() {
+        var idx = parseInt(this.dataset.ch);
+
+        // Update active stop
+        arcStops.forEach(function(s) { s.classList.remove('active'); });
+        this.classList.add('active');
+
+        // Update active panel
+        arcPanels.forEach(function(p) { p.classList.remove('active'); });
+        var target = document.querySelector('.chapter-panel[data-panel="' + idx + '"]');
+        if (target) target.classList.add('active');
+      });
+    });
+
+    /* auto-advance chapters every 5s when section is visible */
+    var arcSection = document.querySelector('.s-origin');
+    var arcTimer = null;
+    var arcIdx = 0;
+
+    function advanceChapter() {
+      arcIdx = (arcIdx + 1) % arcStops.length;
+      arcStops.forEach(function(s) { s.classList.remove('active'); });
+      arcPanels.forEach(function(p) { p.classList.remove('active'); });
+      arcStops[arcIdx].classList.add('active');
+      var target = document.querySelector('.chapter-panel[data-panel="' + arcIdx + '"]');
+      if (target) target.classList.add('active');
+    }
+
+    var arcVisible = false;
+    var arcObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting && !arcVisible) {
+          arcVisible = true;
+          arcTimer = setInterval(advanceChapter, 5000);
+        } else if (!e.isIntersecting && arcVisible) {
+          arcVisible = false;
+          clearInterval(arcTimer);
+        }
+      });
+    }, { threshold: 0.3 });
+    if (arcSection) arcObs.observe(arcSection);
+
+    // Stop auto-advance when user manually clicks
+    arcStops.forEach(function(stop) {
+      stop.addEventListener('click', function() {
+        clearInterval(arcTimer);
+        arcVisible = false;
+        arcIdx = parseInt(this.dataset.ch);
+      });
+    });
+
+  });
+  </script>
+</body>
 </html>

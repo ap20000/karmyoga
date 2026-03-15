@@ -303,20 +303,89 @@
     /* ════════════════════════════
        RESPONSIVE
     ════════════════════════════ */
+
+    /* ── Tablet (≤1024px) ── */
     @media(max-width:1024px){
-      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .hero::after { display: none; }
       .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .form-row { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .hero-info-stack { flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+      .hic { flex: 1 1 calc(50% - 0.5rem); min-width: 200px; }
     }
+
+    /* ── Mobile (≤768px) ── */
     @media(max-width:768px){
-      .hero-h1 { font-size: 3.5rem; }
-      .form-card { padding: 2.25rem; }
-      .hero::before { display: none; }
-    }
-    @media(max-width:480px){
-      .hero-h1 { font-size: 2.8rem; }
+      /* shared */
       .w { padding: 0 1.25rem; }
+
+      /* hero */
+      .hero { min-height: auto; }
+      .hero::before { display: none; }
+      .hero::after  { display: none; }
+      .hero-inner { padding: 3rem 0 2.5rem; gap: 2rem; }
+      .hero-h1 { font-size: clamp(3rem, 10vw, 4.2rem); margin-bottom: 1.5rem; }
+      .hero-desc { font-size: 0.96rem; padding-left: 1.1rem; max-width: 100%; }
+
+      /* hero info stack — full column on mobile */
+      .hero-info-stack { flex-direction: column; gap: 0.85rem; }
+      .hic { flex: none; padding: 1.1rem 1.25rem; border-radius: 14px; }
+      .hic-icon { width: 42px; height: 42px; font-size: 1rem; border-radius: 12px; }
+      .hic-val { font-size: 0.88rem; }
+
+      /* contact section */
+      .contact-section { padding: 4rem 0 5rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+      /* location card */
+      .loc-card { padding: 2rem 1.75rem; border-radius: 22px; }
+      .loc-card h3 { font-size: 1.35rem; margin-bottom: 1.75rem; }
+      .loc-row { margin-bottom: 1.5rem; }
+      .loc-val { font-size: 0.96rem; }
+
+      /* social card */
+      .social-card { padding: 1.75rem 2rem; border-radius: 22px; }
+      .social-card h3 { font-size: 1.2rem; margin-bottom: 1.25rem; }
+      .si { width: 44px; height: 44px; }
+
+      /* form card */
+      .form-card { padding: 2rem 1.5rem; border-radius: 22px; }
+      .form-card h2 { font-size: 1.8rem; }
+      .form-card .sub { font-size: 0.9rem; margin-bottom: 2rem; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .fg { margin-bottom: 1.25rem; }
+      .fg input, .fg textarea { padding: 0.9rem 1rem; font-size: 0.92rem; border-radius: 12px; }
+      .fg textarea { min-height: 120px; }
+      .submit-btn { padding: 1rem; font-size: 0.95rem; }
+
+      /* map */
+      .map-section { height: 320px; }
+      .map-label { top: 1rem; left: 1rem; padding: 0.75rem 1.1rem; border-radius: 12px; }
+      .map-label-text { font-size: 0.78rem; }
+      .map-label-text span { font-size: 0.66rem; }
+    }
+
+    /* ── Small mobile (≤480px) ── */
+    @media(max-width:480px){
+      /* hero */
+      .hero-h1 { font-size: clamp(2.6rem, 9vw, 3.4rem); }
+      .hero-inner { padding: 2.5rem 0 2rem; }
+
+      /* hero info — icons smaller, text tighter */
+      .hic { padding: 1rem; gap: 0.9rem; }
+      .hic-icon { width: 38px; height: 38px; font-size: 0.9rem; }
+      .hic-val { font-size: 0.82rem; }
+      .hic-lbl { font-size: 0.56rem; }
+
+      /* contact section */
+      .contact-section { padding: 3rem 0 4rem; }
+      .loc-card { padding: 1.75rem 1.5rem; }
+      .loc-val { font-size: 0.9rem; }
+      .form-card { padding: 1.75rem 1.25rem; }
+      .form-card h2 { font-size: 1.55rem; }
+
+      /* map */
+      .map-section { height: 260px; }
     }
   </style>
 </head>
@@ -352,7 +421,7 @@
             <div class="hic-icon"><i class="fas fa-envelope"></i></div>
             <div>
               <div class="hic-lbl">E-mail us</div>
-              <div class="hic-val">contact@karmayogfoundation.org</div>
+              <div class="hic-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="680b07061c090b1c2803091a050911070f0e071d060c091c01070646071a0f">[email&#160;protected]</a></div>
             </div>
           </div>
           <div class="hic">
@@ -392,7 +461,7 @@
             <div class="loc-row">
               <div class="loc-label">E-mail us</div>
               <div class="loc-val">
-                <a href="mailto:contact@karmayogfoundation.org">contact@karmayogfoundation.org</a>
+                <a href="/cdn-cgi/l/email-protection#f3909c9d87929087b39892819e928a9c94959c869d9792879a9c9ddd9c8194"><span class="__cf_email__" data-cfemail="debdb1b0aabfbdaa9eb5bfacb3bfa7b1b9b8b1abb0babfaab7b1b0f0b1acb9">[email&#160;protected]</span></a>
               </div>
             </div>
 
@@ -494,7 +563,7 @@
   </div>
 
   <karmayog-footer base-path="../"></karmayog-footer>
-  <script src="../js/main.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../js/main.js"></script>
 
   <script>
   document.addEventListener('DOMContentLoaded', function () {

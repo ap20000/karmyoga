@@ -646,6 +646,8 @@
     /* ════════════════════════════════════════
        RESPONSIVE
     ════════════════════════════════════════ */
+
+    /* ── Tablet (≤1100px) ── */
     @media(max-width:1100px){
       .hero { grid-template-columns: 1fr; }
       .hero-visual { height: 55vw; min-height: 360px; }
@@ -655,27 +657,139 @@
       .ptrio, .pillars-grid { grid-template-columns: 1fr 1fr; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .ic-sub { right: 0; }
-      .mos { grid-template-rows: 200px 200px; }
       .chapter-panel { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem; }
       .chapter-panel.flip .cp-text,
       .chapter-panel.flip .cp-img { order: unset; }
+      .mic-grid { gap: 1rem; }
+      .img-cluster { height: auto; }
+      .ic-main { position: relative; height: 320px; }
+      .ic-sub { position: relative; right: auto; width: 60%; margin: -40px auto 0; }
     }
+
+    /* ── Mobile (≤768px) ── */
     @media(max-width:768px){
-      .hero-copy { padding: 3rem 1.5rem; }
-      .ptrio, .pillars-grid { grid-template-columns: 1fr; }
-      .mos { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .mos-item.mos-tall { grid-row: span 1; height: 200px; }
-      .mos-item.mos-sm   { height: 160px; }
-      .arc-stop-dot { width: 44px; height: 44px; font-size: 0.9rem; }
+      /* hero */
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-copy {
+        padding: 3rem 1.25rem 2.5rem;
+        text-align: center;
+        align-items: center;
+      }
+      .hero-h1 { font-size: clamp(3.2rem, 10vw, 4.5rem); }
+      .hero-desc { max-width: 100%; font-size: 0.98rem; }
+      .hero-btns { justify-content: center; }
+      .hero-ghost { display: none; }
+      .hero-visual { height: 62vw; min-height: 280px; }
+      .hero-stat {
+        bottom: 1.5rem; left: 50%;
+        transform: translateX(-50%);
+        min-width: 0; padding: 0.9rem 1.25rem;
+        white-space: nowrap;
+      }
+      .hero-year { width: 68px; height: 68px; top: 1rem; right: 1rem; }
+      .hero-year strong { font-size: 1.2rem; }
+
+      /* sections */
+      .s-journey { padding: 5rem 0 4rem; }
+      .s-mission  { padding: 5rem 0; }
+      .s-approach { padding: 5rem 0; }
+      .s-pillars  { padding: 5rem 0; }
+      .s-origin   { padding: 5rem 0 0; }
+      .s-stats    { padding: 4rem 0; }
+      .s-cta      { padding: 5rem 0; }
+
+      /* shared container padding */
+      .w { padding: 0 1.25rem; }
+
+      /* journey */
+      .journey-grid { gap: 2.5rem; }
+      .big-quote { font-size: 1.25rem; padding-left: 1.25rem; }
+      .img-cluster { height: auto; }
+      .ic-main { position: relative; height: 260px; }
+      .ic-sub { position: relative; right: auto; width: 65%; margin: -30px auto 0; }
+
+      /* mission */
+      .mission-top { gap: 2.5rem; margin-bottom: 3rem; }
+      .ptrio { grid-template-columns: 1fr; gap: 1.25rem; }
+      .ptile { padding: 2rem 1.75rem; }
+      .mic-grid { grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+      .mic { padding: 1.5rem 1.25rem; }
+
+      /* approach */
+      .approach-grid { gap: 2.5rem; }
+      .mos { grid-template-columns: 1fr; grid-template-rows: auto; gap: 1rem; }
+      .mos-right-col { flex-direction: row; gap: 1rem; }
+      .mos-item.mos-tall img { aspect-ratio: 16/9; }
+      .mos-item.mos-sm   img { aspect-ratio: 4/3; }
+
+      /* pillars */
+      .pillars-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .pillars-head { margin-bottom: 3rem; }
+      .pcard-top { padding: 2rem 1.75rem 1.5rem; }
+
+      /* origin / arc */
+      .origin-head { margin-bottom: 2.5rem; }
+      .arc-stop-dot { width: 44px; height: 44px; font-size: 0.88rem; }
       .arc-stop-label { font-size: 0.52rem; }
-      .cp-img { height: 240px; }
+      .chapter-panel { padding: 2rem 1.25rem; gap: 1.75rem; border-radius: 20px 20px 0 0; }
+      .cp-title { font-size: 1.8rem; }
+
+      /* stats */
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .scard { padding: 2rem 1.25rem; }
+      .snum { font-size: 2.8rem; }
+
+      /* cta */
+      .cta-inner h2 { font-size: 2.2rem; }
+      .cta-btn { padding: 1rem 2.2rem; font-size: 0.92rem; }
     }
+
+    /* ── Small mobile (≤480px) ── */
     @media(max-width:480px){
-      .stats-grid { grid-template-columns: 1fr 1fr; }
+      /* hero */
+      .hero-copy { padding: 2.5rem 1.25rem 2rem; }
+      .hero-h1 { font-size: clamp(2.8rem, 11vw, 3.6rem); }
       .hero-btns { flex-direction: column; }
       .hero-btns a { width: 100%; justify-content: center; }
+      .hero-stat { display: none; } /* hide on very small screens to avoid overlap */
+      .hero-year { width: 60px; height: 60px; }
+      .hero-year strong { font-size: 1.05rem; }
+
+      /* arc stops */
       .arc-stop-label { display: none; }
-      .arc-stop-dot { width: 40px; height: 40px; }
+      .arc-stop-dot { width: 38px; height: 38px; font-size: 0.8rem; }
+
+      /* chapter panel */
+      .chapter-panel { padding: 1.75rem 1rem; }
+      .cp-title { font-size: 1.55rem; }
+      .cp-body  { font-size: 0.9rem; }
+
+      /* mission grid 2-col stays OK */
+      .mic-grid { grid-template-columns: 1fr 1fr; }
+
+      /* ptrio tiles */
+      .ptile { padding: 1.75rem 1.5rem; border-radius: 20px; }
+
+      /* stats 2x2 */
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .scard { padding: 1.75rem 1rem; border-radius: 20px; }
+      .snum { font-size: 2.4rem; }
+
+      /* mosaic fallback — single column */
+      .mos-right-col { flex-direction: column; }
+
+      /* journey quote */
+      .big-quote { font-size: 1.1rem; }
+
+      /* cta */
+      .cta-btn { width: 100%; justify-content: center; padding: 1rem 1.5rem; }
+      .s-cta { padding: 4rem 0; }
+
+      /* section padding */
+      .s-journey,.s-mission,.s-approach,.s-pillars,.s-origin,.s-stats { padding: 4rem 0; }
     }
     </style>
 </head>

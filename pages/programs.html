@@ -8,668 +8,233 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="../css/main.css" />
-
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --teal:      #2AB7CA;
-      --teal-dark: #1a8fa0;
-      --teal-soft: rgba(42,183,202,0.09);
-      --teal-pale: rgba(42,183,202,0.06);
-      --ink:       #0d1f2d;
-      --ink-mid:   #2e4057;
-      --muted:     #6b7f8e;
-      --font-head: 'DM Serif Display', serif;
-      --font-body: 'DM Sans', sans-serif;
-      --font-serif:'Playfair Display', serif;
-    }
-    body { font-family: var(--font-body); color: var(--ink); background: #fff; overflow-x: hidden; }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--teal:#2AB7CA;--teal-dark:#1a8fa0;--teal-soft:rgba(42,183,202,0.09);--teal-pale:rgba(42,183,202,0.06);--ink:#0d1f2d;--ink-mid:#2e4057;--muted:#6b7f8e;--font-head:'DM Serif Display',serif;--font-body:'DM Sans',sans-serif;--font-serif:'Playfair Display',serif}
+    body{font-family:var(--font-body);color:var(--ink);background:#fff;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .container{max-width:1280px;margin:0 auto;padding:0 2.5rem}
 
-    /* ══════════════════════════════
-       HERO — reimagined
-    ══════════════════════════════ */
-    .wwd-hero {
-      min-height: 100vh;
-      padding-top: var(--nav-h, 80px);
-      display: flex;
-      flex-direction: column;
-      background: #ffffff;
-      position: relative;
-      overflow: hidden;
-    }
+    /* HERO */
+    .wwd-hero{min-height:100vh;padding-top:var(--nav-h,80px);display:flex;flex-direction:column;background:#fff;position:relative;overflow:hidden}
+    .wwd-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(42,183,202,0.1) 1.5px,transparent 1.5px);background-size:36px 36px;pointer-events:none;animation:dotDrift 20s ease-in-out infinite alternate}
+    @keyframes dotDrift{from{background-position:0 0}to{background-position:18px 18px}}
+    .wwd-hero::after{content:'W';position:absolute;top:-6%;right:-4%;font-family:var(--font-head);font-size:clamp(18rem,32vw,44rem);color:rgba(42,183,202,0.035);line-height:1;pointer-events:none;user-select:none}
+    .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1280px;margin:0 auto;padding:2.5rem 2.5rem 3rem;width:100%;position:relative;z-index:2;flex:1}
+    .hero-kicker{display:inline-flex;align-items:center;gap:.65rem;font-size:.65rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:2rem}
+    .hero-kicker::before{content:'';width:32px;height:1.5px;background:var(--teal)}
+    .hero-headline{font-family:var(--font-head);font-size:clamp(4rem,7.5vw,7rem);line-height:.9;color:var(--ink);margin-bottom:2.5rem;font-weight:400}
+    .hero-headline em{font-family:var(--font-serif);font-style:italic;color:var(--teal);display:block}
+    .hero-desc{font-size:1.1rem;line-height:1.8;color:var(--muted);max-width:460px;margin-bottom:3rem}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn-primary{background:var(--teal);color:white;padding:1rem 2.5rem;border-radius:50px;font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s;box-shadow:0 8px 28px rgba(42,183,202,.32)}
+    .btn-primary:hover{background:var(--teal-dark);transform:translateY(-3px);box-shadow:0 16px 44px rgba(42,183,202,.42)}
+    .btn-ghost{border:1.5px solid rgba(13,31,45,.15);color:var(--ink-mid);padding:1rem 2.5rem;border-radius:50px;font-weight:500;font-size:.9rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s}
+    .btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+    .hero-right{position:relative;height:580px}
+    .hero-photo-a{position:absolute;top:0;right:0;width:78%;height:420px;border-radius:24px;overflow:hidden;box-shadow:0 40px 80px rgba(13,31,45,.14)}
+    .hero-photo-a img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform 9s ease}
+    .hero-photo-a:hover img{transform:scale(1.05)}
+    .hero-photo-b{position:absolute;bottom:20px;left:0;width:52%;height:270px;border-radius:18px;overflow:hidden;box-shadow:0 24px 56px rgba(13,31,45,.14);border:5px solid white}
+    .hero-photo-b img{width:100%;height:100%;object-fit:cover;filter:saturate(.88)}
+    .hero-pill{position:absolute;top:1.5rem;left:-1.5rem;background:white;border-radius:16px;padding:1.1rem 1.5rem;box-shadow:0 16px 48px rgba(13,31,45,.1);display:flex;align-items:center;gap:.85rem;z-index:5;min-width:170px;border:1px solid rgba(42,183,202,.12);animation:pillFloat 4s ease-in-out infinite}
+    @keyframes pillFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .hero-pill-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:flex;align-items:center;justify-content:center;color:white;font-size:.95rem;flex-shrink:0}
+    .hero-pill strong{display:block;font-size:.9rem;font-weight:700;color:var(--ink)}
+    .hero-pill span{font-size:.68rem;color:var(--muted)}
+    .hero-badge{position:absolute;bottom:2rem;right:1rem;background:linear-gradient(135deg,var(--teal),#1a7a9e);border-radius:50%;width:96px;height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;text-align:center;box-shadow:0 12px 36px rgba(42,183,202,.4);z-index:5;animation:badgeSpin 20s linear infinite}
+    @keyframes badgeSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    .hero-badge-inner{display:flex;flex-direction:column;align-items:center;animation:badgeSpinRev 20s linear infinite}
+    @keyframes badgeSpinRev{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
+    .hero-badge strong{font-family:var(--font-head);font-size:1.6rem;line-height:1}
+    .hero-badge span{font-size:.52rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
 
-    /* animated dot grid */
-    .wwd-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: radial-gradient(rgba(42,183,202,0.1) 1.5px, transparent 1.5px);
-      background-size: 36px 36px;
-      pointer-events: none;
-      animation: dotDrift 20s ease-in-out infinite alternate;
-    }
-    @keyframes dotDrift {
-      from { background-position: 0 0; }
-      to   { background-position: 18px 18px; }
-    }
+    /* INTRO */
+    .intro-section{padding:8rem 0;background:white}
+    .intro-wrap{max-width:1280px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+    .eyebrow-line{display:inline-flex;align-items:center;gap:.6rem;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem}
+    .eyebrow-line::before{content:'';width:24px;height:1.5px;background:var(--teal)}
+    .intro-left h2{font-family:var(--font-head);font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.15;color:var(--ink);margin-bottom:1.5rem}
+    .intro-left h2 em{font-family:var(--font-serif);color:var(--teal);font-style:italic}
+    .mantra{display:inline-flex;align-items:center;gap:.7rem;background:var(--teal-soft);border:1px solid rgba(42,183,202,.2);border-radius:50px;padding:.55rem 1.4rem;font-family:var(--font-serif);font-size:.9rem;font-style:italic;color:var(--teal-dark);margin-bottom:1.75rem}
+    .mantra i{font-size:.75rem;color:var(--teal)}
+    .intro-left p{font-size:1rem;line-height:1.85;color:var(--muted);margin-bottom:1.2rem}
+    .intro-right{background:linear-gradient(135deg,var(--teal) 0%,#1a7a9e 100%);border-radius:28px;padding:3.5rem;color:white;position:relative;overflow:hidden}
+    .intro-right::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+    .intro-right::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+    .intro-right h3{font-family:var(--font-head);font-weight:400;font-size:1.75rem;color:white;margin-bottom:1.25rem;position:relative;z-index:1}
+    .intro-right p{color:rgba(255,255,255,.82);font-size:.96rem;line-height:1.82;margin-bottom:1rem;position:relative;z-index:1}
+    .btn-white{display:inline-flex;align-items:center;gap:.5rem;background:white;color:var(--teal-dark);padding:.9rem 2.2rem;border-radius:50px;font-weight:600;font-size:.88rem;transition:all .3s;margin-top:1.5rem;position:relative;z-index:1;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+    .btn-white:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.22)}
 
-    /* big decorative letter */
-    .wwd-hero::after {
-      content: 'W';
-      position: absolute; top: -6%; right: -4%;
-      font-family: var(--font-head); font-size: clamp(18rem,32vw,44rem);
-      color: rgba(42,183,202,0.035); line-height: 1;
-      pointer-events: none; user-select: none;
-    }
+    /* JOURNEY / WAVE — desktop */
+    .journey-section{padding:7rem 0 0;background:#f7fcfd;position:relative;overflow:hidden}
+    .journey-section::before{content:'';position:absolute;top:-200px;left:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(42,183,202,.06) 0%,transparent 65%);pointer-events:none}
+    .journey-head{max-width:1280px;margin:0 auto;padding:0 2.5rem 5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;position:relative;z-index:2}
+    .journey-head h2{font-family:var(--font-head);font-size:clamp(2.2rem,4vw,3.4rem);font-weight:400;line-height:1.1;color:var(--ink)}
+    .journey-head h2 em{font-family:var(--font-serif);font-style:italic;color:var(--teal)}
+    .wave-track{position:relative;max-width:1400px;margin:0 auto;padding:0 60px;z-index:2}
+    .wave-svg{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible}
+    .wave-stop{position:absolute;z-index:5;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-50%) scale(.3);opacity:0;transition:opacity .8s cubic-bezier(.34,1.56,.64,1),transform .8s cubic-bezier(.34,1.56,.64,1)}
+    .wave-stop.dot-visible{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    .stop-dot{width:54px;height:54px;border-radius:50%;background:white;border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;color:var(--teal);font-size:1.05rem;box-shadow:0 0 0 7px rgba(42,183,202,.1),0 4px 20px rgba(42,183,202,.2);transition:all .35s;flex-shrink:0}
+    .wave-stop.dot-visible:hover .stop-dot{background:var(--teal);color:white;box-shadow:0 0 0 12px rgba(42,183,202,.15),0 8px 32px rgba(42,183,202,.5)}
+    .stop-num{font-size:.58rem;font-weight:700;letter-spacing:.12em;color:var(--muted);margin-top:.35rem}
+    .stop-connector{position:absolute;width:1.5px;z-index:2;transform-origin:top center;opacity:0;transform:translateX(-50%) scaleY(0);transition:opacity .65s ease,transform .65s ease}
+    .stop-connector.conn-visible{opacity:1;transform:translateX(-50%) scaleY(1)}
+    .prog-float{position:absolute;z-index:4;width:215px;background:#fff;border-radius:20px;overflow:hidden;border:1px solid rgba(42,183,202,.15);transform:translateX(-50%) translateY(40px);opacity:0;transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1),box-shadow .4s,border-color .4s;box-shadow:0 6px 24px rgba(13,31,45,.08)}
+    .prog-float.card-visible{opacity:1;transform:translateX(-50%) translateY(0)}
+    .prog-float.card-visible:hover{transform:translateX(-50%) translateY(-10px) scale(1.03);box-shadow:0 24px 52px rgba(13,31,45,.13),0 0 0 1.5px rgba(42,183,202,.35);border-color:rgba(42,183,202,.35)}
+    .pf-img{height:120px;position:relative;overflow:hidden}
+    .pf-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.7) brightness(.82);transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s}
+    .prog-float:hover .pf-img img{transform:scale(1.1);filter:saturate(1) brightness(.95)}
+    .pf-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(255,255,255,.85) 100%)}
+    .pf-num{position:absolute;top:.7rem;right:.85rem;font-family:var(--font-head);font-size:1.8rem;line-height:1;color:rgba(13,31,45,.07);z-index:2;user-select:none;transition:color .4s}
+    .prog-float:hover .pf-num{color:rgba(42,183,202,.18)}
+    .pf-chip{position:absolute;bottom:.6rem;left:.75rem;background:var(--teal);color:white;font-size:.5rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .7rem;border-radius:50px;z-index:3}
+    .pf-body{padding:.85rem 1rem 1rem;position:relative;background:white}
+    .pf-body::before{content:'';position:absolute;top:0;left:1rem;height:1.5px;width:20px;background:var(--teal);border-radius:2px;transition:width .4s cubic-bezier(.16,1,.3,1)}
+    .prog-float:hover .pf-body::before{width:calc(100% - 2rem)}
+    .pf-title{font-family:var(--font-head);font-size:.9rem;font-weight:400;line-height:1.25;color:var(--ink);margin-bottom:.45rem;margin-top:.65rem;transition:color .3s}
+    .prog-float:hover .pf-title{color:var(--teal-dark)}
+    .pf-desc{font-size:.74rem;line-height:1.62;color:var(--muted);transition:color .3s}
+    .prog-float:hover .pf-desc{color:var(--ink-mid)}
+    .pf-arrow{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(42,183,202,.1);color:var(--teal);font-size:.6rem;margin-top:.8rem;margin-left:auto;transition:all .35s}
+    .prog-float:hover .pf-arrow{background:var(--teal);color:white;transform:rotate(45deg);box-shadow:0 4px 14px rgba(42,183,202,.4)}
 
-    .hero-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
-      align-items: center; max-width: 1280px; margin: 0 auto;
-      padding: 2.5rem 2.5rem 3rem; width: 100%;
-      position: relative; z-index: 2;
-      flex: 1;
-    }
+    /* REST CARDS */
+    .rest-section{background:#f7fcfd;padding:4rem 0 7rem;position:relative;z-index:2}
+    .rest-divider{max-width:1280px;margin:0 auto;padding:0 2.5rem 3rem;display:flex;align-items:center;gap:1.5rem}
+    .rest-divider-line{flex:1;height:1px;background:rgba(42,183,202,.2)}
+    .rest-divider-label{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);white-space:nowrap}
+    .rest-grid{max-width:1280px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .rest-card{background:#fff;border-radius:22px;overflow:hidden;border:1px solid rgba(42,183,202,.12);box-shadow:0 6px 28px rgba(13,31,45,.07);transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s,border-color .4s;display:flex;flex-direction:column}
+    .rest-card:hover{transform:translateY(-10px);box-shadow:0 24px 56px rgba(13,31,45,.12),0 0 0 1.5px rgba(42,183,202,.28);border-color:rgba(42,183,202,.28)}
+    .rc-img{height:200px;position:relative;overflow:hidden;flex-shrink:0}
+    .rc-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.7) brightness(.82);transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s}
+    .rest-card:hover .rc-img img{transform:scale(1.08);filter:saturate(1) brightness(.95)}
+    .rc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(255,255,255,.9) 100%)}
+    .rc-num{position:absolute;top:1rem;right:1.1rem;font-family:var(--font-head);font-size:2.5rem;line-height:1;color:rgba(13,31,45,.06);z-index:2;user-select:none;transition:color .4s}
+    .rest-card:hover .rc-num{color:rgba(42,183,202,.15)}
+    .rc-chip{position:absolute;bottom:.8rem;left:1rem;background:var(--teal);color:white;font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.28rem .85rem;border-radius:50px;z-index:3}
+    .rc-body{padding:1.4rem 1.5rem 1.75rem;flex:1;display:flex;flex-direction:column;position:relative}
+    .rc-body::before{content:'';position:absolute;top:0;left:1.5rem;height:1.5px;width:24px;background:var(--teal);border-radius:2px;transition:width .4s cubic-bezier(.16,1,.3,1)}
+    .rest-card:hover .rc-body::before{width:calc(100% - 3rem)}
+    .rc-cat{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;margin-top:.75rem;display:block}
+    .rc-title{font-family:var(--font-head);font-size:1.15rem;font-weight:400;line-height:1.25;color:var(--ink);margin-bottom:.65rem;transition:color .3s}
+    .rest-card:hover .rc-title{color:var(--teal-dark)}
+    .rc-desc{font-size:.84rem;line-height:1.7;color:var(--muted);transition:color .3s;flex:1}
+    .rest-card:hover .rc-desc{color:var(--ink-mid)}
+    .rc-arrow{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:rgba(42,183,202,.1);color:var(--teal);font-size:.72rem;margin-top:1.2rem;margin-left:auto;transition:all .35s}
+    .rest-card:hover .rc-arrow{background:var(--teal);color:white;transform:rotate(45deg);box-shadow:0 4px 16px rgba(42,183,202,.4)}
 
-    /* ── left copy ── */
-    .hero-kicker {
-      display: inline-flex; align-items: center; gap: 0.65rem;
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.24em;
-      text-transform: uppercase; color: var(--teal); margin-bottom: 2rem;
-    }
-    .hero-kicker::before { content:''; width:32px; height:1.5px; background:var(--teal); }
+    /* ── MOBILE SLIDER (hidden on desktop) ── */
+    .mobile-slider-section{display:none;background:#f7fcfd;padding:0 0 2rem}
+    .slider-head{padding:0 1.25rem 1.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+    .slider-head h2{font-family:var(--font-head);font-size:2rem;font-weight:400;color:var(--ink)}
+    .slider-head h2 em{font-family:var(--font-serif);font-style:italic;color:var(--teal)}
+    .slider-controls{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+    .slider-arrow{width:36px;height:36px;border-radius:50%;background:#fff;border:1.5px solid rgba(42,183,202,.25);color:var(--teal);font-size:.72rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s}
+    .slider-arrow:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+    .slider-arrow:active{transform:scale(.9)}
+    .slider-track{display:flex;gap:1rem;padding:.25rem 1.25rem 1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .slider-track::-webkit-scrollbar{display:none}
+    .slider-card{flex-shrink:0;width:78vw;max-width:300px;scroll-snap-align:start;background:#fff;border-radius:20px;overflow:hidden;border:1px solid rgba(42,183,202,.13);box-shadow:0 6px 28px rgba(13,31,45,.09)}
+    .sc-img{height:160px;position:relative;overflow:hidden}
+    .sc-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.82)}
+    .sc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 35%,rgba(255,255,255,.88) 100%)}
+    .sc-chip{position:absolute;bottom:.7rem;left:.85rem;background:var(--teal);color:white;font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .75rem;border-radius:50px;z-index:3}
+    .sc-num{position:absolute;top:.75rem;right:.9rem;font-family:var(--font-head);font-size:2rem;line-height:1;color:rgba(13,31,45,.07);z-index:2}
+    .sc-body{padding:1.1rem 1.2rem 1.4rem}
+    .sc-cat{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.35rem}
+    .sc-title{font-family:var(--font-head);font-size:1rem;font-weight:400;color:var(--ink);line-height:1.25;margin-bottom:.5rem}
+    .sc-desc{font-size:.78rem;line-height:1.65;color:var(--muted)}
+    .slider-dots{display:flex;justify-content:center;gap:.45rem;padding:.25rem 0 .75rem}
+    .slider-dot{width:6px;height:6px;border-radius:50%;background:rgba(42,183,202,.25);transition:all .3s;cursor:pointer;border:none;padding:0;flex-shrink:0}
+    .slider-dot.active{background:var(--teal);width:20px;border-radius:3px}
 
-    .hero-headline {
-      font-family: var(--font-head);
-      font-size: clamp(4rem, 7.5vw, 7rem);
-      line-height: 0.9;
-      color: var(--ink);
-      margin-bottom: 2.5rem;
-      font-weight: 400;
-    }
-    .hero-headline em {
-      font-family: var(--font-serif);
-      font-style: italic;
-      color: var(--teal);
-      display: block;
-    }
+    /* CTA */
+    .cta-strip{background:linear-gradient(135deg,var(--teal) 0%,#1a7a9e 100%);padding:7rem 0;position:relative;overflow:hidden}
+    .cta-strip::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 600px at 20% 50%,rgba(255,255,255,.07),transparent),radial-gradient(circle 400px at 80% 50%,rgba(255,255,255,.04),transparent);pointer-events:none}
+    .cta-ring{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.08);pointer-events:none}
+    .cta-ring-1{width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);animation:ring-pulse 7s ease-in-out infinite}
+    .cta-ring-2{width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);animation:ring-pulse 7s 2s ease-in-out infinite}
+    .cta-ring-3{width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);animation:ring-pulse 7s 4s ease-in-out infinite}
+    @keyframes ring-pulse{0%,100%{opacity:0;transform:translate(-50%,-50%) scale(.85)}50%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+    .cta-inner{max-width:1280px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:2}
+    .cta-left .eyebrow-line{color:rgba(255,255,255,.7)}
+    .cta-left .eyebrow-line::before{background:rgba(255,255,255,.7)}
+    .cta-left h2{font-family:var(--font-head);font-weight:400;font-size:clamp(2rem,3.5vw,3rem);color:white;line-height:1.2}
+    .cta-left h2 em{font-style:italic;font-family:var(--font-serif)}
+    .cta-right p{color:rgba(255,255,255,.78);font-size:1rem;line-height:1.8;margin-bottom:2rem}
+    .cta-actions{display:flex;gap:1rem;flex-wrap:wrap}
+    .cta-btn-white{background:white;color:var(--teal-dark);padding:1.1rem 2.6rem;border-radius:50px;font-weight:700;font-size:.92rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s;box-shadow:0 8px 30px rgba(0,0,0,.18)}
+    .cta-btn-white:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(0,0,0,.24)}
+    .cta-btn-ghost{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:white;padding:1.1rem 2.6rem;border-radius:50px;font-weight:500;font-size:.92rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s;backdrop-filter:blur(8px)}
+    .cta-btn-ghost:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
 
-    .hero-desc {
-      font-size: 1.1rem; line-height: 1.8;
-      color: var(--muted); max-width: 460px;
-      margin-bottom: 3rem;
-    }
+    /* REVEAL */
+    [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+    [data-reveal="fade-right"]{transform:translateX(-24px)}
+    [data-reveal="fade-left"]{transform:translateX(24px)}
+    [data-reveal].revealed{opacity:1!important;transform:none!important}
+    [data-reveal-delay="1"]{transition-delay:.12s}
+    [data-reveal-delay="2"]{transition-delay:.24s}
+    [data-reveal-delay="3"]{transition-delay:.36s}
 
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-    .btn-primary {
-      background: var(--teal); color: white;
-      padding: 1rem 2.5rem; border-radius: 50px;
-      font-weight: 600; font-size: 0.9rem;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      transition: all 0.3s;
-      box-shadow: 0 8px 28px rgba(42,183,202,0.32);
-    }
-    .btn-primary:hover {
-      background: var(--teal-dark);
-      transform: translateY(-3px);
-      box-shadow: 0 16px 44px rgba(42,183,202,0.42);
-    }
-    .btn-ghost {
-      border: 1.5px solid rgba(13,31,45,0.15);
-      color: var(--ink-mid);
-      padding: 1rem 2.5rem; border-radius: 50px;
-      font-weight: 500; font-size: 0.9rem;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      transition: all 0.3s;
-    }
-    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
-
-    /* ── right visual cluster ── */
-    .hero-right { position: relative; height: 580px; }
-
-    .hero-photo-a {
-      position: absolute; top: 0; right: 0;
-      width: 78%; height: 420px;
-      border-radius: 24px; overflow: hidden;
-      box-shadow: 0 40px 80px rgba(13,31,45,0.14);
-    }
-    .hero-photo-a img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(0.85);
-      transition: transform 9s ease;
-    }
-    .hero-photo-a:hover img { transform: scale(1.05); }
-
-    .hero-photo-b {
-      position: absolute; bottom: 20px; left: 0;
-      width: 52%; height: 270px;
-      border-radius: 18px; overflow: hidden;
-      box-shadow: 0 24px 56px rgba(13,31,45,0.14);
-      border: 5px solid white;
-    }
-    .hero-photo-b img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(0.88);
-    }
-
-    /* floating pill */
-    .hero-pill {
-      position: absolute; top: 1.5rem; left: -1.5rem;
-      background: white; border-radius: 16px;
-      padding: 1.1rem 1.5rem;
-      box-shadow: 0 16px 48px rgba(13,31,45,0.1);
-      display: flex; align-items: center; gap: 0.85rem;
-      z-index: 5; min-width: 170px;
-      border: 1px solid rgba(42,183,202,0.12);
-      animation: pillFloat 4s ease-in-out infinite;
-    }
-    @keyframes pillFloat {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
-    }
-    .hero-pill-icon {
-      width: 42px; height: 42px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 0.95rem; flex-shrink: 0;
-    }
-    .hero-pill strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--ink); }
-    .hero-pill span   { font-size: 0.68rem; color: var(--muted); }
-
-    /* badge bottom-right */
-    .hero-badge {
-      position: absolute; bottom: 2rem; right: 1rem;
-      background: linear-gradient(135deg, var(--teal), #1a7a9e);
-      border-radius: 50%; width: 96px; height: 96px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      color: white; text-align: center;
-      box-shadow: 0 12px 36px rgba(42,183,202,0.4);
-      z-index: 5;
-      animation: badgeSpin 20s linear infinite;
-    }
-    @keyframes badgeSpin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-    .hero-badge-inner {
-      display: flex; flex-direction: column; align-items: center;
-      animation: badgeSpinReverse 20s linear infinite;
-    }
-    @keyframes badgeSpinReverse {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(-360deg); }
-    }
-    .hero-badge strong { font-family: var(--font-head); font-size: 1.6rem; line-height: 1; }
-    .hero-badge span   { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
-
-    /* ══════════════════════════════
-       INTRO
-    ══════════════════════════════ */
-    .intro-section { padding: 8rem 0; background: white; }
-    .intro-wrap {
-      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
-      align-items: center;
-    }
-    .eyebrow-line {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem;
-    }
-    .eyebrow-line::before { content:''; width:24px; height:1.5px; background:var(--teal); }
-    .intro-left h2 {
-      font-family: var(--font-head); font-size: clamp(2rem,3.5vw,3rem);
-      font-weight: 400; line-height: 1.15; color: var(--ink); margin-bottom: 1.5rem;
-    }
-    .intro-left h2 em { font-family: var(--font-serif); color: var(--teal); font-style: italic; }
-    .mantra {
-      display: inline-flex; align-items: center; gap: 0.7rem;
-      background: var(--teal-soft); border: 1px solid rgba(42,183,202,0.2);
-      border-radius: 50px; padding: 0.55rem 1.4rem;
-      font-family: var(--font-serif); font-size: 0.9rem;
-      font-style: italic; color: var(--teal-dark); margin-bottom: 1.75rem;
-    }
-    .mantra i { font-size: 0.75rem; color: var(--teal); }
-    .intro-left p { font-size: 1rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.2rem; }
-
-    .intro-right {
-      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
-      border-radius: 28px; padding: 3.5rem;
-      color: white; position: relative; overflow: hidden;
-    }
-    .intro-right::before {
-      content: ''; position: absolute; top: -80px; right: -80px;
-      width: 300px; height: 300px; border-radius: 50%;
-      background: rgba(255,255,255,0.06); pointer-events: none;
-    }
-    .intro-right::after {
-      content: ''; position: absolute; bottom: -60px; left: -60px;
-      width: 200px; height: 200px; border-radius: 50%;
-      background: rgba(255,255,255,0.04); pointer-events: none;
-    }
-    .intro-right h3 {
-      font-family: var(--font-head); font-weight: 400;
-      font-size: 1.75rem; color: white; margin-bottom: 1.25rem;
-      position: relative; z-index: 1;
-    }
-    .intro-right p {
-      color: rgba(255,255,255,0.82); font-size: 0.96rem;
-      line-height: 1.82; margin-bottom: 1rem; position: relative; z-index: 1;
-    }
-    .btn-white {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: white; color: var(--teal-dark);
-      padding: 0.9rem 2.2rem; border-radius: 50px;
-      font-weight: 600; font-size: 0.88rem;
-      transition: all 0.3s; margin-top: 1.5rem;
-      position: relative; z-index: 1;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,0.22); }
-
-    /* ══════════════════════════════════════════════
-       JOURNEY SECTION — light bg
-    ══════════════════════════════════════════════ */
-    .journey-section {
-      padding: 7rem 0 0;
-      background: #f7fcfd;
-      position: relative; overflow: hidden;
-    }
-    .journey-section::before {
-      content: '';
-      position: absolute; top: -200px; left: -200px;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(42,183,202,0.06) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .journey-head {
-      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem 5rem;
-      display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem;
-      position: relative; z-index: 2;
-    }
-    .journey-head h2 {
-      font-family: var(--font-head); font-size: clamp(2.2rem,4vw,3.4rem);
-      font-weight: 400; line-height: 1.1; color: var(--ink);
-    }
-    .journey-head h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
-
-    .wave-track {
-      position: relative; max-width: 1400px; margin: 0 auto;
-      padding: 0 60px; z-index: 2;
-    }
-    .wave-svg { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 0; overflow: visible; }
-
-    /* ── stop node ── */
-    .wave-stop {
-      position: absolute; z-index: 5;
-      display: flex; flex-direction: column; align-items: center;
-      transform: translate(-50%,-50%) scale(0.3);
-      opacity: 0;
-      transition: opacity 0.8s cubic-bezier(0.34,1.56,0.64,1),
-                  transform 0.8s cubic-bezier(0.34,1.56,0.64,1);
-    }
-    .wave-stop.dot-visible {
-      opacity: 1;
-      transform: translate(-50%,-50%) scale(1);
-    }
-    .wave-stop:hover .stop-dot { transform: scale(1.14); }
-    .stop-dot {
-      width: 54px; height: 54px; border-radius: 50%;
-      background: white;
-      border: 2px solid var(--teal);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--teal); font-size: 1.05rem;
-      box-shadow: 0 0 0 7px rgba(42,183,202,0.1), 0 4px 20px rgba(42,183,202,0.2);
-      transition: all 0.35s; flex-shrink: 0;
-    }
-    .wave-stop.dot-visible:hover .stop-dot {
-      background: var(--teal); color: white;
-      box-shadow: 0 0 0 12px rgba(42,183,202,0.15), 0 8px 32px rgba(42,183,202,0.5);
-    }
-    .stop-num { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); margin-top: 0.35rem; }
-
-    /* connector */
-    .stop-connector {
-      position: absolute; width: 1.5px; z-index: 2;
-      transform-origin: top center;
-      opacity: 0;
-      transform: translateX(-50%) scaleY(0);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .stop-connector.conn-visible {
-      opacity: 1;
-      transform: translateX(-50%) scaleY(1);
-    }
-
-    /* ── LIGHT CARD (replacing dark) ── */
-    .prog-float {
-      position: absolute; z-index: 4;
-      width: 215px;
-      background: #ffffff;
-      border-radius: 20px; overflow: hidden;
-      border: 1px solid rgba(42,183,202,0.15);
-      transform: translateX(-50%) translateY(40px);
-      opacity: 0;
-      transition: opacity 1.1s cubic-bezier(0.16,1,0.3,1),
-                  transform 1.1s cubic-bezier(0.16,1,0.3,1),
-                  box-shadow 0.4s,
-                  border-color 0.4s;
-      box-shadow: 0 6px 24px rgba(13,31,45,0.08);
-    }
-    .prog-float.card-visible {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    .prog-float.card-visible:hover {
-      transform: translateX(-50%) translateY(-10px) scale(1.03);
-      box-shadow: 0 24px 52px rgba(13,31,45,0.13), 0 0 0 1.5px rgba(42,183,202,0.35);
-      border-color: rgba(42,183,202,0.35);
-    }
-    .pf-img { height: 120px; position: relative; overflow: hidden; }
-    .pf-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(0.7) brightness(0.82);
-      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.6s;
-    }
-    .prog-float:hover .pf-img img { transform: scale(1.1); filter: saturate(1) brightness(0.95); }
-    .pf-img::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.85) 100%);
-    }
-    .pf-num {
-      position: absolute; top: 0.7rem; right: 0.85rem;
-      font-family: var(--font-head); font-size: 1.8rem; line-height: 1;
-      color: rgba(13,31,45,0.07); z-index: 2; user-select: none;
-      transition: color 0.4s;
-    }
-    .prog-float:hover .pf-num { color: rgba(42,183,202,0.18); }
-    .pf-chip {
-      position: absolute; bottom: 0.6rem; left: 0.75rem;
-      background: var(--teal); color: white;
-      font-size: 0.5rem; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; padding: 0.22rem 0.7rem;
-      border-radius: 50px; z-index: 3;
-    }
-
-    /* accent card variant */
-    .prog-float.accent {
-      background: linear-gradient(145deg, #e8f8fb 0%, #d0eff5 100%);
-      border-color: rgba(42,183,202,0.2);
-    }
-    .prog-float.accent .pf-img {
-      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
-    }
-    .prog-float.accent .pf-img::after { display: none; }
-    .pf-accent-icon {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.8rem; color: rgba(255,255,255,0.25);
-    }
-
-    .pf-body { padding: 0.85rem 1rem 1rem; position: relative; background: white; }
-    .prog-float.accent .pf-body { background: transparent; }
-    .pf-body::before {
-      content: ''; position: absolute; top: 0; left: 1rem;
-      height: 1.5px; width: 20px;
-      background: var(--teal); border-radius: 2px;
-      transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .prog-float:hover .pf-body::before { width: calc(100% - 2rem); }
-    .pf-title {
-      font-family: var(--font-head); font-size: 0.9rem;
-      font-weight: 400; line-height: 1.25;
-      color: var(--ink); margin-bottom: 0.45rem; margin-top: 0.65rem;
-      transition: color 0.3s;
-    }
-    .prog-float:hover .pf-title { color: var(--teal-dark); }
-    .pf-desc {
-      font-size: 0.74rem; line-height: 1.62;
-      color: var(--muted); transition: color 0.3s;
-    }
-    .prog-float:hover .pf-desc { color: var(--ink-mid); }
-    .pf-arrow {
-      display: flex; align-items: center; justify-content: center;
-      width: 26px; height: 26px; border-radius: 50%;
-      background: rgba(42,183,202,0.1); color: var(--teal);
-      font-size: 0.6rem; margin-top: 0.8rem; margin-left: auto;
-      transition: all 0.35s;
-    }
-    .prog-float:hover .pf-arrow {
-      background: var(--teal); color: white;
-      transform: rotate(45deg);
-      box-shadow: 0 4px 14px rgba(42,183,202,0.4);
-    }
-    .prog-float.accent .pf-title { color: var(--teal-dark); }
-    .prog-float.accent .pf-desc  { color: var(--ink-mid); }
-
-    /* ══════════════════════════════════════════════
-       REMAINING CARDS ROW
-    ══════════════════════════════════════════════ */
-    .rest-section {
-      background: #f7fcfd;
-      padding: 4rem 0 7rem;
-      position: relative; z-index: 2;
-    }
-    .rest-divider {
-      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem 3rem;
-      display: flex; align-items: center; gap: 1.5rem;
-    }
-    .rest-divider-line { flex: 1; height: 1px; background: rgba(42,183,202,0.2); }
-    .rest-divider-label {
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--teal); white-space: nowrap;
-    }
-    .rest-grid {
-      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
-    }
-    .rest-card {
-      background: #ffffff;
-      border-radius: 22px; overflow: hidden;
-      border: 1px solid rgba(42,183,202,0.12);
-      box-shadow: 0 6px 28px rgba(13,31,45,0.07);
-      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s, border-color 0.4s;
-      display: flex; flex-direction: column;
-    }
-    .rest-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 24px 56px rgba(13,31,45,0.12), 0 0 0 1.5px rgba(42,183,202,0.28);
-      border-color: rgba(42,183,202,0.28);
-    }
-    .rc-img { height: 200px; position: relative; overflow: hidden; flex-shrink: 0; }
-    .rc-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(0.7) brightness(0.82);
-      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.6s;
-    }
-    .rest-card:hover .rc-img img { transform: scale(1.08); filter: saturate(1) brightness(0.95); }
-    .rc-img::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 40%, rgba(255,255,255,0.9) 100%);
-    }
-    .rc-num {
-      position: absolute; top: 1rem; right: 1.1rem;
-      font-family: var(--font-head); font-size: 2.5rem; line-height: 1;
-      color: rgba(13,31,45,0.06); z-index: 2; user-select: none;
-      transition: color 0.4s;
-    }
-    .rest-card:hover .rc-num { color: rgba(42,183,202,0.15); }
-    .rc-chip {
-      position: absolute; bottom: 0.8rem; left: 1rem;
-      background: var(--teal); color: white;
-      font-size: 0.54rem; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; padding: 0.28rem 0.85rem;
-      border-radius: 50px; z-index: 3;
-    }
-    .rc-body {
-      padding: 1.4rem 1.5rem 1.75rem; flex: 1;
-      display: flex; flex-direction: column; position: relative;
-    }
-    .rc-body::before {
-      content: ''; position: absolute; top: 0; left: 1.5rem;
-      height: 1.5px; width: 24px; background: var(--teal);
-      border-radius: 2px; transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .rest-card:hover .rc-body::before { width: calc(100% - 3rem); }
-    .rc-cat {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--teal);
-      margin-bottom: 0.5rem; margin-top: 0.75rem; display: block;
-    }
-    .rc-title {
-      font-family: var(--font-head); font-size: 1.15rem;
-      font-weight: 400; line-height: 1.25; color: var(--ink);
-      margin-bottom: 0.65rem; transition: color 0.3s;
-    }
-    .rest-card:hover .rc-title { color: var(--teal-dark); }
-    .rc-desc { font-size: 0.84rem; line-height: 1.7; color: var(--muted); transition: color 0.3s; flex: 1; }
-    .rest-card:hover .rc-desc { color: var(--ink-mid); }
-    .rc-arrow {
-      display: flex; align-items: center; justify-content: center;
-      width: 32px; height: 32px; border-radius: 50%;
-      background: rgba(42,183,202,0.1); color: var(--teal);
-      font-size: 0.72rem; margin-top: 1.2rem; margin-left: auto;
-      transition: all 0.35s;
-    }
-    .rest-card:hover .rc-arrow {
-      background: var(--teal); color: white;
-      transform: rotate(45deg);
-      box-shadow: 0 4px 16px rgba(42,183,202,0.4);
-    }
-
-    /* mobile fallback */
-    .wave-mobile {
-      display: none; max-width: 1000px; margin: 0 auto; padding: 0 2rem;
-      grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 1.5rem;
-    }
-    .mob-card {
-      background: #ffffff; border-radius: 18px; overflow: hidden;
-      box-shadow: 0 6px 28px rgba(13,31,45,0.08);
-      border: 1px solid rgba(42,183,202,0.12);
-      transition: transform 0.4s, box-shadow 0.4s;
-    }
-    .mob-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 48px rgba(42,183,202,0.14);
-      border-color: rgba(42,183,202,0.28);
-    }
-    .mob-card-img { height: 150px; overflow: hidden; position: relative; }
-    .mob-card-img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.75) brightness(0.85); }
-    .mob-card-img::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.88) 100%);
-    }
-    .mob-chip {
-      position: absolute; bottom: 0.65rem; left: 0.75rem;
-      background: var(--teal); color: white;
-      font-size: 0.52rem; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; padding: 0.25rem 0.75rem;
-      border-radius: 50px; z-index: 3;
-    }
-    .mob-body { padding: 1.1rem 1.2rem 1.4rem; }
-    .mob-cat { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.4rem; display: block; }
-    .mob-title { font-family: var(--font-head); font-size: 1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.25; }
-    .mob-desc { font-size: 0.8rem; line-height: 1.65; color: var(--muted); }
-
-    /* ══ CTA ══ */
-    .cta-strip {
-      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
-      padding: 7rem 0; position: relative; overflow: hidden;
-    }
-    .cta-strip::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle 600px at 20% 50%, rgba(255,255,255,0.07), transparent),
-                  radial-gradient(circle 400px at 80% 50%, rgba(255,255,255,0.04), transparent);
-      pointer-events: none;
-    }
-    .cta-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,0.08); pointer-events: none; }
-    .cta-ring-1 { width:700px; height:700px; top:50%; left:50%; transform:translate(-50%,-50%); animation:ring-pulse 7s ease-in-out infinite; }
-    .cta-ring-2 { width:500px; height:500px; top:50%; left:50%; transform:translate(-50%,-50%); animation:ring-pulse 7s 2s ease-in-out infinite; }
-    .cta-ring-3 { width:300px; height:300px; top:50%; left:50%; transform:translate(-50%,-50%); animation:ring-pulse 7s 4s ease-in-out infinite; }
-    @keyframes ring-pulse {
-      0%,100%{opacity:0;transform:translate(-50%,-50%) scale(0.85);}
-      50%{opacity:1;transform:translate(-50%,-50%) scale(1);}
-    }
-    .cta-inner {
-      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
-      align-items: center; position: relative; z-index: 2;
-    }
-    .cta-left .eyebrow-line { color: rgba(255,255,255,0.7); }
-    .cta-left .eyebrow-line::before { background: rgba(255,255,255,0.7); }
-    .cta-left h2 {
-      font-family: var(--font-head); font-weight: 400;
-      font-size: clamp(2rem,3.5vw,3rem); color: white; line-height: 1.2;
-    }
-    .cta-left h2 em { font-style: italic; font-family: var(--font-serif); }
-    .cta-right p { color: rgba(255,255,255,0.78); font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; }
-    .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .cta-btn-white {
-      background: white; color: var(--teal-dark);
-      padding: 1.1rem 2.6rem; border-radius: 50px;
-      font-weight: 700; font-size: 0.92rem;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      transition: all 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.18);
-    }
-    .cta-btn-white:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(0,0,0,0.24); }
-    .cta-btn-ghost {
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
-      color: white; padding: 1.1rem 2.6rem; border-radius: 50px;
-      font-weight: 500; font-size: 0.92rem;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      transition: all 0.3s; backdrop-filter: blur(8px);
-    }
-    .cta-btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
-
-    /* ══ REVEAL ══ */
-    [data-reveal] { opacity:0; transform:translateY(28px); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1); }
-    [data-reveal="fade-right"] { transform:translateX(-24px); }
-    [data-reveal="fade-left"]  { transform:translateX(24px); }
-    [data-reveal].revealed { opacity:1!important; transform:none!important; }
-    [data-reveal-delay="1"] { transition-delay:0.12s; }
-    [data-reveal-delay="2"] { transition-delay:0.24s; }
-    [data-reveal-delay="3"] { transition-delay:0.36s; }
-
-    /* ══ RESPONSIVE ══ */
+    /* ═══ RESPONSIVE ═══ */
+    /* Tablet ≤1100px: hide wave, show slider */
     @media(max-width:1100px){
-      .hero-inner { grid-template-columns:1fr; }
-      .hero-right { display:none; }
-      .intro-wrap { grid-template-columns:1fr; gap:3rem; }
-      .journey-head { flex-direction:column; align-items:flex-start; }
-      .wave-track { display:none; }
-      .wave-mobile { display:grid; }
-      .rest-grid { grid-template-columns:repeat(2,1fr); }
-      .cta-inner { grid-template-columns:1fr; gap:2.5rem; }
+      .hero-inner{grid-template-columns:1fr}
+      .hero-right{display:none}
+      .intro-wrap{grid-template-columns:1fr;gap:3rem}
+      .journey-head{flex-direction:column;align-items:flex-start}
+      .wave-track{display:none}
+      .journey-section{padding-bottom:2rem}
+      .mobile-slider-section{display:block}
+      .rest-grid{grid-template-columns:repeat(2,1fr)}
+      .cta-inner{grid-template-columns:1fr;gap:2.5rem}
     }
+    /* Mobile ≤768px */
     @media(max-width:768px){
-      .hero-headline { font-size:3.2rem; }
-      .wwd-hero::before,.wwd-hero::after { display:none; }
-      .rest-grid { grid-template-columns:1fr; }
-      .wave-mobile { grid-template-columns:repeat(2,1fr); }
+      .hero-headline{font-size:3.2rem}
+      .wwd-hero::before,.wwd-hero::after{display:none}
+      .hero-inner{padding:2rem 1.25rem 2.5rem}
+      .hero-desc{font-size:1rem;margin-bottom:2rem}
+      .intro-section{padding:4rem 0}
+      .intro-wrap{padding:0 1.25rem;gap:2rem}
+      .intro-right{padding:2.5rem 1.75rem;border-radius:20px}
+      .journey-section{padding:3.5rem 0 1.5rem}
+      .journey-head{padding:0 1.25rem 1.75rem}
+      .slider-head h2{font-size:1.7rem}
+      .slider-card{width:82vw}
+      .rest-section{padding:2.5rem 0 4rem}
+      .rest-divider{padding:0 1.25rem 1.75rem}
+      .rest-grid{grid-template-columns:1fr;padding:0 1.25rem;gap:1.25rem}
+      .cta-strip{padding:4.5rem 0}
+      .cta-inner{padding:0 1.25rem;gap:2rem}
+      .cta-actions{flex-direction:column}
+      .cta-btn-white,.cta-btn-ghost{width:100%;justify-content:center;padding:1rem 2rem}
     }
+    /* Small ≤480px */
     @media(max-width:480px){
-      .hero-headline { font-size:2.5rem; }
-      .hero-btns { flex-direction:column; }
-      .hero-btns a { width:100%; justify-content:center; }
-      .wave-mobile { grid-template-columns:1fr; }
+      .hero-headline{font-size:2.5rem}
+      .hero-btns{flex-direction:column}
+      .hero-btns a{width:100%;justify-content:center}
+      .slider-card{width:88vw}
+      .slider-head h2{font-size:1.5rem}
+      .intro-right{padding:2rem 1.25rem}
     }
   </style>
 </head>
 <body data-nav-fixed="true">
-
   <div class="hover-cursor" id="cursor"></div>
   <karmayog-navbar base-path="../"></karmayog-navbar>
 
-  <!-- ══ HERO ══ -->
+  <!-- HERO -->
   <section class="wwd-hero">
     <div class="hero-inner">
-
-      <!-- Left copy -->
       <div class="hero-left" data-reveal="fade-up">
         <span class="hero-kicker">Our Programs</span>
         <h1 class="hero-headline">What We<br><em>Do.</em></h1>
@@ -679,32 +244,16 @@
           <a href="../pages/donate.html" class="btn-ghost">Become a Member <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
-
-      <!-- Right visual -->
       <div class="hero-right" data-reveal="fade-left" data-reveal-delay="2">
-        <div class="hero-photo-a">
-          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20200811_112239_374.jpg&w=1200&q=85" alt="Karmayog Foundation" />
-        </div>
-        <div class="hero-photo-b">
-          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/12/PXL_20230812_080012243-scaled.jpg&w=600&q=85" alt="Community" />
-        </div>
-        <div class="hero-pill">
-          <div class="hero-pill-icon"><i class="fas fa-heart"></i></div>
-          <div><strong>3,000+ Lives</strong><span>Impacted since 2020</span></div>
-        </div>
-        <div class="hero-badge">
-          <div class="hero-badge-inner">
-            <strong>2020</strong>
-            <span>Est.</span>
-          </div>
-        </div>
+        <div class="hero-photo-a"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20200811_112239_374.jpg&w=1200&q=85" alt="Karmayog Foundation" /></div>
+        <div class="hero-photo-b"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/12/PXL_20230812_080012243-scaled.jpg&w=600&q=85" alt="Community" /></div>
+        <div class="hero-pill"><div class="hero-pill-icon"><i class="fas fa-heart"></i></div><div><strong>3,000+ Lives</strong><span>Impacted since 2020</span></div></div>
+        <div class="hero-badge"><div class="hero-badge-inner"><strong>2020</strong><span>Est.</span></div></div>
       </div>
-
     </div>
-    <!-- No stats bar — removed as requested -->
   </section>
 
-  <!-- ══ INTRO ══ -->
+  <!-- INTRO -->
   <section class="intro-section">
     <div class="intro-wrap">
       <div class="intro-left" data-reveal="fade-right">
@@ -718,110 +267,71 @@
         <h3>Join the Meaningful Journey</h3>
         <p>Guided by a mission to create lasting positive change, each of these programs is a testament to our unwavering dedication. Your invaluable support, whether as a Lifetime Member or General Member, plays a pivotal role in propelling these initiatives forward.</p>
         <p>Together, let us forge a path towards empowerment and upliftment, fostering positive change in the communities we serve.</p>
-        <a href="../pages/donate.html" class="btn-white">Become a Member <span>→</span></a>
+        <a href="../pages/donate.html" class="btn-white">Become a Member &#8594;</a>
       </div>
     </div>
   </section>
 
-  <!-- ══ WAVE JOURNEY — 5 cards on arc ══ -->
+  <!-- WAVE — desktop only -->
   <section class="journey-section" id="journey">
     <div class="journey-head">
       <div data-reveal="fade-right">
         <span class="eyebrow-line">Focus Areas</span>
         <h2>What We <em>Care For</em></h2>
       </div>
-      <!-- removed the right-side paragraph as requested -->
     </div>
-
-    <!-- Desktop wave (5 cards) -->
     <div class="wave-track" id="waveTrack">
       <svg class="wave-svg" id="waveSvg" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
-
-    <!-- Mobile fallback (all 8) -->
-    <div class="wave-mobile">
-      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Education</span></div><div class="mob-body"><span class="mob-cat">Education</span><div class="mob-title">School Infrastructure Strengthening</div><p class="mob-desc">Creating better learning environments in remote government schools across Nepal.</p></div></div>
-      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/skills-competence-knowledge-3260624-pxryr554j9cnuf6tl6p7qsnijig9j65oq64qrh8cs8.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Education</span></div><div class="mob-body"><span class="mob-cat">Education</span><div class="mob-title">Education, Sports &amp; Extra-curricular</div><p class="mob-desc">Uniforms, E-Libraries, and Sports Facilities for school children.</p></div></div>
-      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Health</span></div><div class="mob-body"><span class="mob-cat">Health</span><div class="mob-title">Health, Hygiene &amp; Nutrition</div><p class="mob-desc">Regular health camps, medicine distribution, and nutritious saplings.</p></div></div>
-      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Society</span></div><div class="mob-body"><span class="mob-cat">Society</span><div class="mob-title">Humane Education</div><p class="mob-desc">Nurturing empathy and community spirit in students across Nepal.</p></div></div>
-      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20221106_135524-scaled-pxqtxqxurvv0f7ketj5tf3bvy6wrovrhpcc9yhx1o8.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Livelihood</span></div><div class="mob-body"><span class="mob-cat">Livelihood</span><div class="mob-title">Skill Development Center</div><p class="mob-desc">Hospitality Training Center in Chepang Village, affiliated with NATHM.</p></div></div>
-      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/hands-earth-next-generation-4091879-pxrysollqhgkvey9lco7bwnpl8ux5b9ulsme2sy4l4.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Environment</span></div><div class="mob-body"><span class="mob-cat">Environment</span><div class="mob-title">Environment Protection</div><p class="mob-desc">Tree saplings controlling soil erosion and water retention across Nepal.</p></div></div>
-      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/money-profit-finance-2696219-1-pxryosjng64utilpb64sie012u18aetuejf1kkpsc8.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Livelihood</span></div><div class="mob-body"><span class="mob-cat">Livelihood</span><div class="mob-title">Income Generation Activities</div><p class="mob-desc">Handicrafts, soap production and weaving workshops empowering women.</p></div></div>
-      <div class="mob-card"><div class="mob-card-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1.jpg&w=600&q=85" loading="lazy" alt=""><span class="mob-chip">Animal Welfare</span></div><div class="mob-body"><span class="mob-cat">Animal Welfare</span><div class="mob-title">Animal Welfare</div><p class="mob-desc">Ongoing program with plans for a Canine Shelter and Rehabilitation Center.</p></div></div>
-    </div>
   </section>
 
-  <!-- ══ REMAINING 3 CARDS ══ -->
+  <!-- MOBILE SLIDER — shown on tablet/mobile only -->
+  <section class="mobile-slider-section" id="mobileSlider">
+    <div class="slider-head">
+      <h2>What We <em>Care For</em></h2>
+      <div class="slider-controls">
+        <button class="slider-arrow" id="sliderPrev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-arrow" id="sliderNext" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <div class="slider-track" id="sliderTrack">
+      <div class="slider-card"><div class="sc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg&w=600&q=85" loading="lazy" alt=""><span class="sc-chip">Education</span><span class="sc-num">01</span></div><div class="sc-body"><span class="sc-cat">Education</span><div class="sc-title">School Infrastructure Strengthening</div><p class="sc-desc">Creating better learning environments in remote government schools across Nepal.</p></div></div>
+      <div class="slider-card"><div class="sc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/skills-competence-knowledge-3260624-pxryr554j9cnuf6tl6p7qsnijig9j65oq64qrh8cs8.jpg&w=600&q=85" loading="lazy" alt=""><span class="sc-chip">Education</span><span class="sc-num">02</span></div><div class="sc-body"><span class="sc-cat">Education</span><div class="sc-title">Education, Sports &amp; Extra-curricular</div><p class="sc-desc">Uniforms, E-Libraries, and Sports Facilities for school children.</p></div></div>
+      <div class="slider-card"><div class="sc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg&w=600&q=85" loading="lazy" alt=""><span class="sc-chip">Health</span><span class="sc-num">03</span></div><div class="sc-body"><span class="sc-cat">Health</span><div class="sc-title">Health, Hygiene &amp; Nutrition</div><p class="sc-desc">Regular health camps, medicine distribution, and nutritious saplings.</p></div></div>
+      <div class="slider-card"><div class="sc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg&w=600&q=85" loading="lazy" alt=""><span class="sc-chip">Society</span><span class="sc-num">04</span></div><div class="sc-body"><span class="sc-cat">Society</span><div class="sc-title">Humane Education</div><p class="sc-desc">Nurturing empathy and community spirit in students across Nepal.</p></div></div>
+      <div class="slider-card"><div class="sc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20221106_135524-scaled-pxqtxqxurvv0f7ketj5tf3bvy6wrovrhpcc9yhx1o8.jpg&w=600&q=85" loading="lazy" alt=""><span class="sc-chip">Livelihood</span><span class="sc-num">05</span></div><div class="sc-body"><span class="sc-cat">Livelihood</span><div class="sc-title">Skill Development Center</div><p class="sc-desc">Hospitality Training Center in Chepang Village, affiliated with NATHM.</p></div></div>
+      <div class="slider-card"><div class="sc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/hands-earth-next-generation-4091879-pxrysollqhgkvey9lco7bwnpl8ux5b9ulsme2sy4l4.jpg&w=600&q=85" loading="lazy" alt=""><span class="sc-chip">Environment</span><span class="sc-num">06</span></div><div class="sc-body"><span class="sc-cat">Environment</span><div class="sc-title">Environment Protection</div><p class="sc-desc">Tree saplings controlling soil erosion and water retention across Nepal.</p></div></div>
+      <div class="slider-card"><div class="sc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/money-profit-finance-2696219-1-pxryosjng64utilpb64sie012u18aetuejf1kkpsc8.jpg&w=600&q=85" loading="lazy" alt=""><span class="sc-chip">Livelihood</span><span class="sc-num">07</span></div><div class="sc-body"><span class="sc-cat">Livelihood</span><div class="sc-title">Income Generation Activities</div><p class="sc-desc">Handicrafts, soap production and weaving workshops empowering women.</p></div></div>
+      <div class="slider-card"><div class="sc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1.jpg&w=600&q=85" loading="lazy" alt=""><span class="sc-chip">Animal Welfare</span><span class="sc-num">08</span></div><div class="sc-body"><span class="sc-cat">Animal Welfare</span><div class="sc-title">Animal Welfare</div><p class="sc-desc">Ongoing program with plans for a Canine Shelter and Rehabilitation Center.</p></div></div>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+  </section>
+
+  <!-- REST CARDS (06-08) -->
   <section class="rest-section">
-    <div class="rest-divider">
-      <div class="rest-divider-line"></div>
-      <span class="rest-divider-label">More Programs</span>
-      <div class="rest-divider-line"></div>
-    </div>
+    <div class="rest-divider"><div class="rest-divider-line"></div><span class="rest-divider-label">More Programs</span><div class="rest-divider-line"></div></div>
     <div class="rest-grid">
-
       <div class="rest-card" data-reveal="fade-up" data-reveal-delay="1">
-        <div class="rc-img">
-          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/hands-earth-next-generation-4091879-pxrysollqhgkvey9lco7bwnpl8ux5b9ulsme2sy4l4.jpg&w=800&q=85" alt="Environment" loading="lazy">
-          <span class="rc-num">06</span>
-          <span class="rc-chip">Environment</span>
-        </div>
-        <div class="rc-body">
-          <span class="rc-cat">Environment</span>
-          <div class="rc-title">Environment Protection</div>
-          <p class="rc-desc">Distributing tree saplings suited to local topography that control soil erosion and help water retention, guided by forestry experts and community leaders across Nepal.</p>
-          <div class="rc-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
+        <div class="rc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/hands-earth-next-generation-4091879-pxrysollqhgkvey9lco7bwnpl8ux5b9ulsme2sy4l4.jpg&w=800&q=85" alt="Environment" loading="lazy"><span class="rc-num">06</span><span class="rc-chip">Environment</span></div>
+        <div class="rc-body"><span class="rc-cat">Environment</span><div class="rc-title">Environment Protection</div><p class="rc-desc">Distributing tree saplings suited to local topography that control soil erosion and help water retention, guided by forestry experts and community leaders across Nepal.</p><div class="rc-arrow"><i class="fas fa-arrow-right"></i></div></div>
       </div>
-
       <div class="rest-card" data-reveal="fade-up" data-reveal-delay="2">
-        <div class="rc-img">
-          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/money-profit-finance-2696219-1-pxryosjng64utilpb64sie012u18aetuejf1kkpsc8.jpg&w=800&q=85" alt="Income Generation" loading="lazy">
-          <span class="rc-num">07</span>
-          <span class="rc-chip">Livelihood</span>
-        </div>
-        <div class="rc-body">
-          <span class="rc-cat">Livelihood</span>
-          <div class="rc-title">Income Generation Activities</div>
-          <p class="rc-desc">Handicraft promotion, soap & candle production. Women trained in weaving and sewing, with seed money loans and full product buybacks ensuring sustainable empowerment.</p>
-          <div class="rc-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
+        <div class="rc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/money-profit-finance-2696219-1-pxryosjng64utilpb64sie012u18aetuejf1kkpsc8.jpg&w=800&q=85" alt="Income Generation" loading="lazy"><span class="rc-num">07</span><span class="rc-chip">Livelihood</span></div>
+        <div class="rc-body"><span class="rc-cat">Livelihood</span><div class="rc-title">Income Generation Activities</div><p class="rc-desc">Handicraft promotion, soap &amp; candle production. Women trained in weaving and sewing, with seed money loans and full product buybacks ensuring sustainable empowerment.</p><div class="rc-arrow"><i class="fas fa-arrow-right"></i></div></div>
       </div>
-
       <div class="rest-card" data-reveal="fade-up" data-reveal-delay="3">
-        <div class="rc-img">
-          <img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1.jpg&w=800&q=85" alt="Animal Welfare" loading="lazy">
-          <span class="rc-num">08</span>
-          <span class="rc-chip">Animal Welfare</span>
-        </div>
-        <div class="rc-body">
-          <span class="rc-cat">Animal Welfare</span>
-          <div class="rc-title">Animal Welfare</div>
-          <p class="rc-desc">An ongoing program fueled by generous contributors celebrating special occasions. Long-term plans include establishing a Canine Shelter and Rehabilitation Center for street animals.</p>
-          <div class="rc-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
+        <div class="rc-img"><img src="https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20200529-WA0039-1.jpg&w=800&q=85" alt="Animal Welfare" loading="lazy"><span class="rc-num">08</span><span class="rc-chip">Animal Welfare</span></div>
+        <div class="rc-body"><span class="rc-cat">Animal Welfare</span><div class="rc-title">Animal Welfare</div><p class="rc-desc">An ongoing program fueled by generous contributors celebrating special occasions. Long-term plans include establishing a Canine Shelter and Rehabilitation Center for street animals.</p><div class="rc-arrow"><i class="fas fa-arrow-right"></i></div></div>
       </div>
-
     </div>
   </section>
 
-  <!-- ══ CTA ══ -->
+  <!-- CTA -->
   <section class="cta-strip">
-    <div class="cta-ring cta-ring-1"></div>
-    <div class="cta-ring cta-ring-2"></div>
-    <div class="cta-ring cta-ring-3"></div>
+    <div class="cta-ring cta-ring-1"></div><div class="cta-ring cta-ring-2"></div><div class="cta-ring cta-ring-3"></div>
     <div class="cta-inner" data-reveal="fade-up">
-      <div class="cta-left">
-        <span class="eyebrow-line">Make a Difference</span>
-        <h2>By investing in children, together we create real, <em>long-lasting change.</em></h2>
-      </div>
-      <div class="cta-right">
-        <p>For families and communities around the world every contribution matters. Join as a Lifetime Member or General Member and help propel these initiatives forward.</p>
-        <div class="cta-actions">
-          <a href="../pages/donate.html" class="cta-btn-white"><span>❤️</span> Donate Now</a>
-          <a href="../pages/contact.html" class="cta-btn-ghost">Get Involved <span>→</span></a>
-        </div>
-      </div>
+      <div class="cta-left"><span class="eyebrow-line">Make a Difference</span><h2>By investing in children, together we create real, <em>long-lasting change.</em></h2></div>
+      <div class="cta-right"><p>For families and communities around the world every contribution matters. Join as a Lifetime Member or General Member and help propel these initiatives forward.</p><div class="cta-actions"><a href="../pages/donate.html" class="cta-btn-white">&#10084;&#65039; Donate Now</a><a href="../pages/contact.html" class="cta-btn-ghost">Get Involved &#8594;</a></div></div>
     </div>
   </section>
 
@@ -832,240 +342,108 @@
 
   <karmayog-footer base-path="../"></karmayog-footer>
   <script src="../js/main.js"></script>
-
   <script>
   document.addEventListener('DOMContentLoaded', function () {
 
+    /* ── DESKTOP WAVE (unchanged) ── */
     var waveProgs = [
-      { icon:'fas fa-building',       num:'01', cat:'Education',  title:'School Infrastructure Strengthening', desc:'Creating better learning environments in remote government schools tackling dilapidated buildings, sanitation, and classroom shortages.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg&w=600&q=85' },
-      { icon:'fas fa-graduation-cap', num:'02', cat:'Education',  title:'Education, Sports & Extra-curricular', desc:'Uniforms, E-Libraries, Teachers\' Training and Sports Facilities because education is more than a classroom.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/skills-competence-knowledge-3260624-pxryr554j9cnuf6tl6p7qsnijig9j65oq64qrh8cs8.jpg&w=600&q=85' },
-      { icon:'fas fa-heartbeat',      num:'03', cat:'Health',     title:'Health, Hygiene & Nutrition', desc:'Regular health camps by volunteer professionals, medicine distribution and nutritious fruit saplings for rural households.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg&w=600&q=85' },
-      { icon:'fas fa-hands-helping',  num:'04', cat:'Society',    title:'Humane Education', desc:'Training materials nurturing empathy and community spirit  for students in both rural communities and urban Kathmandu.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg&w=600&q=85' },
-      { icon:'fas fa-tools',          num:'05', cat:'Livelihood', title:'Skill Development Center', desc:'A Hospitality Training Center in Chepang Village, affiliated with NATHM  paths to employment in Nepal\'s tourism industry.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20221106_135524-scaled-pxqtxqxurvv0f7ketj5tf3bvy6wrovrhpcc9yhx1o8.jpg&w=600&q=85' }
+      { icon:'fas fa-building',       num:'01', cat:'Education',  title:'School Infrastructure Strengthening',  desc:'Creating better learning environments in remote government schools tackling dilapidated buildings, sanitation, and classroom shortages.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20210828152426_IMG_8206-pxqtzd7ujm2sf17rd8copomgs2xiy46ulcsdpnimyg.jpg&w=600&q=85' },
+      { icon:'fas fa-graduation-cap', num:'02', cat:'Education',  title:'Education, Sports & Extra-curricular',  desc:'Uniforms, E-Libraries, Teachers Training and Sports Facilities because education is more than a classroom.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/skills-competence-knowledge-3260624-pxryr554j9cnuf6tl6p7qsnijig9j65oq64qrh8cs8.jpg&w=600&q=85' },
+      { icon:'fas fa-heartbeat',      num:'03', cat:'Health',     title:'Health, Hygiene & Nutrition',           desc:'Regular health camps by volunteer professionals, medicine distribution and nutritious fruit saplings for rural households.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG-20221114-WA0043-pxqtxds447czwo3iydh1g6nfmspmp4b8zj7h8mgk3c-1.jpg&w=600&q=85' },
+      { icon:'fas fa-hands-helping',  num:'04', cat:'Society',    title:'Humane Education',                      desc:'Training materials nurturing empathy and community spirit for students in both rural communities and urban Kathmandu.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/IMG_20211202_125955_434.jpg&w=600&q=85' },
+      { icon:'fas fa-tools',          num:'05', cat:'Livelihood', title:'Skill Development Center',              desc:'A Hospitality Training Center in Chepang Village, affiliated with NATHM, paths to employment in Nepal tourism industry.', img:'https://wsrv.nl/?url=karmayogfoundation.org/wp-content/uploads/2023/04/20221106_135524-scaled-pxqtxqxurvv0f7ketj5tf3bvy6wrovrhpcc9yhx1o8.jpg&w=600&q=85' }
     ];
 
     var track = document.getElementById('waveTrack');
     var svg   = document.getElementById('waveSvg');
-    if (!track || !svg) return;
 
-    var N     = waveProgs.length;
-    var PAD_X = 100;
-    var Y_TOP = 130;
-    var Y_BOT = 430;
-
-    function stopY(i) {
-      var t = i / (N - 1);
-      var v = Math.sin(t * Math.PI);
-      return Y_BOT - v * (Y_BOT - Y_TOP);
-    }
-
-    function buildWave() {
-      svg.innerHTML = '';
-      track.querySelectorAll('.wave-stop,.prog-float,.stop-connector').forEach(function(el){ el.remove(); });
-
-      var W = track.offsetWidth;
-      var pts = [];
-      for (var i = 0; i < N; i++) {
-        pts.push({ x: PAD_X + (i / (N-1)) * (W - PAD_X*2), y: stopY(i) });
-      }
-
-      /* dashed arc path */
-      svg.setAttribute('width', W);
-      var d = 'M '+pts[0].x.toFixed(1)+' '+pts[0].y.toFixed(1);
-      for (var i = 0; i < N-1; i++) {
-        var p0=pts[i], p1=pts[i+1], cpx=(p0.x+p1.x)/2;
-        d += ' C '+cpx.toFixed(1)+' '+p0.y.toFixed(1)+', '+cpx.toFixed(1)+' '+p1.y.toFixed(1)+', '+p1.x.toFixed(1)+' '+p1.y.toFixed(1);
-      }
-      var pathEl = document.createElementNS('http://www.w3.org/2000/svg','path');
-      pathEl.setAttribute('d',d);
-      pathEl.setAttribute('fill','none');
-      pathEl.setAttribute('stroke','#2AB7CA');
-      pathEl.setAttribute('stroke-width','2');
-      pathEl.setAttribute('stroke-dasharray','8 7');
-      pathEl.setAttribute('stroke-linecap','round');
-      pathEl.setAttribute('opacity','0');
-      svg.appendChild(pathEl);
-
-      var midY   = (Y_TOP + Y_BOT) / 2;
-      var connLen = 38;
-      var dotR    = 27;
-      var maxBot  = 0;
-
-      for (var i = 0; i < N; i++) {
-        var p  = waveProgs[i];
-        var pt = pts[i];
-        var cardAbove = pt.y > midY;
-
-        /* dot */
-        var stopEl = document.createElement('div');
-        stopEl.className = 'wave-stop';
-        stopEl.style.cssText = 'left:'+pt.x.toFixed(1)+'px;top:'+pt.y.toFixed(1)+'px;';
-        stopEl.innerHTML = '<div class="stop-dot"><i class="'+p.icon+'"></i></div><span class="stop-num">'+p.num+'</span>';
-        track.appendChild(stopEl);
-
-        /* connector */
-        var lineEl = document.createElement('div');
-        lineEl.className = 'stop-connector';
-        lineEl.style.left   = pt.x.toFixed(1)+'px';
-        lineEl.style.height = connLen+'px';
-        if (cardAbove) {
-          lineEl.style.top = (pt.y - dotR - connLen)+'px';
-          lineEl.style.background = 'linear-gradient(to top, rgba(42,183,202,0.5), rgba(42,183,202,0.04))';
-        } else {
-          lineEl.style.top = (pt.y + dotR)+'px';
-          lineEl.style.background = 'linear-gradient(to bottom, rgba(42,183,202,0.5), rgba(42,183,202,0.04))';
+    if (track && svg && window.innerWidth > 1100) {
+      var N=waveProgs.length, PAD_X=100, Y_TOP=130, Y_BOT=430;
+      function stopY(i){var t=i/(N-1);return Y_BOT-Math.sin(t*Math.PI)*(Y_BOT-Y_TOP);}
+      function buildWave(){
+        svg.innerHTML='';
+        track.querySelectorAll('.wave-stop,.prog-float,.stop-connector').forEach(function(el){el.remove();});
+        var W=track.offsetWidth,pts=[];
+        for(var i=0;i<N;i++) pts.push({x:PAD_X+(i/(N-1))*(W-PAD_X*2),y:stopY(i)});
+        svg.setAttribute('width',W);
+        var d='M '+pts[0].x.toFixed(1)+' '+pts[0].y.toFixed(1);
+        for(var i=0;i<N-1;i++){var p0=pts[i],p1=pts[i+1],cpx=(p0.x+p1.x)/2;d+=' C '+cpx.toFixed(1)+' '+p0.y.toFixed(1)+', '+cpx.toFixed(1)+' '+p1.y.toFixed(1)+', '+p1.x.toFixed(1)+' '+p1.y.toFixed(1);}
+        var pe=document.createElementNS('http://www.w3.org/2000/svg','path');
+        pe.setAttribute('d',d);pe.setAttribute('fill','none');pe.setAttribute('stroke','#2AB7CA');pe.setAttribute('stroke-width','2');pe.setAttribute('stroke-dasharray','8 7');pe.setAttribute('stroke-linecap','round');pe.setAttribute('opacity','0');
+        svg.appendChild(pe);
+        var midY=(Y_TOP+Y_BOT)/2,connLen=38,dotR=27,maxBot=0;
+        for(var i=0;i<N;i++){
+          var p=waveProgs[i],pt=pts[i],above=pt.y>midY;
+          var se=document.createElement('div');se.className='wave-stop';se.style.cssText='left:'+pt.x.toFixed(1)+'px;top:'+pt.y.toFixed(1)+'px;';
+          se.innerHTML='<div class="stop-dot"><i class="'+p.icon+'"></i></div><span class="stop-num">'+p.num+'</span>';track.appendChild(se);
+          var le=document.createElement('div');le.className='stop-connector';le.style.left=pt.x.toFixed(1)+'px';le.style.height=connLen+'px';
+          if(above){le.style.top=(pt.y-dotR-connLen)+'px';le.style.background='linear-gradient(to top, rgba(42,183,202,0.5), rgba(42,183,202,0.04))';}
+          else{le.style.top=(pt.y+dotR)+'px';le.style.background='linear-gradient(to bottom, rgba(42,183,202,0.5), rgba(42,183,202,0.04))';}
+          track.appendChild(le);
+          var ce=document.createElement('div');ce.className='prog-float';ce.style.left=pt.x.toFixed(1)+'px';ce.style.top='-9999px';ce.style.transition='none';
+          ce.innerHTML='<div class="pf-img"><img src="'+p.img+'" alt="'+p.title+'" loading="lazy"><span class="pf-num">'+p.num+'</span><span class="pf-chip">'+p.cat+'</span></div><div class="pf-body"><div class="pf-title">'+p.title+'</div><p class="pf-desc">'+p.desc+'</p><div class="pf-arrow"><i class="fas fa-arrow-right"></i></div></div>';
+          track.appendChild(ce);
+          var ch=ce.offsetHeight||260,cardTop=above?(pt.y-dotR-connLen-ch):(pt.y+dotR+connLen);
+          ce.style.top=cardTop+'px';if(cardTop+ch>maxBot)maxBot=cardTop+ch;
         }
-        track.appendChild(lineEl);
-
-        /* light card */
-        var cardEl = document.createElement('div');
-        cardEl.className = 'prog-float';
-        cardEl.style.left = pt.x.toFixed(1)+'px';
-        cardEl.style.top = '-9999px'; /* off-screen to measure */
-        cardEl.style.transition = 'none'; /* no transition while measuring */
-
-        var html = '<div class="pf-img"><img src="'+p.img+'" alt="'+p.title+'" loading="lazy">';
-        html += '<span class="pf-num">'+p.num+'</span>';
-        html += '<span class="pf-chip">'+p.cat+'</span></div>';
-        html += '<div class="pf-body">';
-        html += '<div class="pf-title">'+p.title+'</div>';
-        html += '<p class="pf-desc">'+p.desc+'</p>';
-        html += '<div class="pf-arrow"><i class="fas fa-arrow-right"></i></div>';
-        html += '</div>';
-        cardEl.innerHTML = html;
-        track.appendChild(cardEl);
-
-        /* measure real height now it's in DOM */
-        var ch = cardEl.offsetHeight || 260;
-        var cardTop = cardAbove ? (pt.y - dotR - connLen - ch) : (pt.y + dotR + connLen);
-        cardEl.style.top = cardTop+'px';
-        /* transition restored in animateWaveCards before card-visible is added */
-
-        var bot = cardTop + ch;
-        if (bot > maxBot) maxBot = bot;
+        var H=maxBot+60;track.style.minHeight=H+'px';svg.setAttribute('height',H);svg.setAttribute('viewBox','0 0 '+W+' '+H);
       }
-
-      var H = maxBot + 60;
-      track.style.minHeight = H+'px';
-      svg.setAttribute('height', H);
-      svg.setAttribute('viewBox','0 0 '+W+' '+H);
-    }
-
-    buildWave();
-    var rTimer;
-    window.addEventListener('resize', function(){
-      clearTimeout(rTimer);
-      rTimer = setTimeout(function() {
-        waveAnimated = false;
-        buildWave();
-        // re-observe
-        if (waveSection) sectionObs.observe(waveSection);
-      }, 200);
-    });
-
-    /* ── staggered card animation on scroll into view ── */
-    var waveSection = document.getElementById('journey');
-    var waveAnimated = false;
-
-    function animateWaveCards() {
-      if (waveAnimated) return;
-      waveAnimated = true;
-
-      var stops = Array.from(track.querySelectorAll('.wave-stop'));
-      var conns = Array.from(track.querySelectorAll('.stop-connector'));
-      var cards = Array.from(track.querySelectorAll('.prog-float'));
-
-      /* 1. Draw the SVG path with a stroke-dashoffset trick */
-      var pathEl = svg.querySelector('path');
-      if (pathEl) {
-        var len = pathEl.getTotalLength ? pathEl.getTotalLength() : 1200;
-        pathEl.style.strokeDasharray  = len + ' ' + len;
-        pathEl.style.strokeDashoffset = len;
-        pathEl.style.opacity = '0.5';
-        pathEl.style.transition = 'stroke-dashoffset 2.2s cubic-bezier(0.4,0,0.2,1)';
-        requestAnimationFrame(function() {
-          requestAnimationFrame(function() {
-            pathEl.style.strokeDashoffset = '0';
-          });
+      buildWave();
+      var rTimer,waveAnimated=false;
+      window.addEventListener('resize',function(){clearTimeout(rTimer);rTimer=setTimeout(function(){if(window.innerWidth>1100){waveAnimated=false;buildWave();if(ws)so.observe(ws);}},200);});
+      var ws=document.getElementById('journey');
+      function animateWave(){
+        if(waveAnimated)return;waveAnimated=true;
+        var stops=Array.from(track.querySelectorAll('.wave-stop')),conns=Array.from(track.querySelectorAll('.stop-connector')),cards=Array.from(track.querySelectorAll('.prog-float'));
+        var pe=svg.querySelector('path');
+        if(pe){var len=pe.getTotalLength?pe.getTotalLength():1200;pe.style.strokeDasharray=len+' '+len;pe.style.strokeDashoffset=len;pe.style.opacity='.5';pe.style.transition='stroke-dashoffset 2.2s cubic-bezier(0.4,0,0.2,1)';requestAnimationFrame(function(){requestAnimationFrame(function(){pe.style.strokeDashoffset='0';});});}
+        stops.forEach(function(de,i){
+          var co=conns[i],ca=cards[i],t0=300+i*550;
+          if(co){co.style.transformOrigin=co.style.background.indexOf('to top')!==-1?'bottom center':'top center';}
+          setTimeout(function(){de.classList.add('dot-visible');},t0);
+          setTimeout(function(){if(co)co.classList.add('conn-visible');},t0+80);
+          setTimeout(function(){if(ca){ca.style.transition='';requestAnimationFrame(function(){requestAnimationFrame(function(){ca.classList.add('card-visible');});});}},t0+180);
         });
       }
+      var so=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){animateWave();so.unobserve(e.target);}});},{threshold:.1});
+      if(ws)so.observe(ws);
+    }
 
-      /* 2. For each stop: dot pops → connector extends → card slides in
-            Gap between each stop: 320ms                              */
-      var BASE = 300; // ms before first stop
-      var GAP  = 550; // ms between each stop — slow, beautiful stagger
-
-      stops.forEach(function(dotEl, i) {
-        var connEl  = conns[i];
-        var cardEl  = cards[i];
-        var t0 = BASE + i * GAP;
-
-        /* set correct transform-origin for connector based on direction */
-        if (connEl) {
-          var goingUp = connEl.style.background.indexOf('to top') !== -1;
-          connEl.style.transformOrigin = goingUp ? 'bottom center' : 'top center';
-        }
-
-        /* dot */
-        setTimeout(function() {
-          dotEl.classList.add('dot-visible');
-        }, t0);
-
-        /* connector — 80ms after dot */
-        setTimeout(function() {
-          if (connEl) connEl.classList.add('conn-visible');
-        }, t0 + 80);
-
-        /* card — 180ms after dot, nice smooth fade+rise */
-        setTimeout(function() {
-          if (cardEl) {
-            /* ensure inline transition:none is cleared before animating */
-            cardEl.style.transition = '';
-            requestAnimationFrame(function() {
-              requestAnimationFrame(function() {
-                cardEl.classList.add('card-visible');
-              });
-            });
-          }
-        }, t0 + 180);
+    /* ── MOBILE SLIDER ── */
+    var st=document.getElementById('sliderTrack'),dw=document.getElementById('sliderDots');
+    var pb=document.getElementById('sliderPrev'),nb=document.getElementById('sliderNext');
+    if(st&&dw){
+      var sc=st.querySelectorAll('.slider-card'),tot=sc.length,cur=0;
+      for(var i=0;i<tot;i++){
+        var d=document.createElement('button');d.className='slider-dot'+(i===0?' active':'');d.setAttribute('aria-label','Slide '+(i+1));
+        (function(ix){d.addEventListener('click',function(){goTo(ix);});})(i);
+        dw.appendChild(d);
+      }
+      function updDots(i){dw.querySelectorAll('.slider-dot').forEach(function(d,j){d.classList.toggle('active',j===i);});}
+      function goTo(i){
+        if(i<0)i=tot-1;if(i>=tot)i=0;cur=i;
+        st.scrollTo({left:cur*(sc[0].offsetWidth+16),behavior:'smooth'});updDots(cur);
+      }
+      if(pb)pb.addEventListener('click',function(){goTo(cur-1);});
+      if(nb)nb.addEventListener('click',function(){goTo(cur+1);});
+      var stimer;
+      st.addEventListener('scroll',function(){
+        clearTimeout(stimer);stimer=setTimeout(function(){
+          var idx=Math.round(st.scrollLeft/(sc[0].offsetWidth+16));
+          if(idx!==cur){cur=idx;updDots(cur);}
+        },80);
       });
     }
 
-    var sectionObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) {
-          animateWaveCards();
-          sectionObs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
+    /* ── scroll reveal ── */
+    var re=document.querySelectorAll('[data-reveal]');
+    var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var d=e.target.dataset.revealDelay||0;setTimeout(function(){e.target.classList.add('revealed');},d*120);ro.unobserve(e.target);}});},{threshold:.1});
+    re.forEach(function(el){ro.observe(el);});
+    setTimeout(function(){re.forEach(function(el){el.classList.add('revealed');});},2500);
 
-    if (waveSection) sectionObs.observe(waveSection);
-
-    /* scroll reveal */
-    var revEls = document.querySelectorAll('[data-reveal]');
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){
-          var d = e.target.dataset.revealDelay||0;
-          setTimeout(function(){ e.target.classList.add('revealed'); }, d*120);
-          obs.unobserve(e.target);
-        }
-      });
-    },{ threshold:0.1 });
-    revEls.forEach(function(el){ obs.observe(el); });
-    setTimeout(function(){ revEls.forEach(function(el){ el.classList.add('revealed'); }); }, 2500);
-
-    /* smooth scroll */
-    document.querySelectorAll('a[href^="#"]').forEach(function(a){
-      a.addEventListener('click', function(e){
-        var t = document.querySelector(this.getAttribute('href'));
-        if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
-      });
-    });
-
-    var h = document.getElementById('helpButton');
-    if(h) h.addEventListener('click', function(){ window.location.href='../pages/contact.html'; });
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
+    var hb=document.getElementById('helpButton');if(hb)hb.addEventListener('click',function(){window.location.href='../pages/contact.html';});
+    var btt=document.getElementById('backToTop');if(btt){window.addEventListener('scroll',function(){btt.classList.toggle('visible',window.scrollY>500);});btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}
   });
   </script>
 </body>

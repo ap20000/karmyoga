@@ -417,20 +417,115 @@
     [data-d="2"] { transition-delay: 0.24s; }
 
     /* ── responsive ── */
+
+    /* ── Tablet (≤1100px) ── */
     @media(max-width:1100px){
       .hero { grid-template-columns: 1fr; }
-      .hero-left { padding: 4rem 2.5rem 3rem; }
-      .hero-right { padding: 3rem 2.5rem 4rem; }
+      .hero-left {
+        padding: 4rem 2.5rem 3rem;
+        max-width: 100% !important;
+      }
+      .hero-right { padding: 3rem 2.5rem 4rem; justify-content: flex-start; }
       .hero-right::before { display: none; }
+      .donate-card { max-width: 100%; }
       .transfer-grid, .diff-grid { grid-template-columns: 1fr; }
       .esewa-card { flex-direction: column; }
       .qr-wrap { width: 160px; height: 160px; }
+      .diff-img { height: 260px; }
     }
-    @media(max-width:640px){
+
+    /* ── Mobile (≤768px) ── */
+    @media(max-width:768px){
+      /* shared */
       .w { padding: 0 1.25rem; }
-      .donate-card { padding: 1.75rem; }
-      .modal-body { flex-direction: column; align-items: center; }
+
+      /* hero */
+      .hero { min-height: auto; }
+      .hero::after { display: none; }
+      .hero::before { opacity: 0.5; }
+      .hero-left {
+        padding: 3rem 1.25rem 2rem;
+        max-width: 100% !important;
+      }
+      .hero-h1 { font-size: clamp(1.7rem, 5.5vw, 2.4rem); margin-bottom: 1.5rem; }
+      .hero-p  { font-size: 0.92rem; }
+      .hero-tagline { padding: 1rem 1.25rem; gap: 1rem; margin-top: 1.75rem; }
+      .tagline-icon { width: 44px; height: 44px; font-size: 1.2rem; border-radius: 12px; }
+      .hero-tagline h4 { font-size: 0.92rem; }
+      .hero-tagline p  { font-size: 0.76rem; }
+
+      /* donation card */
+      .hero-right { padding: 0 1.25rem 3rem; }
+      .donate-card { padding: 1.75rem; border-radius: 22px; }
+      .donate-card h3 { font-size: 1.05rem; }
+      .amt-btn { font-size: 1.2rem; padding: 0.95rem 0.5rem; }
+      .amt-btn.other { font-size: 0.9rem; }
+      .freq-btn { font-size: 0.82rem; padding: 0.6rem 0.5rem; }
+      .impact-msg { font-size: 0.82rem; padding: 0.85rem 1rem; }
+      .donate-cta { font-size: 0.95rem; padding: 1rem; }
+
+      /* modal */
+      .modal-box { padding: 2rem 1.5rem 1.75rem; border-radius: 22px; }
+      .modal-body { flex-direction: column; align-items: center; gap: 1.5rem; }
       .modal-qr { width: 150px; height: 150px; }
+      .modal-title { font-size: 1.4rem; }
+      .modal-sub  { font-size: 0.82rem; }
+      .modal-info { width: 100%; }
+
+      /* transfer section */
+      .transfer-section { padding: 4.5rem 0; }
+      .bank-card { padding: 2rem 1.5rem; }
+      .bank-card h3 { font-size: 1.4rem; }
+      .bank-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; padding: 0.85rem 0; }
+      .bank-value { font-size: 0.92rem; }
+      .bank-acc   { font-size: 1rem; }
+      .esewa-card { padding: 2rem 1.5rem; flex-direction: column; gap: 1.5rem; }
+      .esewa-card h3 { font-size: 1.4rem; }
+      .esewa-card p  { font-size: 0.86rem; }
+      .qr-wrap { width: 140px; height: 140px; }
+
+      /* mission section */
+      .mission-section { padding: 5rem 0; }
+      .mission-quote { font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 4rem; }
+      .vision-text { font-size: 1.05rem; }
+      .vision-sub  { font-size: 0.96rem; }
+
+      /* diff section */
+      .diff-section { padding: 4.5rem 0; }
+      .diff-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .diff-img  { height: 230px; }
+      .diff-body { padding: 1.75rem; }
+      .diff-body h2 { font-size: 1.6rem; }
+      .diff-body p  { font-size: 0.88rem; }
+      .partner-cta { padding: 0.85rem 1.75rem; font-size: 0.86rem; }
+      .contact-box { padding: 1rem 1.25rem; }
+    }
+
+    /* ── Small mobile (≤480px) ── */
+    @media(max-width:480px){
+      /* hero */
+      .hero-h1  { font-size: clamp(1.55rem, 5vw, 2rem); }
+      .hero-left { padding: 2.5rem 1.25rem 1.5rem; }
+
+      /* donation card amounts — single column on tiny screens */
+      .amount-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+      .amt-btn { font-size: 1.1rem; padding: 0.85rem 0.4rem; border-radius: 12px; }
+      .donate-card { padding: 1.5rem; }
+
+      /* modal */
+      .modal-box { padding: 1.75rem 1.25rem 1.5rem; }
+      .modal-amount-badge strong { font-size: 1.25rem; }
+
+      /* bank row numbers */
+      .bank-acc { font-size: 0.88rem; word-break: break-all; }
+
+      /* mission */
+      .mission-quote { font-size: 1.6rem; }
+      .mv-divider { margin: 0 auto 3rem; }
+
+      /* diff */
+      .diff-img  { height: 200px; }
+      .diff-body h2 { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -516,7 +611,7 @@
       </div>
 
       <div class="modal-footer">
-        After payment, please send a screenshot to <a href="mailto:contact@karmayogfoundation.org">contact@karmayogfoundation.org</a> for confirmation.
+        After payment, please send a screenshot to <a href="/cdn-cgi/l/email-protection#096a66677d686a7d4962687b646870666e6f667c676d687d60666727667b6e"><span class="__cf_email__" data-cfemail="6f0c00011b0e0c1b2f040e1d020e16000809001a010b0e1b06000141001d08">[email&#160;protected]</span></a> for confirmation.
       </div>
     </div>
   </div>
@@ -590,7 +685,7 @@
             <p>Join our mission at Karmayog Foundation by becoming a volunteer and making a difference in the lives of those in need. Your time and efforts can contribute to impactful programs in Education, Health, Environment Protection, Income Generation, Skill Development, Animal Welfare, and Disaster Relief. Your heartwarming dedication can create positive change, and we look forward to welcoming you into our compassionate community.</p>
             <div class="contact-box">
               <h4>Ready to Help?</h4>
-              <p><strong>Email:</strong> saurav@karmayogfoundation.org</p>
+              <p><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d3c1d5d2c1d6e0cbc1d2cdc1d9cfc7c6cfd5cec4c1d4c9cfce8ecfd2c7">[email&#160;protected]</a></p>
               <p><strong>Phone:</strong> 9851139412</p>
             </div>
           </div>
@@ -602,7 +697,7 @@
           <div class="diff-body">
             <h2>Become A Partner</h2>
             <p>Establish a significant connection with corporate social responsibility by fostering a strategic partnership with Karmayog Foundation. Your esteemed company has the opportunity to engage in impactful initiatives spanning critical areas. In envisioning a future where corporate responsibility transcends traditional boundaries, your support becomes a catalyst for transformative impact. By uniting with us, your company assumes a pivotal role in fostering sustainable development within underprivileged communities.</p>
-            <a href="mailto:saurav@karmayogfoundation.org" class="partner-cta">Contact Partnership Team <i class="fas fa-arrow-right"></i></a>
+            <a href="/cdn-cgi/l/email-protection#67140612150611270c06150a061e0800010812090306130e080949081500" class="partner-cta">Contact Partnership Team <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -615,7 +710,7 @@
   </div>
 
   <karmayog-footer base-path="../"></karmayog-footer>
-  <script src="../js/main.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../js/main.js"></script>
 
   <script>
   var currentAmt = 5000;

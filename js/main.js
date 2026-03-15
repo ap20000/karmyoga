@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('mouseup',    () => cursor.classList.remove('clicked'));
   });
 
-  if (window.innerWidth <= 768) cursor.style.display = 'none';
+  if (window.innerWidth <= 900) cursor.style.display = 'none';
 
   // --- NAVBAR SCROLL LOGIC ---
   const navbar = document.getElementById('navbar');
@@ -123,14 +123,16 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 900) {
         const navLinks  = document.getElementById('navLinks');
         const hamburger = document.querySelector('.hamburger');
-        if (navLinks?.classList.contains('open'))   navLinks.classList.remove('open');
-        if (hamburger?.classList.contains('open'))  hamburger.classList.remove('open');
+        const overlay   = document.querySelector('.nav-overlay');
+        if (navLinks?.classList.contains('open'))  navLinks.classList.remove('open');
+        if (hamburger?.classList.contains('open')) hamburger.classList.remove('open');
+        if (overlay?.classList.contains('active')) overlay.classList.remove('active');
         document.body.style.overflow = '';
       }
-      if (cursor) cursor.style.display = window.innerWidth <= 768 ? 'none' : 'block';
+      if (cursor) cursor.style.display = window.innerWidth <= 900 ? 'none' : 'block';
     }, 250);
   });
 
@@ -166,8 +168,8 @@ function initOrbitAnimation() {
     return;
   }
 
-  const orbitItems  = document.querySelectorAll('.orbit-item');
-  const totalItems  = orbitItems.length;
+  const orbitItems   = document.querySelectorAll('.orbit-item');
+  const totalItems   = orbitItems.length;
   const OUTER_RADIUS = 200;
   const cx = orbitWrapper.offsetWidth  / 2;
   const cy = orbitWrapper.offsetHeight / 2;
@@ -208,6 +210,7 @@ function initOrbitAnimation() {
   });
 }
 
+
 // ══════════════════════════════════════════════════════
 //  CUSTOM ELEMENTS
 // ══════════════════════════════════════════════════════
@@ -216,6 +219,7 @@ class KarmayogNavbar extends HTMLElement {
   connectedCallback() {
     if (this.innerHTML.trim()) return;
     const basePath = this.getAttribute('base-path') || '';
+
     this.innerHTML = `
     <nav class="navbar" id="navbar">
       <div class="navbar-inner">
@@ -230,41 +234,70 @@ class KarmayogNavbar extends HTMLElement {
             <li><a href="${basePath}pages/team.html">Our Team</a></li>
             <li><a href="${basePath}pages/contact.html">Contact</a></li>
             <li><a href="${basePath}pages/newsletter.html" id="navNewsletterBtn" class="newsletter-link">Newsletter</a></li>
+            <li class="nav-donate-li"><a href="${basePath}pages/donate.html">❤️ Donate Now</a></li>
           </ul>
         </div>
         <div class="nav-right">
           <a href="${basePath}pages/donate.html" class="btn-nav">❤️ Donate Now</a>
         </div>
-        <button class="hamburger" id="hamburgerBtn">
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
-    </nav>`;
+    </nav>
+    <!-- dim overlay behind mobile drawer -->
+    <div class="nav-overlay" id="navOverlay"></div>`;
+
     this.initializeNavbar();
   }
 
   initializeNavbar() {
     const hamburger = this.querySelector('#hamburgerBtn');
     const navLinks  = this.querySelector('#navLinks');
+    const overlay   = this.querySelector('#navOverlay');
+
+    const openMenu = () => {
+      navLinks.classList.add('open');
+      hamburger.classList.add('open');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      hamburger.setAttribute('aria-expanded', 'true');
+    };
+
+    const closeMenu = () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+    };
+
     if (hamburger && navLinks) {
       hamburger.addEventListener('click', (e) => {
         e.stopPropagation();
-        const isOpen = navLinks.classList.toggle('open');
-        hamburger.classList.toggle('open', isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-      });
-      // close on outside click
-      document.addEventListener('click', (e) => {
-        if (!this.contains(e.target) && navLinks.classList.contains('open')) {
-          navLinks.classList.remove('open');
-          hamburger.classList.remove('open');
-          document.body.style.overflow = '';
-        }
+        navLinks.classList.contains('open') ? closeMenu() : openMenu();
       });
     }
+
+    if (overlay) {
+      overlay.addEventListener('click', closeMenu);
+    }
+
+    // close on nav link click (mobile)
+    navLinks?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 900) closeMenu();
+      });
+    });
+
+    // close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
   }
 }
 customElements.define('karmayog-navbar', KarmayogNavbar);
+
 
 class KarmayogFooter extends HTMLElement {
   connectedCallback() {
@@ -297,7 +330,7 @@ class KarmayogFooter extends HTMLElement {
             <ul>
               <li><a href="${basePath}pages/contact.html">Contact Us</a></li>
               <li><a href="${basePath}pages/donate.html">Donate</a></li>
-               <li><a href="${basePath}pages/newsletter.html" id="navNewsletterBtn" class="newsletter-link">Newsletter</a></li>
+              <li><a href="${basePath}pages/newsletter.html">Newsletter</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -316,6 +349,7 @@ class KarmayogFooter extends HTMLElement {
   }
 }
 customElements.define('karmayog-footer', KarmayogFooter);
+
 
 // ── utils ──
 function debounce(func, wait) {

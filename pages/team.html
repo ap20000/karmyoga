@@ -423,22 +423,114 @@
     /* ════════════════════════════
        RESPONSIVE
     ════════════════════════════ */
+
+    /* ── Tablet (≤1100px) ── */
     @media(max-width:1100px){
       .founder-grid { grid-template-columns: 1fr; gap: 4rem; }
       .founder-photo-frame img { height: 420px; }
       .founder-award { right: 1rem; bottom: -1rem; }
-      .team-grid, .team-grid.tier-1, .team-grid.tier-2, .team-grid.tier-3 { grid-template-columns: repeat(2,1fr); max-width: 100%; }
+      .team-grid, .team-grid.tier-1, .team-grid.tier-2, .team-grid.tier-3 {
+        grid-template-columns: repeat(2,1fr); max-width: 100%;
+      }
       .hero-bottom { grid-template-columns: 1fr; gap: 2.5rem; }
       .hero-pills { justify-content: flex-start; }
     }
+
+    /* ── Mobile (≤768px) ── */
     @media(max-width:768px){
-      .hero-headline { font-size: 4rem; }
-      .team-grid, .team-grid.tier-1, .team-grid.tier-2, .team-grid.tier-3 { grid-template-columns: repeat(2,1fr); }
+      /* hero */
+      .hero { min-height: auto; }
       .hero::after { display: none; }
+      .hero::before { display: none; }
+      .hero-inner { padding: 3rem 0 2.5rem; }
+      .w { padding: 0 1.25rem; }
+      .hero-headline { font-size: clamp(3rem, 10vw, 4.5rem); }
+      .hero-bottom {
+        grid-template-columns: 1fr; gap: 2rem; margin-top: 2.5rem;
+      }
+      .hero-desc {
+        font-size: 0.96rem; padding-left: 1.1rem; max-width: 100%;
+      }
+      .hero-pills { justify-content: flex-start; gap: 0.85rem; }
+      .hero-pill { padding: 0.85rem 1.2rem; min-width: 90px; }
+      .pill-num { font-size: 1.75rem; }
+
+      /* founder */
+      .founder-section { padding: 5rem 0; }
+      .founder-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .founder-photo-frame img { height: 360px; }
+      /* pull award out of absolute overlap — render it below the photo */
+      .founder-visual { display: flex; flex-direction: column; gap: 1.25rem; }
+      .founder-award {
+        position: relative;
+        right: auto; bottom: auto;
+        padding: 1rem 1.5rem;
+        min-width: unset; width: 100%;
+        border-radius: 16px;
+        display: flex; flex-direction: row; align-items: center;
+        gap: 1rem;
+      }
+      .founder-award i { font-size: 1.25rem; margin-bottom: 0; }
+      .founder-award strong { font-size: 0.82rem; }
+      .founder-copy h2 { font-size: 2.4rem; }
+      .founder-bio { max-height: 280px; font-size: 0.9rem; }
+
+      /* team section */
+      .team-section { padding: 4.5rem 0 5rem; }
+      .team-head { margin-bottom: 2.5rem; }
+      .team-head h2 { font-size: 2rem; }
+      .team-grid,
+      .team-grid.tier-1,
+      .team-grid.tier-2,
+      .team-grid.tier-3 { grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
+      .tcard-name { font-size: 1.1rem; }
+      .tcard-body { padding: 1.25rem 1.25rem 1.5rem; }
+
+      /* tier labels */
+      .tier-label { margin: 2.5rem 0 1.5rem; }
+
+      /* volunteers */
+      .vol-section { padding: 5rem 0; }
+      .vol-inner h2 { font-size: 2.4rem; }
+      .vol-inner p  { font-size: 0.96rem; }
+      .vol-btn { padding: 1rem 2rem; font-size: 0.9rem; }
     }
+
+    /* ── Small mobile (≤540px) ── */
     @media(max-width:540px){
-      .team-grid, .team-grid.tier-1, .team-grid.tier-2, .team-grid.tier-3 { grid-template-columns: 1fr; }
-      .hero-headline { font-size: 3rem; }
+      /* hero */
+      .hero-headline { font-size: clamp(2.6rem, 9vw, 3.4rem); }
+      .hero-pills { gap: 0.65rem; }
+      .hero-pill { min-width: 80px; padding: 0.75rem 1rem; }
+      .pill-num { font-size: 1.5rem; }
+      .pill-lbl { font-size: 0.55rem; }
+
+      /* founder */
+      .founder-photo-frame img { height: 300px; }
+      .founder-copy h2 { font-size: 2rem; }
+      .founder-bio { max-height: 240px; }
+
+      /* team grids — ALL go 2 columns on small phone */
+      .team-grid,
+      .team-grid.tier-1,
+      .team-grid.tier-2,
+      .team-grid.tier-3 { grid-template-columns: repeat(2,1fr); gap: 1rem; }
+      .tcard-photo { aspect-ratio: 1/1; }
+      .tcard-name { font-size: 1rem; }
+      .tcard-role { font-size: 0.56rem; }
+      .tcard-body { padding: 1rem 1rem 1.25rem; }
+      .tcard-bio  { font-size: 0.8rem; }
+    }
+
+    /* ── Very small (≤400px) — 1 column ── */
+    @media(max-width:400px){
+      .team-grid,
+      .team-grid.tier-1,
+      .team-grid.tier-2,
+      .team-grid.tier-3 { grid-template-columns: 1fr; }
+      .hero-headline { font-size: 2.6rem; }
+      .hero-pills { flex-wrap: wrap; }
+      .founder-photo-frame img { height: 260px; }
     }
   </style>
 </head>
@@ -687,7 +779,7 @@
     <div class="vr vr3"></div>
     <div class="w">
       <div class="vol-inner" data-r="up">
-       
+        <span class="eyebrow lt" style="justify-content:center;display:flex;margin-bottom:1.5rem;">Join the Movement</span>
         <h2>Our <em>Volunteers</em></h2>
         <p>Our work wouldn't be possible without the 100+ volunteers actively working across Nepal. Join us and make a difference.</p>
         <a href="contact.html" class="vol-btn">Join the Movement <i class="fas fa-arrow-right"></i></a>

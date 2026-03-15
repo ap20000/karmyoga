@@ -1,637 +1,837 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Our Team | Karmayog Foundation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="../css/main.css" />
+
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:      #2AB7CA;
+      --teal-dark: #1a8fa0;
+      --teal-soft: rgba(42,183,202,0.08);
+      --ink:       #0d1f2d;
+      --ink-mid:   #2e4057;
+      --muted:     #6b7f8e;
+      --cream:     #faf9f7;
+      --font-head: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-serif:'Playfair Display', serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    .w { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+
+    /* ════════════════════════════
+       HERO — typographic, no bg image
+    ════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h, 80px);
+      background: #fff;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    /* large animated dot grid */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(42,183,202,0.1) 1.5px, transparent 1.5px);
+      background-size: 34px 34px;
+      pointer-events: none; z-index: 0;
+      animation: dotDrift 22s ease-in-out infinite alternate;
+    }
+    @keyframes dotDrift { from{background-position:0 0} to{background-position:17px 17px} }
+
+    /* big ghosted T */
+    .hero::after {
+      content: 'T';
+      position: absolute; top: -8%; right: -3%;
+      font-family: var(--font-head);
+      font-size: clamp(20rem,35vw,50rem);
+      line-height: 1; color: rgba(42,183,202,0.04);
+      pointer-events: none; user-select: none; z-index: 0;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      padding: 5rem 0 4rem;
+    }
+
+    /* ── eyebrow ── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+    .eyebrow::before { content:''; width:22px; height:1.5px; background:var(--teal); flex-shrink:0; }
+    .eyebrow.lt { color: rgba(255,255,255,0.6); }
+    .eyebrow.lt::before { background: rgba(255,255,255,0.5); }
+
+    /* ── large hero headline with stagger ── */
+    .hero-headline {
+      font-family: var(--font-head);
+      font-size: clamp(5rem,10vw,9.5rem);
+      line-height: 0.88; font-weight: 400;
+      color: var(--ink); margin-bottom: 0;
+      overflow: hidden;
+    }
+    .hero-headline .line {
+      display: block; overflow: hidden;
+    }
+    .hero-headline .line span {
+      display: block;
+      opacity: 0; transform: translateY(100%);
+      animation: lineReveal 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-headline .line:nth-child(1) span { animation-delay: 0.05s; }
+    .hero-headline .line:nth-child(2) span { animation-delay: 0.18s; }
+    @keyframes lineReveal {
+      to { opacity: 1; transform: none; }
+    }
+
+    .hero-em {
+      font-family: var(--font-serif); font-style: italic; color: var(--teal);
+    }
+
+    /* ── hero bottom row: desc + stat pills ── */
+    .hero-bottom {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: end;
+      margin-top: 4rem;
+      opacity: 0; animation: fadeUp 0.8s 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+
+    .hero-desc {
+      font-size: 1.1rem; line-height: 1.82; color: var(--muted);
+      border-left: 3px solid var(--teal); padding-left: 1.5rem;
+      max-width: 460px;
+    }
+
+    .hero-pills { display: flex; gap: 1.25rem; justify-content: flex-end; flex-wrap: wrap; }
+    .hero-pill {
+      background: #fff; border-radius: 18px;
+      padding: 1.1rem 1.6rem;
+      border: 1px solid rgba(42,183,202,0.15);
+      box-shadow: 0 8px 28px rgba(13,31,45,0.07);
+      text-align: center; min-width: 110px;
+    }
+    .pill-num { font-family: var(--font-head); font-size: 2.2rem; color: var(--teal); line-height: 1; }
+    .pill-lbl { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
+
+
+
+    /* ════════════════════════════
+       FOUNDER SECTION
+    ════════════════════════════ */
+    .founder-section {
+      padding: 8rem 0;
+      background: #fff;
+      position: relative; overflow: hidden;
+    }
+    .founder-section::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.06), transparent 65%);
+      pointer-events: none;
+    }
+
+    .founder-grid {
+      display: grid; grid-template-columns: 420px 1fr;
+      gap: 6rem; align-items: start;
+    }
+
+    /* ── photo with overlapping elements ── */
+    .founder-visual { position: relative; }
+    .founder-photo-frame {
+      border-radius: 28px; overflow: hidden;
+      box-shadow: 0 40px 80px rgba(13,31,45,0.14);
+      position: relative;
+    }
+    .founder-photo-frame img {
+      width: 100%; height: 540px; object-fit: cover; object-position: center top;
+      filter: saturate(0.88);
+      transition: transform 10s ease;
+    }
+    .founder-photo-frame:hover img { transform: scale(1.04); }
+
+    /* teal overlay strip at bottom */
+    .founder-photo-frame::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+      background: linear-gradient(to top, rgba(13,31,45,0.7), transparent);
+      pointer-events: none;
+    }
+
+    .founder-award {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      border-radius: 20px; padding: 1.4rem 1.75rem;
+      color: #fff; box-shadow: 0 16px 44px rgba(42,183,202,0.45);
+      min-width: 180px;
+      z-index: 5;
+    }
+    .founder-award i { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+    .founder-award strong { display: block; font-size: 0.85rem; font-weight: 700; line-height: 1.3; }
+    .founder-award span { font-size: 0.68rem; opacity: 0.82; margin-top: 0.2rem; display: block; }
+
+    .founder-year-tag {
+      position: absolute; top: 1.5rem; left: 1.5rem; z-index: 5;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+      border-radius: 50px; padding: 0.45rem 1.2rem;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--teal-dark); border: 1px solid rgba(42,183,202,0.2);
+    }
+
+    /* ── founder bio copy ── */
+    .founder-copy { padding-top: 1rem; }
+    .founder-copy .role {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .founder-copy h2 {
+      font-family: var(--font-head); font-size: clamp(2.4rem,4vw,3.6rem);
+      font-weight: 400; color: var(--ink); line-height: 1.05;
+      margin-bottom: 2rem;
+    }
+    .founder-bio {
+      font-size: 0.96rem; line-height: 1.9; color: var(--muted);
+      max-height: 380px; overflow-y: auto; padding-right: 1rem;
+    }
+    .founder-bio::-webkit-scrollbar { width: 3px; }
+    .founder-bio::-webkit-scrollbar-track { background: rgba(42,183,202,0.06); border-radius: 4px; }
+    .founder-bio::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 4px; }
+    .founder-bio p + p { margin-top: 1.1rem; }
+
+    /* ════════════════════════════
+       TEAM SECTION — mosaic grid
+    ════════════════════════════ */
+    .team-section {
+      padding: 7rem 0 9rem;
+      background: #f4fbfc;
+      position: relative; overflow: hidden;
+    }
+    .team-section::before {
+      content: '';
+      position: absolute; bottom: -200px; left: -200px;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,183,202,0.06), transparent 65%);
+      pointer-events: none;
+    }
+
+    .team-head { margin-bottom: 4rem; }
+    .team-head h2 {
+      font-family: var(--font-head); font-size: clamp(2.2rem,4vw,3.2rem);
+      font-weight: 400; color: var(--ink);
+    }
+    .team-head h2 em { font-family: var(--font-serif); font-style: italic; color: var(--teal); }
+    .team-head p { font-size: 0.96rem; color: var(--muted); margin-top: 0.75rem; max-width: 480px; line-height: 1.75; }
+
+    /* tier divider labels */
+    .tier-label {
+      display: flex; align-items: center; gap: 1.5rem;
+      margin: 3.5rem 0 2rem;
+    }
+    .tier-label::before,
+    .tier-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(42,183,202,0.2);
+    }
+    .tier-label span {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal);
+      white-space: nowrap; padding: 0 0.5rem;
+    }
+
+    /* tier-1: 1 card centered, medium width */
+    .team-grid.tier-1 {
+      display: grid;
+      grid-template-columns: repeat(1, 380px);
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    /* tier-2: 2 cards centered */
+    .team-grid.tier-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 860px; margin: 0 auto;
+      gap: 2rem;
+    }
+
+    /* tier-3: full 3-column grid */
+    .team-grid.tier-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    /* fallback (old) */
     .team-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
-      margin-top: 4rem;
+      gap: 2rem;
     }
 
-    .team-card {
-      background: var(--surface, #fff);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem 2rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      border: 1px solid rgba(13, 148, 136, 0.1);
-      position: relative;
+    .tcard {
+      background: #fff;
+      border-radius: 24px;
       overflow: hidden;
+      border: 1px solid rgba(42,183,202,0.1);
+      box-shadow: 0 6px 28px rgba(13,31,45,0.06);
+      transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
+      display: flex; flex-direction: column;
+      position: relative;
     }
-
-    .team-card::before {
+    .tcard::after {
       content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: var(--gradient-primary);
-      transform: scaleX(0);
-      transition: transform 0.4s ease;
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
     }
-
-    .team-card:hover {
+    .tcard:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(13, 148, 136, 0.15);
+      box-shadow: 0 28px 64px rgba(42,183,202,0.15);
+      border-color: rgba(42,183,202,0.25);
+    }
+    .tcard:hover::after { transform: scaleX(1); }
+
+    .tcard-photo {
+      width: 100%; aspect-ratio: 1/1;
+      overflow: hidden; position: relative;
+      background: var(--teal-soft);
+    }
+    .tcard-photo img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+      filter: saturate(0.82);
+      transition: transform 9s ease, filter 0.5s;
+    }
+    .tcard:hover .tcard-photo img { transform: scale(1.06); filter: saturate(1); }
+
+    /* role chip on photo */
+    .tcard-chip {
+      position: absolute; bottom: 0.75rem; left: 0.75rem; z-index: 3;
+      background: var(--teal); color: #fff;
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em;
+      padding: 0.25rem 0.8rem; border-radius: 50px; text-transform: uppercase;
     }
 
-    .team-card:hover::before {
-      transform: scaleX(1);
+    .tcard-body { padding: 1.5rem 1.6rem 2rem; flex: 1; display: flex; flex-direction: column; }
+    .tcard-name {
+      font-family: var(--font-head); font-size: 1.35rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.2rem; line-height: 1.2;
     }
-
-    /* ── Featured / Founder card: full-width horizontal layout ── */
-    .team-card.featured {
-      grid-column: 1 / -1;
-      flex-direction: row;
-      text-align: left;
-      align-items: flex-start;
-      gap: 3rem;
-      padding: 3rem;
+    .tcard-role {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 1rem;
     }
-
-    .team-card.featured .image-wrap {
-      width: 200px;
-      height: 200px;
-      flex-shrink: 0;
-      margin-bottom: 0;
-    }
-
-    .team-card.featured .featured-content {
+    .tcard-bio {
+      font-size: 0.84rem; line-height: 1.78; color: var(--muted);
       flex: 1;
-      min-width: 0;
+      /* show 4 lines, expand on hover via JS */
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: all 0.4s;
     }
-
-    .team-card.featured .bio-scroll {
-      max-height: none;
-      overflow-y: visible;
-      padding-right: 0;
+    .tcard.expanded .tcard-bio {
+      -webkit-line-clamp: unset;
+      overflow: visible;
     }
-
-    .team-card.executive {
-      background: var(--gradient-primary);
-      color: white;
+    .tcard-read {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--teal); margin-top: 1rem; cursor: pointer;
+      background: none; border: none; padding: 0;
+      font-family: var(--font-body);
+      transition: gap 0.25s;
     }
+    .tcard-read:hover { gap: 0.7rem; }
+    .tcard-read i { font-size: 0.65rem; transition: transform 0.3s; }
+    .tcard.expanded .tcard-read i { transform: rotate(180deg); }
 
-    .team-card.executive p {
-      color: rgba(255, 255, 255, 0.9) !important;
+    /* ════════════════════════════
+       VOLUNTEERS SECTION
+    ════════════════════════════ */
+    .vol-section {
+      padding: 9rem 0;
+      background: linear-gradient(135deg, var(--teal) 0%, #1a7a9e 100%);
+      position: relative; overflow: hidden; text-align: center;
     }
-
-    .team-card.executive .bio-scroll {
-      color: rgba(255, 255, 255, 0.85);
+    .vol-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle 600px at 20% 50%, rgba(255,255,255,0.07), transparent),
+                  radial-gradient(circle 400px at 80% 50%, rgba(255,255,255,0.04), transparent);
+      pointer-events: none;
     }
-
-    .image-wrap {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      padding: 6px;
-      background: linear-gradient(135deg, var(--color-primary-teal), var(--color-light-teal));
-      margin-bottom: 2rem;
+    .vr { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,0.08); pointer-events: none; }
+    .vr1 { width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rp 7s ease-in-out infinite; }
+    .vr2 { width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rp 7s 2s ease-in-out infinite; }
+    .vr3 { width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rp 7s 4s ease-in-out infinite; }
+    @keyframes rp { 0%,100%{opacity:0;transform:translate(-50%,-50%) scale(0.85)}50%{opacity:1;transform:translate(-50%,-50%) scale(1)} }
+    .vol-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+    .vol-inner h2 {
+      font-family: var(--font-head); font-size: clamp(2.4rem,4.5vw,3.8rem);
+      font-weight: 400; color: #fff; line-height: 1.14; margin-bottom: 1.25rem;
     }
-
-    .team-card.executive .image-wrap {
-      background: rgba(255, 255, 255, 0.2);
+    .vol-inner h2 em { font-family: var(--font-serif); font-style: italic; }
+    .vol-inner p { color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.75rem; max-width: 540px; margin-left: auto; margin-right: auto; }
+    .vol-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: #fff; color: var(--teal-dark);
+      padding: 1.2rem 3rem; border-radius: 50px;
+      font-weight: 700; font-size: 1rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2); transition: all 0.3s;
     }
+    .vol-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 52px rgba(0,0,0,0.28); }
 
-    .image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid var(--surface, #fff);
+    /* ════════════════════════════
+       SCROLL REVEAL
+    ════════════════════════════ */
+    [data-r] {
+      opacity: 0;
+      transition: opacity 0.95s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.95s cubic-bezier(0.16,1,0.3,1);
     }
+    [data-r="up"]    { transform: translateY(40px); }
+    [data-r="right"] { transform: translateX(-40px); }
+    [data-r="left"]  { transform: translateX(40px); }
+    [data-r="scale"] { transform: scale(0.9); }
+    [data-r].on { opacity: 1 !important; transform: none !important; }
+    [data-d="1"] { transition-delay: 0.1s; }
+    [data-d="2"] { transition-delay: 0.2s; }
+    [data-d="3"] { transition-delay: 0.3s; }
+    [data-d="4"] { transition-delay: 0.4s; }
+    [data-d="5"] { transition-delay: 0.5s; }
+    [data-d="6"] { transition-delay: 0.6s; }
 
-    .team-card.executive .image-wrap img {
-      border-color: var(--color-primary-teal);
-    }
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
 
-    .bio-scroll {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      max-height: 280px;
-      overflow-y: auto;
-      padding-right: 10px;
-      margin-top: 1rem;
-      text-align: left;
-    }
-
-    /* Custom scrollbar for bios */
-    .bio-scroll::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .bio-scroll::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);
-      border-radius: 4px;
-    }
-
-    .bio-scroll::-webkit-scrollbar-thumb {
-      background: var(--color-primary-teal);
-      border-radius: 4px;
-    }
-
-    .team-card.executive .bio-scroll::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .team-card.executive .bio-scroll::-webkit-scrollbar-thumb {
-      background: white;
-    }
-
-    @media (max-width: 1024px) {
-      .team-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+    /* ── Tablet (≤1100px) ── */
+    @media(max-width:1100px){
+      .founder-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .founder-photo-frame img { height: 420px; }
+      .founder-award { right: 1rem; bottom: -1rem; }
+      .team-grid, .team-grid.tier-1, .team-grid.tier-2, .team-grid.tier-3 {
+        grid-template-columns: repeat(2,1fr); max-width: 100%;
       }
-
-      .team-card.featured {
-        grid-column: 1 / -1;
-      }
+      .hero-bottom { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-pills { justify-content: flex-start; }
     }
 
-    @media (max-width: 768px) {
-      .team-grid {
-        grid-template-columns: 1fr;
+    /* ── Mobile (≤768px) ── */
+    @media(max-width:768px){
+      /* hero */
+      .hero { min-height: auto; }
+      .hero::after { display: none; }
+      .hero::before { display: none; }
+      .hero-inner { padding: 3rem 0 2.5rem; }
+      .w { padding: 0 1.25rem; }
+      .hero-headline { font-size: clamp(3rem, 10vw, 4.5rem); }
+      .hero-bottom {
+        grid-template-columns: 1fr; gap: 2rem; margin-top: 2.5rem;
       }
+      .hero-desc {
+        font-size: 0.96rem; padding-left: 1.1rem; max-width: 100%;
+      }
+      .hero-pills { justify-content: flex-start; gap: 0.85rem; }
+      .hero-pill { padding: 0.85rem 1.2rem; min-width: 90px; }
+      .pill-num { font-size: 1.75rem; }
 
-      .team-card.featured {
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 2.5rem 2rem;
+      /* founder */
+      .founder-section { padding: 5rem 0; }
+      .founder-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .founder-photo-frame img { height: 360px; }
+      /* pull award out of absolute overlap — render it below the photo */
+      .founder-visual { display: flex; flex-direction: column; gap: 1.25rem; }
+      .founder-award {
+        position: relative;
+        right: auto; bottom: auto;
+        padding: 1rem 1.5rem;
+        min-width: unset; width: 100%;
+        border-radius: 16px;
+        display: flex; flex-direction: row; align-items: center;
+        gap: 1rem;
       }
+      .founder-award i { font-size: 1.25rem; margin-bottom: 0; }
+      .founder-award strong { font-size: 0.82rem; }
+      .founder-copy h2 { font-size: 2.4rem; }
+      .founder-bio { max-height: 280px; font-size: 0.9rem; }
 
-      .team-card.featured .image-wrap {
-        width: 160px;
-        height: 160px;
-      }
+      /* team section */
+      .team-section { padding: 4.5rem 0 5rem; }
+      .team-head { margin-bottom: 2.5rem; }
+      .team-head h2 { font-size: 2rem; }
+      .team-grid,
+      .team-grid.tier-1,
+      .team-grid.tier-2,
+      .team-grid.tier-3 { grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
+      .tcard-name { font-size: 1.1rem; }
+      .tcard-body { padding: 1.25rem 1.25rem 1.5rem; }
 
-      .team-card.featured .bio-scroll {
-        max-height: 300px;
-        overflow-y: auto;
-        padding-right: 10px;
-      }
+      /* tier labels */
+      .tier-label { margin: 2.5rem 0 1.5rem; }
+
+      /* volunteers */
+      .vol-section { padding: 5rem 0; }
+      .vol-inner h2 { font-size: 2.4rem; }
+      .vol-inner p  { font-size: 0.96rem; }
+      .vol-btn { padding: 1rem 2rem; font-size: 0.9rem; }
+    }
+
+    /* ── Small mobile (≤540px) ── */
+    @media(max-width:540px){
+      /* hero */
+      .hero-headline { font-size: clamp(2.6rem, 9vw, 3.4rem); }
+      .hero-pills { gap: 0.65rem; }
+      .hero-pill { min-width: 80px; padding: 0.75rem 1rem; }
+      .pill-num { font-size: 1.5rem; }
+      .pill-lbl { font-size: 0.55rem; }
+
+      /* founder */
+      .founder-photo-frame img { height: 300px; }
+      .founder-copy h2 { font-size: 2rem; }
+      .founder-bio { max-height: 240px; }
+
+      /* team grids — ALL go 2 columns on small phone */
+      .team-grid,
+      .team-grid.tier-1,
+      .team-grid.tier-2,
+      .team-grid.tier-3 { grid-template-columns: repeat(2,1fr); gap: 1rem; }
+      .tcard-photo { aspect-ratio: 1/1; }
+      .tcard-name { font-size: 1rem; }
+      .tcard-role { font-size: 0.56rem; }
+      .tcard-body { padding: 1rem 1rem 1.25rem; }
+      .tcard-bio  { font-size: 0.8rem; }
+    }
+
+    /* ── Very small (≤400px) — 1 column ── */
+    @media(max-width:400px){
+      .team-grid,
+      .team-grid.tier-1,
+      .team-grid.tier-2,
+      .team-grid.tier-3 { grid-template-columns: 1fr; }
+      .hero-headline { font-size: 2.6rem; }
+      .hero-pills { flex-wrap: wrap; }
+      .founder-photo-frame img { height: 260px; }
     }
   </style>
 </head>
+<body data-nav-fixed="true">
 
-<body>
-  <!-- Navigation -->
+  <div class="hover-cursor" id="cursor"></div>
   <karmayog-navbar base-path="../"></karmayog-navbar>
 
-  <!-- Massive Hero -->
-  <section class="hero-massive" style="
-        background-image: url('https://karmayogfoundation.org/wp-content/uploads/2024/03/WhatsApp-Image-2024-03-03-at-22.29.23.jpeg');
-        background-color: var(--color-dark-tone);
-        background-position: center;
-        background-size: cover;
-        min-height: 100vh;
-        margin-top: -100px;
-        padding-top: 150px;
-      ">
-    <div class="text-scrim"
-      style="z-index: 1; background: linear-gradient(135deg, rgba(13, 148, 136, 0.55) 0%, rgba(17, 24, 39, 0.5) 100%);">
-    </div>
-    <div class="container text-center" style="position: relative; z-index: 10;">
-      <div style="max-width: 800px; margin: 0 auto;" class="animate-up">
-        <h1 style="
-              color: white;
-              text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-              font-size: clamp(2.5rem, 5vw, 4.5rem);
-              line-height: 1.1;
-              margin-bottom: 1.5rem;
-              margin-top: 5rem;
-            ">
-          Meet Our <span style="color: var(--color-extra-light-teal);">Team</span>
-        </h1>
-        <p class="lead-text"
-          style="color: rgba(255,255,255,0.9); font-size: 1.15rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-          We are proud of our committed and diverse staff driven by our common
-          goal to create lasting wellbeing for children and families.
+  <!-- ══════════════════════════════════════════
+       HERO — typographic, no full-bleed image
+  ══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="w hero-inner">
+
+      <span class="eyebrow" style="opacity:0;animation:fadeUp 0.7s 0.02s cubic-bezier(0.16,1,0.3,1) forwards;">
+        Karmayog Foundation
+      </span>
+
+      <h1 class="hero-headline">
+        <span class="line"><span>Meet Our</span></span>
+        <span class="line"><span class="hero-em">Team.</span></span>
+      </h1>
+
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          We are proud of our committed and diverse staff driven by our common goal to create lasting wellbeing for children and families.
         </p>
+        <div class="hero-pills">
+          <div class="hero-pill">
+            <div class="pill-num">12</div>
+            <div class="pill-lbl">Core Members</div>
+          </div>
+          <div class="hero-pill">
+            <div class="pill-num">100<span style="font-size:1.2rem;">+</span></div>
+            <div class="pill-lbl">Volunteers</div>
+          </div>
+          <div class="hero-pill">
+            <div class="pill-num">6</div>
+            <div class="pill-lbl">Districts</div>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
 
-  <!-- Unified Core Team Section -->
-  <section class="section bg-secondary" style="padding: 6rem 0;">
-    <div class="container">
+  <!-- ══════════════════════════════════════════
+       FOUNDER
+  ══════════════════════════════════════════ -->
+  <section class="founder-section">
+    <div class="w">
+      <div class="founder-grid">
 
-      <div class="team-grid">
-        <!-- Founder -->
-        <div class="team-card executive featured animate-up">
-          <div class="image-wrap">
+        <div class="founder-visual" data-r="right">
+          <div class="founder-photo-frame">
+            <div class="founder-year-tag">Founder · 2020</div>
             <img src="https://karmayogfoundation.org/wp-content/uploads/2023/02/saurav_rimal.jpg" alt="Saurav Rimal" />
           </div>
-          <div class="featured-content">
-            <h3 style="margin-bottom: 0.25rem; font-size: 1.75rem;">Saurav Rimal</h3>
-            <p
-              style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-              President
-            </p>
-            <div class="bio-scroll">
-              Born in Kathmandu, Nepal, Mr. Saurav Rimal can at best be
-              described as an Entrepreneur/Social Worker with an enthusiasm to
-              make a difference to the society with the best of his abilities
-              and resources. After receiving primary and secondary education in
-              Kathmandu, he graduated from Stratford University (Alexandria,
-              Virginia) with a B. Sc. in Business Administration. Upon returning
-              to Nepal, he joined Investment Board Nepal (IBN) as Communications
-              Officer. His duties there included coordinating with various
-              government ministries, community leaders, and media
-              representatives. During his tenure with IBN, he represented Nepal
-              at the SAARC Investment Forum 2015 in Colombo, Sri Lanka as a
-              Speaker. He has been actively involved in Animal Welfare,
-              Education Development, and Relief Assistance since 2015. In 2018,
-              he was nominated to participate in the US State Department
-              Professional Fellowship Program. He was posted to the Ohio State
-              House where he got to interact with the Speaker, Representatives
-              and Senators, the Chief justice, and Federal Officials. The major
-              focus of the program was to appraise the participants the way
-              democracy and parliamentary system functions in the United States.
-              He participated as a Speaker in TedX, Durbar Marg in ……. 2022 to
-              share his experience on his involvement in animal welfare, child
-              education as well as his future strategies to help uplift the
-              livelihood of the underprivileged. One of the highlights of his
-              career came when he received the Dr.BR Ambedkar Sewashree Award
-              2021 in India that is awarded annually to people who have made
-              exemplary contributions to the society through their social work
-              and other initiatives to uplift the cause of the underprivileged
-              and marginalized community. Past recipients of this award include
-              Late Nelson Mandela and Mother Teresa among others. He was also
-              conferred with Global Youth Leadership Award 2022 in Bangkok,
-              Thailand which is awarded by Global Youth Parliament to the people
-              that make a mark in the area of entrepreneurship, social movement
-              and empowerment. Recently, the Government of Nepal, in recognition
-              of his selfless and outstanding social work, has nominated him for
-              the prestigious "Samaj Sewa Rtna" medal which shall be conferred
-              upon him by the President of Nepal.
-            </div>
+          <div class="founder-award">
+            <i class="fas fa-medal"></i>
+            <strong>Samaj Sewa Ratna</strong>
+            <span>Presidential Award Recipient</span>
           </div>
         </div>
 
-        <!-- Exec -->
-        <div class="team-card animate-up delay-1">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23-2.jpeg"
-              alt="Dipesh sharma" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Dipesh Sharma</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Vice-President
-          </p>
-          <div class="bio-scroll">
-            Having worked as a Project Coordinator of a hydropower project in
-            Nepal, Dipesh has diverse experience in hydropower development and
-            foreign investment. MBA graduate with a specialization in
-            Financial Management, Dipesh held a position of Relationship
-            Officer at Sunrise Bank Ltd., overseeing institutional deposits
-            and corporate loan clients. Knowledge he has gained handling these
-            projects has provided him with the insights to different sectors
-            and his experience has been honed to the finest.
+        <div class="founder-copy" data-r="left">
+          <div class="role">President &amp; Founder</div>
+          <h2>Saurav<br>Rimal</h2>
+          <div class="founder-bio">
+            <p>Born in Kathmandu, Nepal, Mr. Saurav Rimal can at best be described as an Entrepreneur/Social Worker with an enthusiasm to make a difference to the society with the best of his abilities and resources.</p>
+            <p>After receiving primary and secondary education in Kathmandu, he graduated from Stratford University (Alexandria, Virginia) with a B. Sc. in Business Administration. Upon returning to Nepal, he joined Investment Board Nepal (IBN) as Communications Officer. His duties there included coordinating with various government ministries, community leaders, and media representatives.</p>
+            <p>During his tenure with IBN, he represented Nepal at the SAARC Investment Forum 2015 in Colombo, Sri Lanka as a Speaker. He has been actively involved in Animal Welfare, Education Development, and Relief Assistance since 2015. In 2018, he was nominated to participate in the US State Department Professional Fellowship Program. He was posted to the Ohio State House where he got to interact with the Speaker, Representatives and Senators, the Chief Justice, and Federal Officials.</p>
+            <p>He participated as a Speaker in TedX, Durbar Marg to share his experience on his involvement in animal welfare, child education as well as his future strategies to help uplift the livelihood of the underprivileged.</p>
+            <p>One of the highlights of his career came when he received the Dr.BR Ambedkar Sewashree Award 2021 in India. Past recipients of this award include Late Nelson Mandela and Mother Teresa among others. He was also conferred with Global Youth Leadership Award 2022 in Bangkok, Thailand.</p>
+            <p>Recently, the Government of Nepal, in recognition of his selfless and outstanding social work, has nominated him for the prestigious "Samaj Sewa Ratna" medal which shall be conferred upon him by the President of Nepal.</p>
           </div>
         </div>
 
-        <!-- Advisor -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 0.2s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23-1.jpeg"
-              alt="Mahesh Ghimire" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Mahesh Ghimire</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Secretary
-          </p>
-          <div class="bio-scroll">
-            Meet Mr. Mahesh C. Ghimire, an innovative entrepreneur in the
-            dynamic intersection of Information Technology (IT) and education
-            in Nepal. With a keen eye for innovation and a passion for
-            technological advancements, Mr. Ghimire through KrennovaTech Pvt.
-            Ltd., specializes in providing unique technology solutions for
-            startups and SMEs. From developing scalable IT infrastructure to
-            implementing game-changing software solutions, Mr. Ghimire, is
-            committed to delivering tailored IT solutions that align with the
-            specific needs and goals of each business venture. In addition,
-            with a passion for creating a positive impact and providing
-            quality education opportunities for the young minds of Nepal, Mr.
-            Ghimire, through a network of franchise preschools under Wee Kids
-            Preschool, is revolutionizing the way education is delivered,
-            fostering creativity, critical thinking, and lifelong learning
-            skills. Mr. Ghimire envisions a future where technology and
-            education seamlessly coalesce, laying the groundwork for enduring
-            success. Through his innovative leadership, he continues to shape
-            the landscapes of both IT and early childhood education, making a
-            lasting imprint on the industries he ardently serves.
-          </div>
-        </div>
-
-        <!-- Treasurer -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 0.3s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25.jpeg"
-              alt="Min Sapkota" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Min Sapkota</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Treasurer
-          </p>
-          <div class="bio-scroll">
-            A business graduate from Pokhara University, Min has created quite
-            a bit of portfolio for himself from agriculture to corporate
-            scene. He’s been involved in an agro farm in the outskirts of
-            Kathmandu valley for more than 5 years along with that he has had
-            worked in an advertising agency that promoted a green and unique
-            way advertising in Kathmandu and lalitpur metropolitan. Besides
-            those, he has assisted in commencing new ventures as well! He has
-            been volunteering for Karmayog Foundation, a social initiative for
-            relief distribution during the covid lockdown and recent western
-            Nepal’s earthquake as well. In addition, with a passion for
-            creating a positive impact and providing quality education
-            opportunities for the young minds of Nepal, Mr. Ghimire, through a
-            network of franchise preschools under Wee Kids Preschool, is
-            revolutionizing the way education is delivered, fostering
-            creativity, critical thinking, and lifelong learning skills. Mr.
-            Ghimire envisions a future where technology and education
-            seamlessly coalesce, laying the groundwork for enduring success.
-            Through his innovative leadership, he continues to shape the
-            landscapes of both IT and early childhood education, making a
-            lasting imprint on the industries he ardently serves.
-          </div>
-        </div>
-
-        <!-- Member 1 -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 0.4s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.24.jpeg"
-              alt="Rajiv Poudel" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Rajiv Poudel</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Member
-          </p>
-          <div class="bio-scroll">
-            Rajeev Poudyal has over 22 years experience and expertise in mass
-            retail, corporate finance and governance, information technology,
-            and database management. He completed his studies in the United
-            States and worked there in the corporate environment for almost a
-            decade. He has returned to Nepal to focus mainly on developing
-            entrepreneurial mindset for the poor. Upon his return, he has
-            extensively dedicated his time, money and effort into ways of
-            alleviating poverty, providing education for the marginalized, and
-            providing food, shelter and safety for the local stray animals. He
-            has donated extensively to various non profit organizations like
-            The Red Cross, The Breast Cancer Foundation, Action Against
-            Hunger, St. Jude Children’s Research Hospital, Salvation army,
-            Goodwill Industries International, American Cancer Society,
-            American Heart Association, Make-A-Wish Foundation, Feed the
-            Children etc. He has also helped during major Earthquake relief in
-            Nepal with food and shelter. He was also actively involved to
-            implement protective measures in local communities during Corona
-            Crisis in Nepal.
-          </div>
-        </div>
-
-        <!-- Member 2 -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 0.5s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.24-1.jpeg"
-              alt="Prasul Khadka" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Prasul Khadka</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Member
-          </p>
-          <div class="bio-scroll">
-            Prashil Khadka, an IT enthusiast with a strong background in
-            network administration and Linux systems. A BScIT (Hons.) Graduate
-            from LBEF Kathmandu, in affiliation with APU Malaysia.
-            Professionally, Skilled in technical support and network
-            assistance at companies like Vianet Communications, SmartMandu
-            Technologies, and Park City Pvt. Ltd. Technical expertise includes
-            programming languages like C#, ASP .NET, Python, as well as web
-            technologies such as HTML, CSS, JavaScript, SQL, and MongoDB.
-            Fluent in English and Nepalese, and passionate about delivering
-            effective networking solutions, system management, and providing
-            top-notch technical support.
-          </div>
-        </div>
-
-        <!-- Member 3 -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 0.6s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23.jpeg"
-              alt="Gaurav Sharma" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Gaurav Sharma</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Member
-          </p>
-          <div class="bio-scroll">
-            Dedicated and committed member supporting the core mission and values of the Karmayog Foundation.
-          </div>
-        </div>
-
-        <!-- Member 4 -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 0.7s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-3.jpeg"
-              alt="Anita Dhungel" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Anita Dhungel</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Member
-          </p>
-          <div class="bio-scroll">
-            Anita Dhungel has a Ph. D. in English Literature from Tribhuvan
-            University, Nepal, an M.Phil. Degree in English Literature from
-            Pokhara University, and a Master’s Degree from Tribhuvan
-            University. She has a 23 years of teaching experience on Literary
-            Studies (Literature and Social Studies). Currently, she is
-            involved in research, and teaching/supervising gender through
-            literature and socio/cultural issues —with special focus on
-            women—to M.Phil/Ph.D students at Far Western University,
-            Mahendranagar. Presently, she is supervising Ph.D. scholars, from
-            Tribhuvan University and Far Western University. She has published
-            two books in English: Silence in Poetry: A Trope and Gendered Tone
-            of a Middle-Aged Nepali Woman: Impressions and Approaches. She has
-            also published a book in Nepali: Nakoriyeka Sandarvaharu: Prof.
-            Dr. Anjani Kumar Sharma Ko Jivan Charit. Besides, these she has
-            also published some short stories in Hulaki: A Collection of Short
-            Stories (Vol. 1 and II). Besides the three books and short stories
-            she has continuously published many critical articles, related to
-            gender and women in various peer reviewed academic journals. She
-            has also contributed creative and Freelance Writing with
-            particular focus on women in “The Reporter” and “ECS The Friday.
-          </div>
-        </div>
-
-        <!-- Member 5 -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 0.8s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.22.jpeg"
-              alt="Pooja Pyakurel" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Pooja Pyakurel</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Member
-          </p>
-          <div class="bio-scroll">
-            Pooja Pyakurel, a Certified Project Management Professional (PMP),
-            brings extensive experience in international non-profits,
-            government, and international agencies. With a background in
-            business development and customer success at large organizations,
-            Pooja seeks to leverage her past experience while advancing her
-            project management skills. She holds a Master’s degree in
-            International Business Management from the British College of
-            Nepal and a Bachelor’s degree in Liberal Arts from the White House
-            Graduate School of Management. Currently serving as a Coordinating
-            Partner/Volunteer at RUTA6, a Spanish non-profit providing support
-            to disadvantaged children in Nepal, Pooja manages overall
-            well-being and fundraising efforts. Previously, as Administrative
-            & Member Service Supervisor at the American Mission Association
-            and Sales & Marketing Officer at the Dwarika Hotel Group &
-            Foundation, Pooja demonstrated leadership and organizational
-            skills. With a strong humanitarian background, including
-            coordinating lockdown relief programs and volunteering with
-            orphanages and earthquake relief efforts, Pooja is committed to
-            making a positive impact in society. In addition, with a passion
-            for creating a positive impact and providing quality education
-            opportunities for the young minds of Nepal, Mr. Ghimire, through a
-            network of franchise preschools under Wee Kids Preschool, is
-            revolutionizing the way education is delivered, fostering
-            creativity, critical thinking, and lifelong learning skills. Mr.
-            Ghimire envisions a future where technology and education
-            seamlessly coalesce, laying the groundwork for enduring success.
-            Through his innovative leadership, he continues to shape the
-            landscapes of both IT and early childhood education, making a
-            lasting imprint on the industries he ardently serves.
-          </div>
-        </div>
-
-        <!-- Member 6 -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 0.9s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-2.jpeg"
-              alt="Prakriti Mainali" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Prakriti Mainali</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Member
-          </p>
-          <div class="bio-scroll">
-            Dedicated and committed member supporting the core mission and values of the Karmayog Foundation.
-          </div>
-        </div>
-
-        <!-- Member 7 -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 1s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-1.jpeg"
-              alt="Anjila Dahal" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Anjila Dahal</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Member
-          </p>
-          <div class="bio-scroll">
-            Anjila Dahal is a dedicated and skilled professional with a strong
-            background in project management and program coordination. She
-            holds a postgraduate degree from Kathmandu University and has
-            actively contributed to the development sector for the past seven
-            years. Anjila’s diverse experience spans across multiple
-            organizations and fields, ranging from elections to education to
-            combating human trafficking. Her commitment to addressing critical
-            issues, especially in the field of trafficking and violence, is
-            apparent through her active engagement with organizations like
-            Maiti Nepal, where she has played a crucial role in projects
-            focused on combating human trafficking through various strategic
-            interventions. Anjila’s practical experience in event
-            organization, budget management, and collaboration with
-            stakeholders highlights her capability to navigate challenges,
-            showcasing her dedication to continuous learning and making a
-            positive impact in her field.
-          </div>
-        </div>
-
-        <!-- Member 8 -->
-        <div class="team-card animate-up delay-1" style="animation-delay: 1.1s;">
-          <div class="image-wrap">
-            <img
-              src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-15-at-16.45.00.jpeg"
-              alt="Sarvodaya" />
-          </div>
-          <h3 style="margin-bottom: 0.25rem; font-size: 1.5rem; color: var(--color-dark-tone);">Sarvodaya</h3>
-          <p
-            style="font-size: 0.9rem; color: var(--color-primary-teal); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0;">
-            Member
-          </p>
-          <div class="bio-scroll">
-            Sarvodaya is a dynamic and versatile professional with a robust
-            work ethic and a keen focus on delivering tangible results. With a
-            Bachelor’s degree in Business Administration, specializing in
-            Marketing & Economics, Sarvodaya brings a rich blend of academic
-            knowledge and practical experience to the table.
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Volunteers -->
-  <section class="section" style="background: var(--color-dark-tone); padding: 8rem 0;">
-    <div class="container text-center animate-up">
-      <h2 style="color: white; font-size: clamp(2rem, 4vw, 3rem);">Our <span class="text-gradient">Volunteers</span>
-      </h2>
-      <p style="color: rgba(255,255,255,0.8); font-size: 1.15rem; max-width: 600px; margin: 1rem auto 3rem;">
-        Our work wouldn't be possible without the 100+ volunteers actively working across
-        Nepal.
-      </p>
-      <a href="contact.html" class="btn btn-primary" style="font-size: 1.15rem; padding: 1rem 3rem;">Join the
-        Movement</a>
+  <!-- ══════════════════════════════════════════
+       TEAM GRID
+  ══════════════════════════════════════════ -->
+  <section class="team-section">
+    <div class="w">
+      <div class="team-head" data-r="up">
+        <span class="eyebrow">Core Team</span>
+        <h2>The People Behind<br>the <em>Mission</em></h2>
+        <p>Dedicated individuals from diverse backgrounds, united by one purpose.</p>
+      </div>
+
+      <!-- ── TIER 1: Vice-President ── -->
+      <div class="tier-label" data-r="up"><span>Vice-President</span></div>
+      <div class="team-grid tier-1" data-r="up" data-d="1">
+        <div class="tcard">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23-2.jpeg" alt="Dipesh Sharma" />
+            <span class="tcard-chip">Vice-President</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Dipesh Sharma</div>
+            <div class="tcard-role">Vice-President</div>
+            <div class="tcard-bio">Having worked as a Project Coordinator of a hydropower project in Nepal, Dipesh has diverse experience in hydropower development and foreign investment. MBA graduate with a specialization in Financial Management, Dipesh held a position of Relationship Officer at Sunrise Bank Ltd., overseeing institutional deposits and corporate loan clients. Knowledge he has gained handling these projects has provided him with the insights to different sectors and his experience has been honed to the finest.</div>
+            <button class="tcard-read" onclick="toggleBio(this)">Read more <i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TIER 2: Secretary + Treasurer ── -->
+      <div class="tier-label" data-r="up"><span>Executive Committee</span></div>
+      <div class="team-grid tier-2" data-r="up">
+        <div class="tcard" data-d="1">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23-1.jpeg" alt="Mahesh Ghimire" />
+            <span class="tcard-chip">Secretary</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Mahesh Ghimire</div>
+            <div class="tcard-role">Secretary</div>
+            <div class="tcard-bio">Meet Mr. Mahesh C. Ghimire, an innovative entrepreneur in the dynamic intersection of Information Technology (IT) and education in Nepal. With a keen eye for innovation and a passion for technological advancements, Mr. Ghimire through KrennovaTech Pvt. Ltd., specializes in providing unique technology solutions for startups and SMEs. Through a network of franchise preschools under Wee Kids Preschool, he is revolutionizing the way education is delivered, fostering creativity, critical thinking, and lifelong learning skills.</div>
+            <button class="tcard-read" onclick="toggleBio(this)">Read more <i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="tcard" data-d="2">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25.jpeg" alt="Min Sapkota" />
+            <span class="tcard-chip">Treasurer</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Min Sapkota</div>
+            <div class="tcard-role">Treasurer</div>
+            <div class="tcard-bio">A business graduate from Pokhara University, Min has created quite a bit of portfolio for himself from agriculture to corporate scene. He has been involved in an agro farm in the outskirts of Kathmandu valley for more than 5 years and worked in an advertising agency in Kathmandu and Lalitpur metropolitan. He has been volunteering for Karmayog Foundation since the covid lockdown and recent western Nepal's earthquake.</div>
+            <button class="tcard-read" onclick="toggleBio(this)">Read more <i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TIER 3: Members ── -->
+      <div class="tier-label" data-r="up"><span>Members</span></div>
+      <div class="team-grid tier-3">
+        <div class="tcard" data-r="up" data-d="1">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.24.jpeg" alt="Rajiv Poudel" />
+            <span class="tcard-chip">Member</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Rajiv Poudel</div>
+            <div class="tcard-role">Member</div>
+            <div class="tcard-bio">Rajeev Poudyal has over 22 years experience and expertise in mass retail, corporate finance and governance, information technology, and database management. He completed his studies in the United States and worked there in the corporate environment for almost a decade. He has returned to Nepal to focus mainly on developing entrepreneurial mindset for the poor and was actively involved to implement protective measures in local communities during Corona Crisis in Nepal.</div>
+            <button class="tcard-read" onclick="toggleBio(this)">Read more <i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="tcard" data-r="up" data-d="2">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.24-1.jpeg" alt="Prasul Khadka" />
+            <span class="tcard-chip">Member</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Prasul Khadka</div>
+            <div class="tcard-role">Member</div>
+            <div class="tcard-bio">Prashil Khadka, an IT enthusiast with a strong background in network administration and Linux systems. A BScIT (Hons.) Graduate from LBEF Kathmandu, in affiliation with APU Malaysia. Skilled in technical support and network assistance at companies like Vianet Communications, SmartMandu Technologies, and Park City Pvt. Ltd. Technical expertise includes C#, ASP .NET, Python, HTML, CSS, JavaScript, SQL, and MongoDB.</div>
+            <button class="tcard-read" onclick="toggleBio(this)">Read more <i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="tcard" data-r="up" data-d="3">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.23.jpeg" alt="Gaurav Sharma" />
+            <span class="tcard-chip">Member</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Gaurav Sharma</div>
+            <div class="tcard-role">Member</div>
+            <div class="tcard-bio">Dedicated and committed member supporting the core mission and values of the Karmayog Foundation.</div>
+          </div>
+        </div>
+        <div class="tcard" data-r="up" data-d="1">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-3.jpeg" alt="Anita Dhungel" />
+            <span class="tcard-chip">Member</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Anita Dhungel</div>
+            <div class="tcard-role">Member</div>
+            <div class="tcard-bio">Anita Dhungel has a Ph.D. in English Literature from Tribhuvan University, an M.Phil. from Pokhara University, and 23 years of teaching experience. She is involved in research and teaching gender through literature at Far Western University, supervising Ph.D. scholars. She has published two books in English and several academic articles on gender and women in peer reviewed journals.</div>
+            <button class="tcard-read" onclick="toggleBio(this)">Read more <i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="tcard" data-r="up" data-d="2">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.22.jpeg" alt="Pooja Pyakurel" />
+            <span class="tcard-chip">Member</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Pooja Pyakurel</div>
+            <div class="tcard-role">Member</div>
+            <div class="tcard-bio">Pooja Pyakurel, a Certified Project Management Professional (PMP), brings extensive experience in international non-profits, government, and international agencies. She holds a Master's in International Business Management from the British College of Nepal. Currently a Coordinating Partner/Volunteer at RUTA6, a Spanish non-profit providing support to disadvantaged children in Nepal.</div>
+            <button class="tcard-read" onclick="toggleBio(this)">Read more <i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="tcard" data-r="up" data-d="3">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-2.jpeg" alt="Prakriti Mainali" />
+            <span class="tcard-chip">Member</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Prakriti Mainali</div>
+            <div class="tcard-role">Member</div>
+            <div class="tcard-bio">Dedicated and committed member supporting the core mission and values of the Karmayog Foundation.</div>
+          </div>
+        </div>
+        <div class="tcard" data-r="up" data-d="1">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-13-at-18.50.25-1.jpeg" alt="Anjila Dahal" />
+            <span class="tcard-chip">Member</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Anjila Dahal</div>
+            <div class="tcard-role">Member</div>
+            <div class="tcard-bio">Anjila Dahal is a dedicated professional with a strong background in project management and program coordination. She holds a postgraduate degree from Kathmandu University and has contributed to the development sector for seven years. Her experience spans elections, education, and combating human trafficking, with active engagement with organizations like Maiti Nepal.</div>
+            <button class="tcard-read" onclick="toggleBio(this)">Read more <i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="tcard" data-r="up" data-d="2">
+          <div class="tcard-photo">
+            <img src="https://karmayogfoundation.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-15-at-16.45.00.jpeg" alt="Sarvodaya" />
+            <span class="tcard-chip">Member</span>
+          </div>
+          <div class="tcard-body">
+            <div class="tcard-name">Sarvodaya</div>
+            <div class="tcard-role">Member</div>
+            <div class="tcard-bio">Sarvodaya is a dynamic and versatile professional with a robust work ethic and a keen focus on delivering tangible results. With a Bachelor's degree in Business Administration, specializing in Marketing &amp; Economics, Sarvodaya brings a rich blend of academic knowledge and practical experience.</div>
+          </div>
+        </div>
+      </div>      </div>
     </div>
   </section>
 
-  <!-- Unified Footer Component -->
-  <karmayog-footer></karmayog-footer>
+  <!-- ══════════════════════════════════════════
+       VOLUNTEERS CTA
+  ══════════════════════════════════════════ -->
+  <section class="vol-section">
+    <div class="vr vr1"></div>
+    <div class="vr vr2"></div>
+    <div class="vr vr3"></div>
+    <div class="w">
+      <div class="vol-inner" data-r="up">
+        <span class="eyebrow lt" style="justify-content:center;display:flex;margin-bottom:1.5rem;">Join the Movement</span>
+        <h2>Our <em>Volunteers</em></h2>
+        <p>Our work wouldn't be possible without the 100+ volunteers actively working across Nepal. Join us and make a difference.</p>
+        <a href="contact.html" class="vol-btn">Join the Movement <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
 
+  <div class="help-section">
+    <div class="help-button" id="helpButton"><i class="fas fa-question-circle"></i><span>Help?</span></div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></div>
+  </div>
+
+  <karmayog-footer base-path="../"></karmayog-footer>
   <script src="../js/main.js"></script>
-</body>
 
+  <script>
+  /* toggle bio expand */
+  function toggleBio(btn) {
+    var card = btn.closest('.tcard');
+    card.classList.toggle('expanded');
+    btn.innerHTML = card.classList.contains('expanded')
+      ? 'Show less <i class="fas fa-chevron-down"></i>'
+      : 'Read more <i class="fas fa-chevron-down"></i>';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    /* scroll reveal */
+    var els = document.querySelectorAll('[data-r]');
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        var d = parseInt(e.target.dataset.d || 0) * 130;
+        setTimeout(function() { e.target.classList.add('on'); }, d);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el) { io.observe(el); });
+    setTimeout(function() { els.forEach(function(el) { el.classList.add('on'); }); }, 3500);
+
+    /* back to top */
+    var btt = document.getElementById('backToTop');
+    if (btt) {
+      window.addEventListener('scroll', function() { btt.classList.toggle('visible', window.scrollY > 500); });
+      btt.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+
+    /* help */
+    var hb = document.getElementById('helpButton');
+    if (hb) hb.addEventListener('click', function() { window.location.href = '../pages/contact.html'; });
+
+  });
+  </script>
+</body>
 </html>
